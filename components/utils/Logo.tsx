@@ -18,7 +18,7 @@ const Logo = ({
         alt="diamond photos"
         width={250}
         height={100}
-        className="size-[40px] rounded-full"
+        className="size-[40px] rounded-full object-cover object-center"
         priority
       />
       {showName && (

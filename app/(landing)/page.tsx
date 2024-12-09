@@ -1,5 +1,8 @@
 import React from "react";
+import Link from "next/link";
 import { Button, Text } from "@/components";
+
+import { FaGithub, FaTwitter } from "react-icons/fa";
 
 const Home = () => {
   return (
@@ -18,6 +21,15 @@ const Home = () => {
         <Text tag="div" custom={3}>
           <Button text="CONNECT WALLET" link="/quests" className="btn-3" />
         </Text>
+      </div>
+      <div className="flex-center pt-8  ">
+        <span>© Lyra</span>
+        <Link href="/">
+          <FaTwitter />
+        </Link>
+        <Link href="/">
+          <FaGithub />
+        </Link>
       </div>
     </div>
   );
