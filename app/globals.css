@@ -41,6 +41,10 @@ h3 {
   @apply lg:text-[4vw] xl:text-[3.25rem];
 }
 
+.heading {
+  @apply lg:text-[2.5vw] xl:text-[2rem];
+}
+
 p {
   @apply lg:text-base font-light text-light;
 }

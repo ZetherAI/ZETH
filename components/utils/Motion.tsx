@@ -15,7 +15,7 @@ interface IProps {
   //   text?: string;
 }
 
-const Text = ({ tag, children, className, custom }: IProps) => {
+const Motion = ({ tag, children, className, custom }: IProps) => {
   return (
     <>
       {tag === "h1" && (
@@ -67,4 +67,4 @@ const Text = ({ tag, children, className, custom }: IProps) => {
   );
 };
 
-export default Text;
+export default Motion;

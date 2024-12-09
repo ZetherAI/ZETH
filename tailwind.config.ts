@@ -22,7 +22,7 @@ export default {
         "brand-3": "#36afd0",
       },
       backgroundImage: {
-        "lyra-lg": "url('/images/landscape.png')",
+        "lyra-lg": "url('/images/bg-lyra.jpg')",
         "lyra-sm": "url('/images/portrait.png')",
       },
     },
