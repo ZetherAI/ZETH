@@ -53,7 +53,7 @@ const Motion = ({ tag, children, className, custom }: IProps) => {
       )}
 
       {!tag && (
-        <MotionP
+        <MotionDiv
           initial="initial"
           animate="animate"
           variants={variants.slideInUpI}
@@ -61,7 +61,7 @@ const Motion = ({ tag, children, className, custom }: IProps) => {
           className={className || ""}
         >
           {children}
-        </MotionP>
+        </MotionDiv>
       )}
     </>
   );

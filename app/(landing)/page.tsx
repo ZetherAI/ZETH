@@ -15,14 +15,14 @@ const Home = () => {
         the ingenuity and wits of humanity. Prove your worth. Unlock the prize.
       </Motion>
       <div className="flex-center pt-8 ">
-        <Motion tag="div" custom={2}>
+        <Motion custom={2}>
           <Button
             text="EXPLORE QUESTS"
             link="/quests"
             className="btn-1 lg:!text-xl lg:py-4 lg:!px-10"
           />
         </Motion>
-        <Motion tag="div" custom={3}>
+        <Motion custom={3}>
           <Button
             text="CONNECT WALLET"
             link="/quests"
