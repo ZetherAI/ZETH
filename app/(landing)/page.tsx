@@ -16,19 +16,27 @@ const Home = () => {
       </Motion>
       <div className="flex-center pt-8 ">
         <Motion tag="div" custom={2}>
-          <Button text="EXPLORE QUESTS" link="/quests" />
+          <Button
+            text="EXPLORE QUESTS"
+            link="/quests"
+            className="btn-1 lg:!text-xl lg:py-4 lg:!px-10"
+          />
         </Motion>
         <Motion tag="div" custom={3}>
-          <Button text="CONNECT WALLET" link="/quests" className="btn-3" />
+          <Button
+            text="CONNECT WALLET"
+            link="/quests"
+            className="btn-2 lg:!text-xl lg:py-4 lg:!px-10"
+          />
         </Motion>
       </div>
       <div className="flex-center pt-8  ">
-        <span>© Lyra</span>
+        {/* <span>© Lyra</span> */}
         <Link href="/">
-          <FaTwitter />
+          <FaTwitter className="size-8" />
         </Link>
         <Link href="/">
-          <FaGithub />
+          <FaGithub className="size-8" />
         </Link>
       </div>
     </div>

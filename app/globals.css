@@ -19,6 +19,7 @@
 h1,
 h2,
 h3 {
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.484);
   @apply font-semibold;
 }
 
@@ -34,7 +35,7 @@ h3 {
 }
 
 .container {
-  @apply p-4 md:p-[3rem] xl:p-[4rem] w-full max-w-[1200px] mx-auto;
+  @apply p-4 md:px-[100px] md:py-[25px] xl:px-[4rem] w-full max-w-[1200px] mx-auto;
 }
 
 .display {
@@ -45,25 +46,42 @@ h3 {
   @apply lg:text-[2.5vw] xl:text-[2rem];
 }
 
+.featured-title {
+  @apply lg:text-[2.65vw] xl:text-[2.15rem] !font-medium;
+}
+
 p {
   @apply lg:text-base font-light text-light;
 }
 
+.card {
+  @apply bg-black/80 backdrop-blur p-4 md:p-7 rounded-lg md:rounded-3xl shadow-md shadow-light/5 border border-light/5;
+}
+
 .btn-1,
-.btn-2,
-.btn-3 {
-  @apply py-2 lg:py-3 px-4 lg:px-8 rounded-xl text-base font-semibold;
+.btn-2 {
+  @apply py-2 lg:py-3 px-4 lg:px-8 rounded-xl text-base font-semibold flex items-center gap-2 max-w-fit;
+}
+
+.btn-3,
+.btn-4 {
+  @apply py-2 lg:py-2 px-3 lg:px-5 rounded-xl text-xs font-semibold flex items-center gap-2 max-w-fit uppercase;
 }
 
 .btn-1 {
-  @apply bg-brand-1/50 backdrop-blur-2xl;
+  @apply backdrop-blur-sm bg-brand-1/40;
 }
+
 .btn-2 {
-  @apply bg-brand-2 border-white;
+  @apply backdrop-blur bg-white/5;
 }
 
 .btn-3 {
-  @apply backdrop-blur-2xl bg-white/10;
+  @apply backdrop-blur bg-brand-2/90;
+}
+
+.btn-4 {
+  @apply backdrop-blur bg-brand-3/90;
 }
 
 .transition-500 {
