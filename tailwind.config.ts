@@ -1,0 +1,31 @@
+import type { Config } from "tailwindcss";
+
+export default {
+  content: [
+    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+  ],
+  theme: {
+    extend: {
+      screens: {
+        xs: "320px",
+        sm: "425px",
+      },
+      colors: {
+        background: "var(--background)",
+        foreground: "var(--foreground)",
+        dark: "#090709",
+        light: "#fcf8fe",
+        "brand-1": "#490161",
+        "brand-2": "#ed3e09",
+        "brand-3": "#36afd0",
+      },
+      backgroundImage: {
+        "lyra-lg": "url('/images/landscape.png')",
+        "lyra-sm": "url('/images/portrait.png')",
+      },
+    },
+  },
+  plugins: [],
+} satisfies Config;
