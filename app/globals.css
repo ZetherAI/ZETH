@@ -10,8 +10,10 @@
   --brand-3: #36afd0; /* blue */
 }
 
+html,
 body {
-  @apply bg-dark h-screen overflow-hidden;
+  height: 100%;
+  overscroll-behavior-y: contain;
 }
 
 * {
