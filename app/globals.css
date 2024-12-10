@@ -57,7 +57,7 @@ h3 {
 }
 
 .featured-title {
-  @apply text-xl lg:text-[2.65vw] xl:text-[2.15rem] !font-medium;
+  @apply text-2xl lg:text-[2.65vw] xl:text-[2.15rem] !font-medium;
 }
 
 .subheading {
