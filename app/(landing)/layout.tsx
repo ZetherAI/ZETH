@@ -26,8 +26,8 @@ export default function RootLayout({
         {/* <div className="h-full top-0 left-0 absolute z-[10000000000000]">
           <Sidebar />
         </div> */}
-        <div className="w-full relative h-screen overflow-auto pt-[70px] lg:pt-0">
-          <div className="w-full container relative h-full ">{children}</div>
+        <div className="w-full relative h-screen overflow-auto pt-[80px] lg:pt-0">
+          <div className="w-full container relative h-full">{children}</div>
         </div>
       </div>
     </div>
