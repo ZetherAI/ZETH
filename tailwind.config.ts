@@ -20,6 +20,7 @@ export default {
         "brand-1": "#490161",
         "brand-2": "#ed3e09",
         "brand-3": "#36afd0",
+        "brand-4": "#a13a9e",
       },
       backgroundImage: {
         "lyra-lg": "url('/images/bg-lyra.jpg')",

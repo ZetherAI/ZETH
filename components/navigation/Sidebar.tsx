@@ -46,7 +46,7 @@ const Sidebar = () => {
     <div className="relative h-full">
       <button
         onClick={() => setShowFull(!showFull)}
-        className="absolute top-[60px] right-0 translate-x-3 z-10 p-1 rounded-full bg-brand-2/50 hover:bg-brand-2/90 backdrop-blur-sm show-lg"
+        className="absolute top-[60px] right-0 translate-x-3 z-10 p-1 rounded-full bg-brand-4/50 hover:bg-brand-4/90 backdrop-blur-sm show-lg"
       >
         <ChevronRight className={`size-5 ${showFull ? "rotate-180" : ""}`} />
       </button>

@@ -30,7 +30,7 @@ const QuestCard = () => {
             src={images.comingSoon}
             width={300}
             height={300}
-            className="object-contain w-full h-full p-[5%] lg:p-[8%] opacity-60"
+            className="object-contain w-full h-full p-[15%] lg:p-[15%] opacity-60"
             alt="Quest"
           />
           {/* <Motion className="uppercase text-gray-300 text-center !leading-[120%] font-bold text-3xl lg:text-4xl py-4 lg:py-5 border-y border-gray-500 w-[80%]">

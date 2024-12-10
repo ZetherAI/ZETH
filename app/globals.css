@@ -11,7 +11,7 @@
 }
 
 body {
-  @apply bg-dark h-full overflow-hidden;
+  @apply bg-dark h-screen overflow-hidden;
 }
 
 * {
@@ -93,11 +93,11 @@ li {
 }
 
 .btn-3 {
-  @apply backdrop-blur bg-brand-2/90;
+  @apply backdrop-blur bg-brand-4/90;
 }
 
 .btn-4 {
-  @apply backdrop-blur bg-brand-3/90;
+  @apply backdrop-blur bg-brand-4/90;
 }
 
 .show-md {
