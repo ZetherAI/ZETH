@@ -15,8 +15,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="flex bg-lyra-sm lg:bg-lyra-lg h-screen bg-fixed bg-center bg-cover overflow-hidden">
-      <div className="flex bg-gradient-to-b from-black/40 to-black h-screen w-full bg-fixed ">
+    <div className="flex h-screen bg-fixed overflow-hidden bg-gradient-to-b from-black/30 to-black">
+      <div className="flex h-screen w-full ">
         <div className="hide-lg w-full fixed top-0 left-0 z-[10000000000000]">
           <MobileTopbar />
         </div>

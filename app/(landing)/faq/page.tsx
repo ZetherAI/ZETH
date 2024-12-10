@@ -44,22 +44,23 @@ const FAQ = async ({
             <Motion
               custom={index + 2}
               key={index}
-              className={
-                faq === question ? "" : "hover:!scale-105 transition-500"
-              }
+              // className={faq === question ? "" : "hover:!scale-105"}
+              // className="hover:border hover:border-brand-1/50 hover:shadow-lg"
             >
               <Link
-                href={`?faq=${question}`}
-                className="flex flex-col gap-3 card md:!py-6 "
+                href={faq === question ? "?faq" : `?faq=${question}`}
+                className={`flex flex-col gap-3 card md:!py-6 hover:bg-brand-1/20 transition-500 ${
+                  faq === question ? "!bg-brand-1/50" : ""
+                }`}
                 scroll={false}
               >
                 <Motion
-                  className="subheading-faq flex-v-center justify-between"
+                  className="subheading-faq flex justify-between"
                   custom={index + 2}
                 >
                   {question}
                   <Plus
-                    className={`size-6 transition-500 ${
+                    className={`size-5 min-w-5 max-w-5 transition-500 mt-[2px] ${
                       faq === question ? "rotate-45" : ""
                     }`}
                   />

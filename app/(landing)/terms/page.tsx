@@ -23,7 +23,7 @@ const Terms = () => {
             <Motion
               custom={index + 2}
               key={index}
-              className="flex flex-col gap-1 card"
+              className="flex flex-col gap-2 card"
             >
               <Motion className="subheading" custom={index + 2}>
                 {term}

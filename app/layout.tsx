@@ -33,7 +33,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${inter.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${inter.variable} ${geistMono.variable} antialiased bg-lyra-sm lg:bg-lyra-lg bg-fixed bg-center bg-cover oveflow-hidden`}
       >
         {children}
       </body>

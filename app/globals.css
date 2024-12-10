@@ -63,7 +63,7 @@ h3 {
 
 p,
 li {
-  @apply text-sm lg:text-base font-light text-light;
+  @apply text-[14px] lg:text-base font-light text-light;
 }
 
 .card {
