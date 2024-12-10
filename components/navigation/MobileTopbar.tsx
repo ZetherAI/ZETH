@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { Menu } from "lucide-react";
 
 import { Sidebar, Logo, PopupWrapper } from "@/components";
@@ -8,9 +9,11 @@ import { Sidebar, Logo, PopupWrapper } from "@/components";
 const MobileTopbar = () => {
   const [showMenu, setShowMenu] = useState(false);
 
+  const pathname = usePathname(); // Instantiating the router
+
   useEffect(() => {
-    setShowMenu(false);
-  }, []);
+    setShowMenu(false); // Reset the menu when the route changes
+  }, [pathname]);
 
   return (
     <>

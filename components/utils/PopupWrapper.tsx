@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
+// import React, { useRef, useEffect } from "react";
 import React from "react";
-// import { useRouter } from "next/navigation";
 
 import { X } from "lucide-react";
 
@@ -14,7 +14,6 @@ const PopupWrapper = ({
   close?: () => void;
 }>) => {
   // const ref = useRef<null | HTMLDivElement>(null);
-  // const router = useRouter();
 
   // useEffect(() => {
   //   const handleClickOutside: (
@@ -23,8 +22,6 @@ const PopupWrapper = ({
   //     if (ref.current && !ref.current.contains(event.target)) {
   //       if (close) {
   //         close();
-  //       } else {
-  //         router.back();
   //       }
   //     }
   //   };
@@ -40,7 +37,7 @@ const PopupWrapper = ({
 
   return (
     <div className="fixed top-0 left-0bg-black/20 backdrop-blur-md overflow-hidden !z-[10000000000000] w-full h-full">
-      {children}
+      <div className="h-full">{children}</div>
       <button onClick={close} className="absolute top-7 right-5 text-light">
         <X />
       </button>
