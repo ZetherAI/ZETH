@@ -39,7 +39,7 @@ h3 {
 }
 
 .banner-container {
-  @apply w-full h-[120px] lg:h-[200px] relative rounded-lg md:rounded-xl overflow-hidden text-center;
+  @apply w-full h-[120px] lg:h-[200px] relative rounded-xl overflow-hidden text-center;
 }
 
 .display {
@@ -67,7 +67,7 @@ li {
 }
 
 .card {
-  @apply bg-black/80 backdrop-blur p-4 md:p-7 rounded-lg md:rounded-3xl shadow-md shadow-light/5 border border-light/5;
+  @apply bg-black/80 backdrop-blur p-4 md:p-7 rounded-2xl md:rounded-3xl shadow-md shadow-light/5 border border-light/5;
 }
 
 .btn-1,

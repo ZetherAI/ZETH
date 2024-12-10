@@ -20,14 +20,14 @@ const Home = () => {
           <Motion custom={2} className="">
             <Button
               text="EXPLORE QUESTS"
-              link="/quests"
+              link="/quest"
               className="btn-1 xl:!text-xl lg:py-4 xl:!px-10"
             />
           </Motion>
           <Motion custom={3} className="">
             <Button
               text="CONNECT WALLET"
-              link="/quests"
+              link="/quest"
               className="btn-2 xl:!text-xl lg:py-4 xl:!px-10"
             />
           </Motion>
