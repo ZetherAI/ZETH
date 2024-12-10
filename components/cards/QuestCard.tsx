@@ -25,11 +25,11 @@ const QuestCard = () => {
           alt="Quest"
         />
         <div className="flex-center absolute top-0 left-0 w-full h-full bg-black/40">
-          {/* <Motion className="featured-title uppercase text-gray-300 text-center !leading-[120%] !font-black">
-            Astra
+          <Motion className="uppercase text-gray-300 text-center !leading-[120%] font-bold text-3xl lg:text-4xl xl:text-5xl py-4 lg:py-5 border-y border-gray-500 w-[80%]">
+            Coming
             <br />
-            Challenge
-          </Motion> */}
+            Soon
+          </Motion>
         </div>
       </Motion>
       <div className="md:col-span-4 relative">

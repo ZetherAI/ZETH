@@ -50,7 +50,7 @@ const FAQ = async ({
               <Link
                 href={faq === question ? "?faq" : `?faq=${question}`}
                 className={`flex flex-col gap-3 card md:!py-6 hover:bg-brand-1/20 transition-500 ${
-                  faq === question ? "!bg-brand-1/50" : ""
+                  faq === question ? "" : ""
                 }`}
                 scroll={false}
               >

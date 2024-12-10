@@ -11,15 +11,15 @@ const MobileTopbar = () => {
     <>
       <div className="flex-v-center justify-between gap-5 container bg-black/30 backdrop-blur-sm">
         <Logo showName />
-        <Menu onClick={() => setShowMenu((prev) => !prev)} />
+        <Menu onClick={() => setShowMenu(true)} />
+        {showMenu && (
+          <div className="fixed top-0 left-0 w-full h-screen z-10">
+            <PopupWrapper close={() => setShowMenu(false)} isFunction dark>
+              <Sidebar />
+            </PopupWrapper>
+          </div>
+        )}
       </div>
-      {showMenu && (
-        <div className="fixed top-0 left-0 w-full h-full z-50">
-          <PopupWrapper close={() => setShowMenu(false)} isFunction dark>
-            <Sidebar />
-          </PopupWrapper>
-        </div>
-      )}
     </>
   );
 };

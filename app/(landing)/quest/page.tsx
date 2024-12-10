@@ -11,7 +11,7 @@ const Quest = () => {
         Quests
       </Motion>
       <Motion tag="h1" custom={1} className="heading mt-3 lg:mt-5">
-        Coming Soon
+        Featured Quest
       </Motion>
       <div className="w-full mt-3 pb-7">
         <QuestCard />
