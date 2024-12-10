@@ -90,7 +90,7 @@ const Sidebar = () => {
                     : "border-transparent"
                 }`}
                 href={`/${link}`}
-                scroll={false}
+                // scroll={false}
               >
                 <Icon i={i} color="white" />
 
