@@ -10,10 +10,10 @@ const Quest = () => {
       <Motion tag="h1" custom={0} className="heading">
         Quests
       </Motion>
-      <Motion tag="h1" custom={1} className="heading mt-5">
+      <Motion tag="h1" custom={1} className="heading mt-3 lg:mt-5">
         Featured Quest
       </Motion>
-      <div className="w-full mt-3">
+      <div className="w-full mt-3 pb-7">
         <QuestCard />
       </div>
     </div>

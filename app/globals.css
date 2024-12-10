@@ -20,7 +20,7 @@ h1,
 h2,
 h3 {
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.484);
-  @apply font-semibold;
+  @apply font-semibold leading-[115%];
 }
 
 .flex-v-center {
@@ -35,35 +35,35 @@ h3 {
 }
 
 .container {
-  @apply p-4 md:px-[100px] md:py-[25px] xl:px-[4rem] w-full max-w-[1200px] mx-auto;
+  @apply p-4 md:px-[3rem] lg:px-[4rem] lg:py-[25px] xl:px-[4rem] w-full max-w-[1200px] mx-auto;
 }
 
 .banner-container {
-  @apply w-full h-[200px] relative rounded-lg md:rounded-xl overflow-hidden;
+  @apply w-full h-[120px] lg:h-[200px] relative rounded-lg md:rounded-xl overflow-hidden text-center;
 }
 
 .display {
-  @apply lg:text-[4vw] xl:text-[3.25rem];
+  @apply text-3xl lg:text-[4vw] xl:text-[3.25rem];
 }
 
 .heading {
-  @apply lg:text-[2.5vw] xl:text-[2rem];
+  @apply text-[23px] md:text-2xl lg:text-[2.5vw] xl:text-[2rem];
 }
 
 .featured-title {
-  @apply lg:text-[2.65vw] xl:text-[2.15rem] !font-medium;
+  @apply text-xl lg:text-[2.65vw] xl:text-[2.15rem] !font-medium;
 }
 
 .subheading {
-  @apply lg:text-[2vw] xl:text-[1.5rem] !font-medium;
+  @apply text-base lg:text-[2vw] xl:text-[1.5rem] !font-medium;
 }
 .subheading-faq {
-  @apply lg:text-[2vw] xl:text-[1.25rem] !font-medium;
+  @apply text-base lg:text-[2vw] xl:text-[1.25rem] !font-medium;
 }
 
 p,
 li {
-  @apply lg:text-base font-light text-light;
+  @apply text-sm lg:text-base font-light text-light;
 }
 
 .card {
@@ -72,7 +72,7 @@ li {
 
 .btn-1,
 .btn-2 {
-  @apply py-2 lg:py-3 px-4 lg:px-8 rounded-xl text-base font-semibold flex items-center gap-2 max-w-fit;
+  @apply py-3 lg:py-3 px-4 lg:px-8 rounded-xl text-[3.5vw] sm:text-sm md:text-base font-semibold flex items-center gap-2 w-full md:max-w-fit text-center uppercase;
 }
 
 .btn-3,
@@ -94,6 +94,20 @@ li {
 
 .btn-4 {
   @apply backdrop-blur bg-brand-3/90;
+}
+
+.show-md {
+  @apply hidden md:!flex;
+}
+.show-lg {
+  @apply hidden lg:!flex;
+}
+
+.hide-md {
+  @apply md:hidden;
+}
+.hide-lg {
+  @apply lg:hidden;
 }
 
 .transition-500 {

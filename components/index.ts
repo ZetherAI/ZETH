@@ -7,6 +7,7 @@ export { default as Motion } from "./utils/Motion";
 
 // Navigation
 export { default as Sidebar } from "./navigation/Sidebar";
+export { default as MobileTopbar } from "./navigation/MobileTopbar";
 
 // Cards
 export { default as QuestCard } from "./cards/QuestCard";

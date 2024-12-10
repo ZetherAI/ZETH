@@ -41,19 +41,20 @@ const Icon = ({ i, color }: { i: number; color: string }) => (
 
 const Sidebar = () => {
   const pathname = usePathname();
-  const [showFull, setShowFull] = useState(false);
+  const [showFull, setShowFull] = useState(true);
   return (
     <div className="relative h-full">
       <button
         onClick={() => setShowFull(!showFull)}
-        className="absolute top-[60px] right-0 translate-x-3 z-10 p-1 rounded-full bg-brand-2/50 hover:bg-brand-2/90 backdrop-blur-sm"
+        className="absolute top-[60px] right-0 translate-x-3 z-10 p-1 rounded-full bg-brand-2/50 hover:bg-brand-2/90 backdrop-blur-sm show-lg"
       >
         <ChevronRight className={`size-5 ${showFull ? "rotate-180" : ""}`} />
       </button>
+
       <div
-        className={`relative backdrop-blur w-full h-full py-4 md:py-5 overflow-hidden transition-500 ${
+        className={`relative backdrop-blur w-full h-full py-4 md:py-5 overflow-hidden transition-500 bg-black/30 ${
           showFull
-            ? "w-full max-w-fit lg:min-w-[250px] px-4 md:px-5"
+            ? "w-full md:max-w-fit lg:min-w-[250px] px-4 md:px-5"
             : "max-w-fit px-2"
         }`}
         //   onMouseEnter={() => setShowFull(true)}

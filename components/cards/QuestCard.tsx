@@ -12,7 +12,7 @@ const QuestCard = () => {
       tag="div"
       className="card grid md:grid-cols-7 gap-8 md:items-center relative overflow-hidden"
     >
-      <div className="absolute top-0 left-0 w-[45%] h-full overflow-hidden">
+      <div className="absolute top-0 left-0 w-full md:w-[45%] h-[35%] md:h-full overflow-hidden">
         <DotGrid w={100} h={20} id={1} />
       </div>
 
@@ -24,19 +24,19 @@ const QuestCard = () => {
           className="object-cover w-full h-full"
           alt="Quest"
         />
-        <div className="flex-center absolute top-0 left-0 w-full h-full bg-black/50">
-          <Motion className="featured-title uppercase text-gray-300 text-center leading-[110%] !font-black">
+        {/* <div className="flex-center absolute top-0 left-0 w-full h-full bg-black/50">
+          <Motion className="featured-title uppercase text-gray-300 text-center !leading-[120%] !font-black">
             Astra
             <br />
             Challenge
           </Motion>
-        </div>
+        </div> */}
       </Motion>
       <div className="md:col-span-4 relative">
         <Motion tag="h1" className="featured-title">
           {featuredQuest.title}
         </Motion>
-        <div className="flex-v-center mt-1 mb-3">
+        <div className="flex-v-center my-3 lg:mt-5 mb-4">
           <Motion>
             <Button
               text="FAQ"

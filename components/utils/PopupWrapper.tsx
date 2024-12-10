@@ -4,6 +4,8 @@
 import React, { useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
+import { X } from "lucide-react";
+
 const PopupWrapper = ({
   children,
   dark,
@@ -42,11 +44,11 @@ const PopupWrapper = ({
   }, []);
 
   return dark ? (
-    <div className="fixed top-0 left-0 right-0 bottom-0 bg-black/20 flex-center p-4 md:p-7 overflow-y-auto overflow-x-clip !z-[10000000000000]">
-      <div className={sm ? "" : "w-full max-w-[500px]"} ref={ref}>
-        {children}
-      </div>
-      <div></div>
+    <div className="fixed top-0 left-0 right-0 bottom-0 bg-black/20 overflow-x-clip !z-[10000000000000] w-full h-full ">
+      {children}
+      <button onClick={close} className="absolute top-7 right-5 text-light">
+        <X />
+      </button>
     </div>
   ) : (
     <div ref={ref}>{children}</div>

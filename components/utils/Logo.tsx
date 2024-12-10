@@ -22,7 +22,7 @@ const Logo = ({
         priority
       />
       {showName && (
-        <h2 className="text-[2vw] tracking-[0.1em] font-bold transition-500">
+        <h2 className="text-[1.2rem] lg:text-[1.7vw] xl:text-[1.35rem] tracking-[0.1em] font-bold transition-500">
           LYRA
         </h2>
       )}
