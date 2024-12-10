@@ -1,11 +1,27 @@
 import React from "react";
-// import Image from "next/image";
+import Link from "next/link";
 
-// import { images } from "@/constants";
-
+import { Plus } from "lucide-react";
 import { DotGrid, Motion } from "@/components";
 
-const FAQ = () => {
+import { FAQData } from "@/constants/staticText";
+
+interface IFAQData {
+  question: string;
+  answers: string[];
+  desc?: string;
+  quote?: string;
+  desc2?: string;
+}
+
+const FAQ = async ({
+  searchParams,
+}: {
+  searchParams: Promise<{
+    faq?: string;
+  }>;
+}) => {
+  const faq = (await searchParams).faq;
   return (
     <div>
       <Motion custom={0} className="banner-container">
@@ -18,9 +34,77 @@ const FAQ = () => {
           </div>
         </div>
       </Motion>
-      {/* <Motion tag="h1" custom={0} className="heading mt-3">
-        Frequently Asked Questions
-      </Motion> */}
+
+      <div className="flex flex-col gap-5 lg:gap-4 mt-7">
+        {FAQData.map(
+          (
+            { question, answers, desc, quote, desc2 }: IFAQData,
+            index: number
+          ) => (
+            <Motion
+              custom={index + 2}
+              key={index}
+              className={
+                faq === question ? "" : "hover:!scale-105 transition-500"
+              }
+            >
+              <Link
+                href={`?faq=${question}`}
+                className="flex flex-col gap-3 card md:!py-6 "
+                scroll={false}
+              >
+                <Motion
+                  className="subheading-faq flex-v-center justify-between"
+                  custom={index + 2}
+                >
+                  {question}
+                  <Plus
+                    className={`size-6 transition-500 ${
+                      faq === question ? "rotate-45" : ""
+                    }`}
+                  />
+                </Motion>
+
+                {faq === question && (
+                  <>
+                    {desc && (
+                      <Motion tag="p" custom={index + 2}>
+                        {desc}
+                      </Motion>
+                    )}
+
+                    {quote && (
+                      <Motion
+                        tag="p"
+                        custom={index + 2}
+                        className="italic font-medium"
+                      >
+                        {`"${quote}"`}
+                      </Motion>
+                    )}
+
+                    {desc2 && (
+                      <Motion tag="p" custom={index + 2}>
+                        {desc2}
+                      </Motion>
+                    )}
+
+                    {answers && (
+                      <div className="flex flex-col gap-3">
+                        {answers.map((item, j) => (
+                          <Motion key={j} custom={index + 2 + j}>
+                            <li>{item}</li>
+                          </Motion>
+                        ))}
+                      </div>
+                    )}
+                  </>
+                )}
+              </Link>
+            </Motion>
+          )
+        )}
+      </div>
     </div>
   );
 };

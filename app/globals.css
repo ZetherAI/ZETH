@@ -57,6 +57,9 @@ h3 {
 .subheading {
   @apply lg:text-[2vw] xl:text-[1.5rem] !font-medium;
 }
+.subheading-faq {
+  @apply lg:text-[2vw] xl:text-[1.25rem] !font-medium;
+}
 
 p,
 li {
