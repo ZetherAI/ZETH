@@ -38,6 +38,10 @@ h3 {
   @apply p-4 md:px-[100px] md:py-[25px] xl:px-[4rem] w-full max-w-[1200px] mx-auto;
 }
 
+.banner-container {
+  @apply w-full h-[200px] relative rounded-lg md:rounded-xl overflow-hidden;
+}
+
 .display {
   @apply lg:text-[4vw] xl:text-[3.25rem];
 }
@@ -50,7 +54,12 @@ h3 {
   @apply lg:text-[2.65vw] xl:text-[2.15rem] !font-medium;
 }
 
-p {
+.subheading {
+  @apply lg:text-[2vw] xl:text-[1.5rem] !font-medium;
+}
+
+p,
+li {
   @apply lg:text-base font-light text-light;
 }
 

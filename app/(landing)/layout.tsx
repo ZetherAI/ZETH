@@ -16,7 +16,7 @@ export default function RootLayout({
 }>) {
   return (
     <div className="flex bg-lyra-sm lg:bg-lyra-lg min-h-screen bg-fixed bg-center bg-cover">
-      <div className="flex bg-gradient-to-b from-black/0 to-black min-h-screen w-full">
+      <div className="flex bg-gradient-to-b from-black/0 to-black min-h-screen w-full bg-fixed ">
         <div className="h-full fixed top-0 left-0">
           <Sidebar />
         </div>
