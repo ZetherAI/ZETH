@@ -4,6 +4,7 @@ import Image from "next/image";
 import { List, Handshake } from "lucide-react";
 
 import { featuredQuest } from "@/constants/staticText";
+import { images } from "@/constants";
 import { Motion, Button, DotGrid } from "@/components";
 
 const QuestCard = () => {
@@ -25,11 +26,18 @@ const QuestCard = () => {
           alt="Quest"
         />
         <div className="flex-center absolute top-0 left-0 w-full h-full bg-black/40">
-          <Motion className="uppercase text-gray-300 text-center !leading-[120%] font-bold text-3xl lg:text-4xl xl:text-5xl py-4 lg:py-5 border-y border-gray-500 w-[80%]">
+          <Image
+            src={images.comingSoon}
+            width={300}
+            height={300}
+            className="object-contain w-full h-full p-[5%] lg:p-[8%] opacity-60"
+            alt="Quest"
+          />
+          {/* <Motion className="uppercase text-gray-300 text-center !leading-[120%] font-bold text-3xl lg:text-4xl py-4 lg:py-5 border-y border-gray-500 w-[80%]">
             Coming
             <br />
             Soon
-          </Motion>
+          </Motion> */}
         </div>
       </Motion>
       <div className="md:col-span-4 relative">
