@@ -68,7 +68,7 @@ const Sidebar = () => {
           animate="animate"
           exit="exit"
           variants={variants.scaleIn}
-          className="pb-6 lg:pb-7 pt-2 relative"
+          className="pb-6 lg:pb-7 pt-2 relative flex"
         >
           <Logo showName={showFull} />
         </MotionDiv>
@@ -90,6 +90,7 @@ const Sidebar = () => {
                     : "border-transparent"
                 }`}
                 href={`/${link}`}
+                scroll={false}
               >
                 <Icon i={i} color="white" />
 

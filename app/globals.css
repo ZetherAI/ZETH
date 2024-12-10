@@ -10,6 +10,10 @@
   --brand-3: #36afd0; /* blue */
 }
 
+body {
+  @apply bg-dark h-full overflow-hidden;
+}
+
 * {
   box-sizing: border-box;
   font-family: var(--font-inter);
