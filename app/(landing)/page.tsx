@@ -7,7 +7,7 @@ import { FaGithub, FaTwitter } from "react-icons/fa";
 const Home = () => {
   return (
     <div className="fixed bottom-0 left-0 w-full p-5 md:p-7">
-      <div className="h-full w-full flex-center !justify-end flex-col text-center !gap-4 md:max-w-[500px] lg:max-w-[600px] mx-auto">
+      <div className="h-full w-full flex-center !justify-end flex-col text-center !gap-4 md:max-w-[500px] xl:max-w-[600px] mx-auto">
         <Motion tag="h1" custom={0} className="display uppercase">
           Lyra’s Sentinel
         </Motion>
@@ -21,14 +21,14 @@ const Home = () => {
             <Button
               text="EXPLORE QUESTS"
               link="/quests"
-              className="btn-1 lg:!text-xl lg:py-4 lg:!px-10"
+              className="btn-1 xl:!text-xl lg:py-4 xl:!px-10"
             />
           </Motion>
           <Motion custom={3} className="">
             <Button
               text="CONNECT WALLET"
               link="/quests"
-              className="btn-2 lg:!text-xl lg:py-4 lg:!px-10"
+              className="btn-2 xl:!text-xl lg:py-4 xl:!px-10"
             />
           </Motion>
         </div>
