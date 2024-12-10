@@ -1,7 +1,7 @@
 import React from "react";
-import Image from "next/image";
+// import Image from "next/image";
 
-import { images } from "@/constants";
+// import { images } from "@/constants";
 
 import { DotGrid, Motion } from "@/components";
 
