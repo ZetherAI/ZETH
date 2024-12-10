@@ -35,7 +35,7 @@ h3 {
 }
 
 .container {
-  @apply p-4 md:px-[3rem] lg:px-[4rem] lg:py-[25px] xl:px-[4rem] w-full max-w-[1200px] mx-auto;
+  @apply p-4 md:px-[3rem] lg:px-[3rem] lg:py-[25px] xl:px-[4rem] w-full max-w-[1200px] mx-auto;
 }
 
 .banner-container {
@@ -72,7 +72,7 @@ li {
 
 .btn-1,
 .btn-2 {
-  @apply py-3 lg:py-3 px-4 lg:px-8 rounded-xl text-[3.5vw] sm:text-sm md:text-base font-semibold flex items-center gap-2 w-full md:max-w-fit text-center uppercase;
+  @apply py-3 px-4 lg:px-8 rounded-xl text-[3.5vw] sm:text-sm md:text-base font-semibold flex items-center gap-2 w-full md:max-w-fit text-center uppercase;
 }
 
 .btn-3,

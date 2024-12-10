@@ -11,13 +11,11 @@ const PopupWrapper = ({
   dark,
   close,
   isFunction,
-  sm,
 }: Readonly<{
   children: React.ReactNode;
   dark?: boolean | string;
   close?: () => void;
   isFunction?: boolean;
-  sm?: boolean;
 }>) => {
   const ref = useRef<null | HTMLDivElement>(null);
   const router = useRouter();
