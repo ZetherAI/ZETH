@@ -95,11 +95,11 @@ li {
 }
 
 .btn-3 {
-  @apply backdrop-blur bg-brand-4/90;
+  @apply backdrop-blur bg-brand-4/50;
 }
 
 .btn-4 {
-  @apply backdrop-blur bg-brand-4/90;
+  @apply backdrop-blur bg-brand-3/50;
 }
 
 .show-md {

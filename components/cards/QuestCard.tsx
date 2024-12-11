@@ -64,7 +64,7 @@ const QuestCard = () => {
         </div>
         <Motion tag="p">{featuredQuest.desc}</Motion>
         <Motion className="flex mt-5">
-          <Button text="Join Challenge" link="/" />
+          <Button text="Explore" link="/" className="btn-1" />
         </Motion>
       </div>
     </Motion>
