@@ -27,10 +27,12 @@ const FAQ = async ({
       <Motion custom={0} className="banner-container">
         <DotGrid w={100} h={20} id={2} />
         <div className="bg-pfp bg-center bg-no-repeat bg-cover rounded-xl w-full h-full flex flex-col justify-end ">
-          <div className="heading flex-center w-full h-full bg-gradient-to-r from-brand-1/70 to-brand-3/50">
-            <Motion custom={1} className="heading font-semibold p-5">
-              Frequently Asked Questions
-            </Motion>
+          <div className="heading flex-center w-full h-full bg-gradient-to-r from-brand-1/50 to-brand-3/10">
+            <div className="heading flex-center w-full h-full bg-gradient-to-r from-brand-1/50 to-brand-3/10">
+              <Motion custom={1} className="heading font-semibold p-5">
+                Frequently Asked Questions
+              </Motion>
+            </div>
           </div>
         </div>
       </Motion>
@@ -49,7 +51,7 @@ const FAQ = async ({
             >
               <Link
                 href={faq === question ? "?faq" : `?faq=${question}`}
-                className={`flex flex-col gap-3 card md:!py-6 hover:bg-brand-1/20 transition-500 ${
+                className={`flex flex-col gap-3 card md:!py-6 hover:bg-black/50 transition-500 ${
                   faq === question ? "" : ""
                 }`}
                 scroll={false}
