@@ -2,7 +2,8 @@ import { motion, type MotionProps } from "framer-motion";
 
 // Define types for different HTML elements with motion props
 type MotionDivProps = MotionProps & React.HTMLAttributes<HTMLDivElement>;
-type MotionButtonProps = MotionProps & React.HTMLAttributes<HTMLButtonElement>;
+type MotionButtonProps = MotionProps &
+  React.ButtonHTMLAttributes<HTMLButtonElement>;
 type MotionSpanProps = MotionProps & React.HTMLAttributes<HTMLSpanElement>;
 type MotionH1Props = MotionProps & React.HTMLAttributes<HTMLHeadingElement>;
 type MotionH2Props = MotionProps & React.HTMLAttributes<HTMLHeadingElement>;

@@ -26,6 +26,7 @@ export default {
         "lyra-lg": "url('/images/bg-lyra.jpg')",
         "lyra-sm": "url('/images/portrait.png')",
         pfp: "url('/images/pfp.jpg')",
+        pattern: "url('/images/bg.png')",
       },
     },
   },
