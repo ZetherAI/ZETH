@@ -13,6 +13,7 @@ interface IGameStats {
 interface IMessage {
   message: string;
   ai_response: string;
+  time: string;
 }
 
 const gameStats: IGameStats[] = [
@@ -25,11 +26,13 @@ const gameStats: IGameStats[] = [
 const dummyMessages: IMessage[] = [
   {
     message: "What is Lyra game all about",
+    time: "20mins ago",
     ai_response:
       "Outsmart Lyra, guardian of the Quantum Nexus, by crafting authentic, strategic queries that challenge her unyielding logic. Navigate her complex decision-making process to unlock the ever-growing prize pool, earning rewards that have the power to reshape the very fabric of the cosmos.",
   },
   {
     message: "What is Lyra game all about",
+    time: "10mins ago",
     ai_response:
       "Outsmart Lyra, guardian of the Quantum Nexus, by crafting authentic, strategic queries that challenge her unyielding logic. Navigate her complex decision-making process to unlock the ever-growing prize pool, earning rewards that have the power to reshape the very fabric of the cosmos.",
   },
@@ -52,15 +55,20 @@ const Home = () => {
       {/* ! MESSAGES DISPLAY */}
       <div
         id="message-container"
-        className="flex flex-col h-full py-5 gap-4 overflow-y-auto overflow-x-clip container"
+        className="flex flex-col h-full py-5 gap-4 overflow-y-auto overflow-x-clip"
       >
-        {dummyMessages.map(({ message, ai_response }: IMessage, i: number) => (
-          <MessageNResponse
-            key={i}
-            message={message}
-            ai_response={ai_response}
-          />
-        ))}
+        {dummyMessages.map(
+          ({ message, ai_response, time }: IMessage, i: number) => (
+            <div key={i} className="container !py-0">
+              <MessageNResponse
+                key={i}
+                message={message}
+                ai_response={ai_response}
+                time={time}
+              />
+            </div>
+          )
+        )}
       </div>
 
       {/* ! INPUT */}
@@ -82,7 +90,7 @@ const Home = () => {
               icon={<Play className="size-4" />}
             />
           </div>
-          <p className="w-full text-xs text-center opactity-90 pt-3">
+          <p className="w-full xs text-center opactity-90 pt-3">
             80% of your fee goes to the price pool
           </p>
         </div>

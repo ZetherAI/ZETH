@@ -9,7 +9,7 @@
   --brand-2: #ed3e09; /* orange */
   --brand-3: #36afd0; /* blue */
 
-  --dark-2: #1d171d;
+  --dark-2: #1e1c1e;
 }
 
 html,
@@ -35,11 +35,11 @@ body {
 }
 *::-webkit-scrollbar-thumb {
   /* Foreground */
-  background: var(--card);
+  background: var(--dark-2);
 }
 *::-webkit-scrollbar-track {
   /* Background */
-  background: #ffffff00;
+  background: black;
 }
 
 h1,
@@ -95,7 +95,11 @@ p,
 li,
 input,
 textarea {
-  @apply text-[14px] lg:text-base font-light text-light;
+  @apply text-[3.5vw] sm:text-sm lg:text-sm xl:text-base font-light text-light;
+}
+
+.xs {
+  @apply text-[3vw] sm:text-[12px] xl:text-xs font-light text-light;
 }
 
 .card {
@@ -172,7 +176,7 @@ textarea {
   @apply p-3 backdrop-blur-lg max-w-[80%] rounded-xl;
 }
 .user-message {
-  @apply bg-white/20 self-end;
+  @apply bg-light/90 !text-dark self-end;
 }
 .ai-message {
   @apply bg-white/5 self-start;

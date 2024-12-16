@@ -44,8 +44,8 @@ const ChatSidebar = ({
               key={i}
               className="space-y-[6px]"
             >
-              <h2 className="stats-value">{value}</h2>
               <p className="uppercase text-xs md:text-sm">{label}</p>
+              <h2 className="stats-value">{value}</h2>
             </MotionDiv>
           ))}
         </MotionDiv>

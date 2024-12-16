@@ -1,15 +1,31 @@
 import React from "react";
+// import Image from "next/image";
+
+// import { images } from "@/constants";
 
 interface IMessage {
   message: string;
   ai_response: string | number;
+  time: string;
 }
 
-const MessageNResponse = ({ message, ai_response }: IMessage) => {
+const MessageNResponse = ({ message, ai_response, time }: IMessage) => {
   return (
     <div className="flex flex-col gap-3">
-      <p className="user-message">{message}</p>
-      <p className="ai-message">{ai_response}</p>
+      <div className="flex gap-3 w-full justify-end">
+        <div className="user-message flex flex-col items-end gap-1">
+          <p className="w-full text-black">{message}</p>
+          <p className="xs !text-dark/50">{time}</p>
+        </div>
+        {/* <div className="size-[35px] rounded-full bg-gradient-to-br from-brand-1/50 to-brand-4/50 backdrop-blur-xl" /> */}
+        {/* <Image
+          src={images.pfp}
+          alt="user"
+          className="size-[35px] rounded-full object-cover"
+        /> */}
+      </div>
+
+      <p className="ai-message !leading-[1.7em]">{ai_response}</p>
     </div>
   );
 };
