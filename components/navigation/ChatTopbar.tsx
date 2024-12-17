@@ -71,7 +71,7 @@ const ChatTopbar = ({
           </button>
           <div className="hide-md flex-center !gap-[2px] flex-col">
             <p className="!text-white font-semibold">Price Pool: $100,000</p>
-            <p className="text-[12px] opacity-90">500 prompts left</p>
+            <p className="opacity-90 xs">Game ends in 00:00</p>
           </div>
           <div className="hide-md">
             <Menu onClick={() => setShowMenu(true)} />

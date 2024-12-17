@@ -30,7 +30,7 @@ const ChatSidebar = ({
         `}
       >
         <DotGrid w={40} h={100} id={0} />
-        <div className="hide-md">
+        <div className="hide-md relative">
           <Logo showName />
         </div>
         {stats && (
