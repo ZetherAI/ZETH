@@ -77,7 +77,7 @@ const Home = () => {
             />
           </div>
           <p className="w-full xs text-center opactity-90 pt-3">
-            80% of your fee goes to the price pool
+            70% of message fees goes to the price pool
           </p>
         </div>
       </div>
