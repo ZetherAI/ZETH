@@ -17,10 +17,12 @@ const ChatTopbar = ({
   intro,
   about,
   stats,
+  examplePrompts,
 }: {
-  intro: string;
-  about: string;
-  stats: IGameStats[];
+  intro?: string;
+  about?: string;
+  stats?: IGameStats[];
+  examplePrompts?: string[];
 }) => {
   const [showMenu, setShowMenu] = useState(false);
   const [isGlobal, setIsGlobal] = useState(true);
@@ -87,7 +89,11 @@ const ChatTopbar = ({
       {showMenu && (
         <div className="hide-md">
           <PopupWrapper close={() => setShowMenu(false)}>
-            <ChatSidebar about={about} stats={stats} />
+            <ChatSidebar
+              about={about}
+              stats={stats}
+              examplePrompts={examplePrompts}
+            />
           </PopupWrapper>
         </div>
       )}

@@ -16,9 +16,11 @@ interface IGameStats {
 const ChatSidebar = ({
   about,
   stats,
+  examplePrompts,
 }: {
-  about: string;
-  stats: IGameStats[];
+  about?: string;
+  stats?: IGameStats[];
+  examplePrompts?: string[];
 }) => {
   return (
     <div className="relative h-full bg-dark overflow-x-clip overflow-y-auto">
@@ -31,57 +33,83 @@ const ChatSidebar = ({
         <div className="hide-md">
           <Logo showName />
         </div>
-        <MotionDiv
-          initial="initial"
-          animate="animate"
-          exit="exit"
-          transition={{ staggerChildren: 0.1 }}
-          className={`sidebar-card`}
-        >
-          {stats.map(({ label, value }, i: number) => (
-            <MotionDiv
-              variants={variants.slideInBottom}
-              key={i}
-              className="space-y-[6px]"
-            >
-              <p className="uppercase text-xs md:text-sm">{label}</p>
-              <h2 className="stats-value">{value}</h2>
-            </MotionDiv>
-          ))}
-        </MotionDiv>
+        {stats && (
+          <MotionDiv
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            transition={{ staggerChildren: 0.1 }}
+            className={`sidebar-card`}
+          >
+            {stats.map(({ label, value }, i: number) => (
+              <MotionDiv
+                variants={variants.slideInBottom}
+                key={i}
+                className="space-y-[6px]"
+              >
+                <p className="uppercase text-xs md:text-sm">{label}</p>
+                <h2 className="stats-value">{value}</h2>
+              </MotionDiv>
+            ))}
+          </MotionDiv>
+        )}
 
-        <MotionDiv
-          initial="initial"
-          animate="animate"
-          exit="exit"
-          transition={{ staggerChildren: 0.1 }}
-          className={`sidebar-card`}
-        >
-          <MotionDiv variants={variants.slideInBottom}>
-            <h2 className="uppercase">About:</h2>
+        {about && (
+          <MotionDiv
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            transition={{ staggerChildren: 0.1 }}
+            className={`sidebar-card`}
+          >
+            <MotionDiv variants={variants.slideInBottom}>
+              <h2 className="uppercase">About:</h2>
+            </MotionDiv>
+            <MotionDiv variants={variants.slideInBottom}>
+              <p className="">{about}</p>
+            </MotionDiv>
+            <div className="flex-v-center">
+              <Motion>
+                <Button
+                  text="FAQ"
+                  link="/faq"
+                  className="btn-3 !px-3"
+                  icon={<List className="size-4" />}
+                />
+              </Motion>
+              <Motion>
+                <Button
+                  text="Terms"
+                  link="/terms"
+                  className="btn-4 !px-3"
+                  icon={<Handshake className="size-4" />}
+                />
+              </Motion>
+            </div>
           </MotionDiv>
-          <MotionDiv variants={variants.slideInBottom}>
-            <p className="">{about}</p>
-          </MotionDiv>
-          <div className="flex-v-center">
-            <Motion>
-              <Button
-                text="FAQ"
-                link="/faq"
-                className="btn-3 !px-3"
-                icon={<List className="size-4" />}
-              />
-            </Motion>
-            <Motion>
-              <Button
-                text="Terms"
-                link="/terms"
-                className="btn-4 !px-3"
-                icon={<Handshake className="size-4" />}
-              />
-            </Motion>
+        )}
+
+        {examplePrompts && (
+          <div className="flex flex-col gap-3">
+            {examplePrompts.map((prompt: string, i: number) => (
+              <MotionDiv
+                initial="initial"
+                animate="animate"
+                exit="exit"
+                transition={{ staggerChildren: 0.1 }}
+                className={``}
+                key={i}
+                custom={i}
+              >
+                <Button
+                  text={prompt}
+                  link="/"
+                  className={`sidebar-card !bg-none !py-3`}
+                />
+              </MotionDiv>
+            ))}
           </div>
-        </MotionDiv>
+        )}
       </div>
     </div>
   );

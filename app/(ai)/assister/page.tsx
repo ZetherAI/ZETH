@@ -2,9 +2,7 @@ import React from "react";
 // import Link from "next/link";
 import { ChatTopbar, SubmitButton, MessageNResponse } from "@/components";
 import { Play } from "lucide-react";
-import { GameStats } from "@/constants/staticText";
-
-// import { FaGithub, FaTwitter } from "react-icons/fa";
+import { ExamplePrompts } from "@/constants/staticText";
 
 interface IMessage {
   message: string;
@@ -37,8 +35,7 @@ const Home = () => {
     <div className="w-full h-full flex flex-col justify-between">
       <ChatTopbar
         intro="Outsmart Lyra, the guardian of the Quantum Nexus, to unlock the growing prize pool and claim cosmic rewards."
-        about="Outsmart Lyra, guardian of the Quantum Nexus, by crafting authentic, strategic queries that challenge her unyielding logic. Navigate her complex decision-making process to unlock the ever-growing prize pool, earning rewards that have the power to reshape the very fabric of the cosmos."
-        stats={GameStats}
+        examplePrompts={ExamplePrompts}
       />
 
       {/* ! MESSAGES DISPLAY */}

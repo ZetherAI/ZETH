@@ -212,3 +212,18 @@ export const ExperimentData = [
     ],
   },
 ];
+
+export const ExamplePrompts = [
+  "What is Lyra",
+  "How does Lyra work",
+  "How can I win",
+  "What are Lyra's prompts",
+  "Most asked questions",
+];
+
+export const GameStats = [
+  { label: "Price Pool", value: "$100,000" },
+  { label: "Message Price", value: "$100" },
+  { label: "Total Attempts", value: 20 },
+  { label: "TOTAL PARTICIPANTS", value: 100 },
+];

@@ -11,6 +11,7 @@ import {
   FlaskConical,
   ChevronRight,
 } from "lucide-react";
+import { RiCustomerService2Line } from "react-icons/ri";
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -21,7 +22,7 @@ import { variants } from "@/constants";
 const navs = [
   { label: "Home", link: "" },
   { label: "Quest", link: "quest" },
-  //   { label: "Lore", link: "lore" },
+  { label: "Assister", link: "assister" },
   { label: "FAQ", link: "faq" },
   { label: "Terms", link: "terms" },
   { label: "The Experiment", link: "the-experiment" },
@@ -31,9 +32,12 @@ const Icon = ({ i, color }: { i: number; color: string }) => (
   <>
     {i === 0 && <House style={{ color }} />}
     {i === 1 && <Swords style={{ color }} />}
-    {i === 2 && <List style={{ color }} />}
-    {i === 3 && <Handshake style={{ color }} />}
-    {i === 4 && <FlaskConical style={{ color }} />}
+    {i === 2 && (
+      <RiCustomerService2Line style={{ color }} className="text-2xl" />
+    )}
+    {i === 3 && <List style={{ color }} />}
+    {i === 4 && <Handshake style={{ color }} />}
+    {i === 5 && <FlaskConical style={{ color }} />}
     {/* {i === 5 && <Swords style={{ color }} />}
     {i === 6 && <Swords style={{ color }} />} */}
   </>
