@@ -28,7 +28,8 @@
 		"**/*.tsx",
 		".next/types/**/*.ts",
 		"components/navigation/ChatSidebar.jsx",
-		"app/(ai)/quests/[questSlug]/page.jsx"
+		"app/(ai)/quests/[questSlug]/page.jsx",
+		"app/(ai)/assister/layout.jsx"
 	],
 	"exclude": ["node_modules"]
 }
