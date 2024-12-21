@@ -8,6 +8,7 @@ import useGameStats from "@/components/utils/hooks/usegamestats";
 import { useWriteContract, useAccount, useSwitchChain } from "wagmi";
 import { GameAbi } from "../../../../constants";
 import config from "@/config";
+import { arbitrum, arbitrumSepolia } from "wagmi/chains";
 
 const Home = () => {
 	// const messageContainer = document.getElementById("message-container");
@@ -22,12 +23,12 @@ const Home = () => {
 	const [message, setMessage] = useState("");
 
 	useEffect(() => {
-		if (isConnected && chain && !chains.map((c) => c.id).includes(chain.id)) {
+		if (isConnected && chain && chains && !chains.map((c) => c.id).includes(chain.id)) {
 			switchChain({
-				chainId: chains[0].id,
+				chainId: arbitrumSepolia,
 			});
 		}
-	}, [isConnected, chains]);
+	}, [isConnected, chain, chains]);
 
 	function onMessageChange(e) {
 		setMessage(e.target.value);
