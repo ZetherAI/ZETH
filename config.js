@@ -1,17 +1,13 @@
 import { http, createConfig } from "wagmi";
-import { arbitrum, bscTestnet, arbitrumSepolia } from "wagmi/chains";
+import { arbitrum, arbitrumSepolia } from "wagmi/chains";
 import { getDefaultConfig } from "connectkit";
 
 const wagmiConfig = createConfig(
 	getDefaultConfig({
-		chains: [
-			// arbitrum, arbitrumSepolia,
-
-			bscTestnet,
-		],
+		chains: [arbitrum, arbitrumSepolia, bscTestnet],
 		transports: {
-			// [arbitrum.id]: http(),
-			[bscTestnet.id]: http(),
+			[arbitrum.id]: http(),
+			[arbitrumSepolia.id]: http(),
 		},
 
 		walletConnectProjectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID,
@@ -30,7 +26,7 @@ const config = {
 
 	gameContractAddress: {
 		[arbitrum.id]: "0x5B3b4eC5c0b8fC0A1eE2F3d3f7d6E3C3A0f7a7e6",
-		[bscTestnet.id]: "0x793911cAAC4A0272868017d5D7D94FeB0737DD46",
+		[arbitrumSepolia.id]: "0x1Ace536d3575454f169c39e6209308dDA80D8FD8",
 	},
 };
 

@@ -1,11 +1,11 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ChatTopbar, SubmitButton } from "@/components";
 import { Play } from "lucide-react";
 import { GameStats } from "@/constants/staticText";
 import useGameStats from "@/components/utils/hooks/usegamestats";
-import { useWriteContract, useAccount } from "wagmi";
+import { useWriteContract, useAccount, useSwitchChain } from "wagmi";
 import { GameAbi } from "../../../../constants";
 import config from "@/config";
 
@@ -18,8 +18,16 @@ const Home = () => {
 	const { data } = useGameStats();
 	const { writeContract } = useWriteContract();
 	const { chain } = useAccount();
-
+	const { switchChain, chains } = useSwitchChain();
 	const [message, setMessage] = useState("");
+
+	useEffect(() => {
+		if (!chains.map((c) => c.id).includes(chain.id)) {
+			switchChain({
+				chainId: chains[0].id,
+			});
+		}
+	}, []);
 
 	function onMessageChange(e) {
 		setMessage(e.target.value);
