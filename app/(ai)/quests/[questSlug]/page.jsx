@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { ChatTopbar, SubmitButton } from "@/components";
 import { Play } from "lucide-react";
 import { GameStats } from "@/constants/staticText";
