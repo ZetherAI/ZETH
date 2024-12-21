@@ -9,6 +9,7 @@ import { useWriteContract, useAccount, useSwitchChain } from "wagmi";
 import { GameAbi } from "../../../../constants";
 import config from "@/config";
 import { arbitrum, arbitrumSepolia } from "wagmi/chains";
+import { ConnectKitButton } from "connectkit";
 
 const Home = () => {
 	// const messageContainer = document.getElementById("message-container");
@@ -18,17 +19,9 @@ const Home = () => {
 
 	const { data } = useGameStats();
 	const { writeContract } = useWriteContract();
-	const { chain, isConnected } = useAccount();
-	const { switchChain, chains } = useSwitchChain();
+	const { chain } = useAccount();
+	const { switchChain } = useSwitchChain();
 	const [message, setMessage] = useState("");
-
-	useEffect(() => {
-		if (isConnected && chain && chains && !chains.map((c) => c.id).includes(chain.id)) {
-			switchChain({
-				chainId: arbitrumSepolia,
-			});
-		}
-	}, [isConnected, chain, chains]);
 
 	function onMessageChange(e) {
 		setMessage(e.target.value);
@@ -36,6 +29,14 @@ const Home = () => {
 
 	function play() {
 		if (!message) return;
+
+		const chainIds = [arbitrum.id, arbitrumSepolia.id];
+
+		if (!chainIds.includes(chain.id)) {
+			switchChain({
+				chainId: arbitrum.id,
+			});
+		}
 
 		writeContract({
 			abi: GameAbi,
@@ -79,12 +80,31 @@ const Home = () => {
 						/>
 
 						<div className="absolute right-4 top-1/2 -translate-y-1/2">
-							<SubmitButton
-								onClick={play}
-								text=""
-								className="rounded-full  bg-white/10 hover:bg-white/20 backdrop-blur-lg p-2 lg:p-3 flex-center"
-								icon={<Play className="size-4 lg:size-6" />}
-							/>
+							<ConnectKitButton.Custom>
+								{({ isConnected, show }) => {
+									const handleClick = () => {
+										if (!isConnected && show) {
+											show();
+											return;
+										}
+
+										if (isConnected) {
+											play();
+										}
+									};
+
+									return (
+										<SubmitButton
+											onClick={handleClick}
+											text=""
+											className={
+												" rounded-full  bg-white/10 hover:bg-white/20 backdrop-blur-lg p-2 lg:p-3 flex-center "
+											}
+											icon={<Play className="size-4 lg:size-6" />}
+										/>
+									);
+								}}
+							</ConnectKitButton.Custom>
 						</div>
 					</div>
 					<p className="w-full xs text-center opactity-90 pt-3">70% of message fees goes to the price pool</p>
