@@ -17,17 +17,17 @@ const Home = () => {
 
 	const { data } = useGameStats();
 	const { writeContract } = useWriteContract();
-	const { chain } = useAccount();
+	const { chain, isConnected } = useAccount();
 	const { switchChain, chains } = useSwitchChain();
 	const [message, setMessage] = useState("");
 
 	useEffect(() => {
-		if (!chains.map((c) => c.id).includes(chain.id)) {
+		if (isConnected && chain && !chains.map((c) => c.id).includes(chain.id)) {
 			switchChain({
 				chainId: chains[0].id,
 			});
 		}
-	}, []);
+	}, [isConnected, chains]);
 
 	function onMessageChange(e) {
 		setMessage(e.target.value);
