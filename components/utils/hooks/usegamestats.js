@@ -22,10 +22,6 @@ function getValueForName(name, data) {
 		return formatEther(data[1]?.result[0] || 0) + " ETH";
 	}
 
-	if (name === "gasEstimate") {
-		return formatEther(data[5]?.result[0] || 0) + " ETH";
-	}
-
 	return data[0]?.result || 0;
 }
 
@@ -91,7 +87,8 @@ export default function useGameStats() {
 
 			messagePrice: getValueForName("messagePrice", data),
 
-			gasEstimate: getValueForName("gasEstimate", data),
+			messagePriceRaw: data[1]?.result[0] || 0,
+			gasEstimateRaw: data[5]?.result[0] || 0,
 		},
 	};
 }

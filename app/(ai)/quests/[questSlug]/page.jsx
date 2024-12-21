@@ -38,9 +38,11 @@ const Home = () => {
 			});
 		}
 
-		const { gasEstimate, messagePrice } = data;
+		const { gasEstimateRaw, messagePriceRaw } = data;
 
-		const value = +BigInt(gasEstimate).toString() + +BigInt(messagePrice).toString();
+		const value = +BigInt(gasEstimateRaw).toString() + +BigInt(messagePriceRaw).toString();
+
+		console.log(gasEstimateRaw, messagePriceRaw);
 
 		writeContract({
 			abi: GameAbi,
