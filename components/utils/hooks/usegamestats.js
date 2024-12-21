@@ -22,6 +22,10 @@ function getValueForName(name, data) {
 		return formatEther(data[1]?.result[0] || 0) + " ETH";
 	}
 
+	if (name === "gasEstimate") {
+		return formatEther(data[5]?.result[0] || 0) + " ETH";
+	}
+
 	return data[0]?.result || 0;
 }
 
@@ -60,6 +64,12 @@ export default function useGameStats() {
 				functionName: "playerQueryCount",
 				args: [address],
 			},
+
+			{
+				...gameContract,
+				functionName: "getGasEstimate",
+				args: [11],
+			},
 		],
 
 		query: {
@@ -80,6 +90,8 @@ export default function useGameStats() {
 			prizePool: getValueForName("prizePool", data),
 
 			messagePrice: getValueForName("messagePrice", data),
+
+			gasEstimate: getValueForName("gasEstimate", data),
 		},
 	};
 }

@@ -38,11 +38,17 @@ const Home = () => {
 			});
 		}
 
+		const { gasEstimate, messagePrice } = data;
+
+		const value = gasEstimate + messagePrice;
+
 		writeContract({
 			abi: GameAbi,
 			address: config.gameContractAddress[chain?.id],
 			functionName: "play",
 			args: [message, 11],
+
+			value,
 		});
 
 		setMessage("");
