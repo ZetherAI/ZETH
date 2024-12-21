@@ -4,7 +4,7 @@ import { getDefaultConfig } from "connectkit";
 
 const wagmiConfig = createConfig(
 	getDefaultConfig({
-		chains: [arbitrum, arbitrumSepolia, bscTestnet],
+		chains: [arbitrum, arbitrumSepolia],
 		transports: {
 			[arbitrum.id]: http(),
 			[arbitrumSepolia.id]: http(),

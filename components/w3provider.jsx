@@ -1,16 +1,15 @@
 "use client";
 
 import { http, createConfig, WagmiProvider } from "wagmi";
-import { arbitrum, bscTestnet, arbitrumSepolia } from "wagmi/chains";
+import { arbitrum, arbitrumSepolia } from "wagmi/chains";
 import { ConnectKitProvider, getDefaultConfig } from "connectkit";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 
 const wagmiConfig = createConfig(
 	getDefaultConfig({
-		chains: [arbitrum, arbitrumSepolia, bscTestnet],
+		chains: [arbitrum, arbitrumSepolia],
 		transports: {
 			[arbitrum.id]: http(),
-			[bscTestnet.id]: http(),
 			[arbitrumSepolia.id]: http(),
 		},
 
