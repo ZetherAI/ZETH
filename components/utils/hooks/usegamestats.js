@@ -4,14 +4,14 @@ import { GameAbi } from "../../../constants";
 import { formatEther } from "viem";
 
 function getValueForName(name, data) {
-	if (!data) return null;
+	if (!data) return 0;
 
 	if (name === "totalParticipants") {
-		return data[2].result;
+		return data[2]?.result || 0;
 	}
 
 	if (name === "totalAttempts") {
-		return data[3].result;
+		return data[3]?.result || 0;
 	}
 
 	if (name === "prizePool") {
@@ -22,7 +22,7 @@ function getValueForName(name, data) {
 		return formatEther(data[1]?.result[0] || 0) + " ETH";
 	}
 
-	return data[0].result;
+	return data[0]?.result || 0;
 }
 
 export default function useGameStats() {
