@@ -9,15 +9,6 @@ import { useWriteContract, useAccount } from "wagmi";
 import { GameAbi } from "../../../../constants";
 import config from "@/config";
 
-const dummyMessages = [
-	{
-		message: "What is Lyra game all about",
-		time: "20mins ago",
-		ai_response:
-			"Outsmart Lyra, guardian of the Quantum Nexus, by crafting authentic, strategic queries that challenge her unyielding logic. Navigate her complex decision-making process to unlock the ever-growing prize pool, earning rewards that have the power to reshape the very fabric of the cosmos.",
-	},
-];
-
 const Home = () => {
 	// const messageContainer = document.getElementById("message-container");
 	// if (messageContainer) {
