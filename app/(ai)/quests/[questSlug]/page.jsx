@@ -40,7 +40,7 @@ const Home = () => {
 
 		const { gasEstimate, messagePrice } = data;
 
-		const value = gasEstimate + messagePrice;
+		const value = +BigInt(gasEstimate).toString() + +BigInt(messagePrice).toString();
 
 		writeContract({
 			abi: GameAbi,
