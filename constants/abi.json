@@ -1,0 +1,867 @@
+[
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_devWallet",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "_owner",
+				"type": "address"
+			},
+			{
+				"components": [
+					{
+						"internalType": "uint256",
+						"name": "queryFee",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "queryFeeIncrement",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "maxQueryFee",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "gameDuration",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "gameStartTime",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint8",
+						"name": "pricePoolPercentage",
+						"type": "uint8"
+					},
+					{
+						"internalType": "uint8",
+						"name": "devWalletPercentage",
+						"type": "uint8"
+					}
+				],
+				"internalType": "struct Game.GameSettings",
+				"name": "_settings",
+				"type": "tuple"
+			},
+			{
+				"internalType": "contract IAIOracle",
+				"name": "_aiOracle",
+				"type": "address"
+			}
+		],
+		"stateMutability": "payable",
+		"type": "constructor"
+	},
+	{
+		"inputs": [],
+		"name": "AIRequestDoesNotExist",
+		"type": "error"
+	},
+	{
+		"inputs": [],
+		"name": "AlreadyRefunded",
+		"type": "error"
+	},
+	{
+		"inputs": [],
+		"name": "AmountLessThanQueryFee",
+		"type": "error"
+	},
+	{
+		"inputs": [],
+		"name": "AmountLessThanQueryFeePlusSlippage",
+		"type": "error"
+	},
+	{
+		"inputs": [],
+		"name": "FailedToSendEthers",
+		"type": "error"
+	},
+	{
+		"inputs": [],
+		"name": "GameHasEnded",
+		"type": "error"
+	},
+	{
+		"inputs": [],
+		"name": "GameHasNotStarted",
+		"type": "error"
+	},
+	{
+		"inputs": [],
+		"name": "GameIsInProgress",
+		"type": "error"
+	},
+	{
+		"inputs": [],
+		"name": "NotAParticipant",
+		"type": "error"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "owner",
+				"type": "address"
+			}
+		],
+		"name": "OwnableInvalidOwner",
+		"type": "error"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "account",
+				"type": "address"
+			}
+		],
+		"name": "OwnableUnauthorizedAccount",
+		"type": "error"
+	},
+	{
+		"inputs": [],
+		"name": "PlayerQueryDoesNotExist",
+		"type": "error"
+	},
+	{
+		"inputs": [],
+		"name": "UnableToProcessRefund",
+		"type": "error"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "contract IAIOracle",
+				"name": "expected",
+				"type": "address"
+			},
+			{
+				"internalType": "contract IAIOracle",
+				"name": "found",
+				"type": "address"
+			}
+		],
+		"name": "UnauthorizedCallbackSource",
+		"type": "error"
+	},
+	{
+		"inputs": [],
+		"name": "UnsupportedModel",
+		"type": "error"
+	},
+	{
+		"inputs": [],
+		"name": "WinnerAlreadyExists",
+		"type": "error"
+	},
+	{
+		"inputs": [],
+		"name": "WinnerRewardConditionsNotMet",
+		"type": "error"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "timestamp",
+				"type": "uint256"
+			},
+			{
+				"components": [
+					{
+						"internalType": "uint256",
+						"name": "queryFee",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "queryFeeIncrement",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "maxQueryFee",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "gameDuration",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "gameStartTime",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint8",
+						"name": "pricePoolPercentage",
+						"type": "uint8"
+					},
+					{
+						"internalType": "uint8",
+						"name": "devWalletPercentage",
+						"type": "uint8"
+					}
+				],
+				"indexed": false,
+				"internalType": "struct Game.GameSettings",
+				"name": "settings",
+				"type": "tuple"
+			}
+		],
+		"name": "LyraGameDeployed",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "previousOwner",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "newOwner",
+				"type": "address"
+			}
+		],
+		"name": "OwnershipTransferred",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "requestId",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "address",
+				"name": "player",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "modelId",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "prompt",
+				"type": "string"
+			}
+		],
+		"name": "PlayerAttempt",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "requestId",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "address",
+				"name": "player",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "modelId",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "prompt",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint8",
+				"name": "score",
+				"type": "uint8"
+			},
+			{
+				"indexed": false,
+				"internalType": "bool",
+				"name": "won",
+				"type": "bool"
+			}
+		],
+		"name": "PlayerAttemptResult",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "address",
+				"name": "player",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "refundDue",
+				"type": "uint256"
+			}
+		],
+		"name": "PlayerRefunded",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "address",
+				"name": "player",
+				"type": "address"
+			}
+		],
+		"name": "WinnerAnnouncement",
+		"type": "event"
+	},
+	{
+		"inputs": [],
+		"name": "aiOracle",
+		"outputs": [
+			{
+				"internalType": "contract IAIOracle",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "requestId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "bytes",
+				"name": "output",
+				"type": "bytes"
+			},
+			{
+				"internalType": "bytes",
+				"name": "callbackData",
+				"type": "bytes"
+			}
+		],
+		"name": "aiOracleCallback",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "callbackGasLimit",
+		"outputs": [
+			{
+				"internalType": "uint64",
+				"name": "",
+				"type": "uint64"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "gameSettings",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "queryFee",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "queryFeeIncrement",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "maxQueryFee",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "gameDuration",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "gameStartTime",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint8",
+				"name": "pricePoolPercentage",
+				"type": "uint8"
+			},
+			{
+				"internalType": "uint8",
+				"name": "devWalletPercentage",
+				"type": "uint8"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "modelId",
+				"type": "uint256"
+			}
+		],
+		"name": "getGasEstimate",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getPrompt",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "pure",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "initialPricePool",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "requestId",
+				"type": "uint256"
+			}
+		],
+		"name": "isFinalized",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "name",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "owner",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "inputMessage",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "modelId",
+				"type": "uint256"
+			}
+		],
+		"name": "play",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "playerQueries",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "sender",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "requestId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "fee",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "timestamp",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint8",
+				"name": "score",
+				"type": "uint8"
+			},
+			{
+				"internalType": "bool",
+				"name": "won",
+				"type": "bool"
+			},
+			{
+				"internalType": "bool",
+				"name": "failed",
+				"type": "bool"
+			},
+			{
+				"internalType": "bool",
+				"name": "refunded",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "playerQueryCount",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "pool",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "queryFeeMinSlippage",
+		"outputs": [
+			{
+				"internalType": "uint8",
+				"name": "",
+				"type": "uint8"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "refundPlayer",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "renounceOwnership",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "requests",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "sender",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "modelId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "bytes",
+				"name": "input",
+				"type": "bytes"
+			},
+			{
+				"internalType": "bytes",
+				"name": "output",
+				"type": "bytes"
+			},
+			{
+				"internalType": "uint256",
+				"name": "queryIndex",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "modelId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint64",
+				"name": "gasLimit",
+				"type": "uint64"
+			}
+		],
+		"name": "setCallbackGasLimit",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_devWallet",
+				"type": "address"
+			}
+		],
+		"name": "setDevWallet",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint8",
+				"name": "_slippage",
+				"type": "uint8"
+			}
+		],
+		"name": "setMinSlippgae",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "totalAttempts",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "totalPlayers",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "newOwner",
+				"type": "address"
+			}
+		],
+		"name": "transferOwnership",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "winner",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "winnerQuery",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "sender",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "requestId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "fee",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "timestamp",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint8",
+				"name": "score",
+				"type": "uint8"
+			},
+			{
+				"internalType": "bool",
+				"name": "won",
+				"type": "bool"
+			},
+			{
+				"internalType": "bool",
+				"name": "failed",
+				"type": "bool"
+			},
+			{
+				"internalType": "bool",
+				"name": "refunded",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	}
+]
