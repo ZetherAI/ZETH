@@ -15,11 +15,11 @@ function getValueForName(name, data) {
 	}
 
 	if (name === "prizePool") {
-		return formatEther(data[0].result) + " ETH";
+		return formatEther(data[0]?.result || 0) + " ETH";
 	}
 
 	if (name === "messagePrice") {
-		return formatEther(data[1].result[0]) + " ETH";
+		return formatEther(data[1]?.result[0] || 0) + " ETH";
 	}
 
 	return data[0].result;
