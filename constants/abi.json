@@ -804,6 +804,56 @@
 		"type": "function"
 	},
 	{
+		"inputs": [
+			{
+				"components": [
+					{
+						"internalType": "uint256",
+						"name": "queryFee",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "queryFeeIncrement",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "maxQueryFee",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "gameDuration",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "gameStartTime",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint8",
+						"name": "pricePoolPercentage",
+						"type": "uint8"
+					},
+					{
+						"internalType": "uint8",
+						"name": "devWalletPercentage",
+						"type": "uint8"
+					}
+				],
+				"internalType": "struct Game.GameSettings",
+				"name": "_settings",
+				"type": "tuple"
+			}
+		],
+		"name": "updateSettings",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
 		"inputs": [],
 		"name": "winner",
 		"outputs": [
