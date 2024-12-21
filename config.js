@@ -26,7 +26,7 @@ const config = {
 
 	gameContractAddress: {
 		[arbitrum.id]: "0x5B3b4eC5c0b8fC0A1eE2F3d3f7d6E3C3A0f7a7e6",
-		[bscTestnet.id]: "0xB4fF660ebd25a15E2b9cF3557d9D0288298B9A74",
+		[bscTestnet.id]: "0x793911cAAC4A0272868017d5D7D94FeB0737DD46",
 	},
 };
 

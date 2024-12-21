@@ -22,6 +22,13 @@
 			"@/*": ["./*"]
 		}
 	},
-	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "components/navigation/ChatSidebar.jsx"],
+	"include": [
+		"next-env.d.ts",
+		"**/*.ts",
+		"**/*.tsx",
+		".next/types/**/*.ts",
+		"components/navigation/ChatSidebar.jsx",
+		"app/(ai)/quests/[questSlug]/page.jsx"
+	],
 	"exclude": ["node_modules"]
 }

@@ -6,13 +6,12 @@ import { MotionDiv } from "@/constants/motionProps";
 
 import { List, Handshake } from "lucide-react";
 import { DotGrid, Button, Motion, Logo } from "@/components";
-import { variants, GameAbi } from "@/constants";
+import { variants } from "@/constants";
 import { ConnectKitButton } from "connectkit";
 import cn from "classnames";
-import { useAccount, useDisconnect, useReadContracts } from "wagmi";
-import config from "../../config";
+import { useAccount, useDisconnect } from "wagmi";
 import Skeleton from "react-loading-skeleton";
-import { formatEther } from "viem";
+import useGameStats from "../utils/hooks/usegamestats";
 
 function truncateWalletAddress(addr, startLength = 6, endLength = 4) {
 	if (!addr || addr.length <= startLength + endLength) {
@@ -21,72 +20,11 @@ function truncateWalletAddress(addr, startLength = 6, endLength = 4) {
 	return `${addr.slice(0, startLength)}...${addr.slice(-endLength)}`;
 }
 
-function getValueForName(name, data) {
-	if (!data) return null;
-
-	if (name === "totalParticipants") {
-		return data[2].result;
-	}
-
-	if (name === "totalAttempts") {
-		return data[3].result;
-	}
-
-	if (name === "prizePool") {
-		return formatEther(data[0].result) + " ETH";
-	}
-
-	if (name === "messagePrice") {
-		return formatEther(data[1].result[0]) + " ETH";
-	}
-
-	return data[0].result;
-}
-
 const ChatSidebar = ({ about, stats, examplePrompts }) => {
-	const { isConnected, address, chain } = useAccount();
+	const { isConnected, address } = useAccount();
 	const { disconnect } = useDisconnect();
 
-	const gameContract = {
-		address: config.gameContractAddress[chain?.id],
-		abi: GameAbi,
-	};
-
-	const { data, isPending, isSuccess } = useReadContracts({
-		// allowFailure: false,
-		contracts: [
-			{
-				...gameContract,
-				functionName: "pool",
-			},
-
-			{
-				...gameContract,
-				functionName: "gameSettings",
-			},
-
-			{
-				...gameContract,
-				functionName: "totalPlayers",
-			},
-
-			{
-				...gameContract,
-				functionName: "totalAttempts",
-			},
-			{
-				...gameContract,
-				functionName: "playerQueryCount",
-				args: [address],
-			},
-		],
-
-		query: {
-			refetchInterval: 10000,
-
-			enabled: isConnected,
-		},
-	});
+	const { isPending, isSuccess, data } = useGameStats();
 
 	return (
 		<div className="relative h-full bg-dark overflow-x-clip overflow-y-auto">
@@ -137,13 +75,13 @@ const ChatSidebar = ({ about, stats, examplePrompts }) => {
 									</button>
 								</div>
 							</div>
-							{stats.map(({ label, value, name }, i) => (
+							{stats.map(({ label, name }, i) => (
 								<MotionDiv variants={variants.slideInBottom} key={i} className="space-y-[6px]">
 									<p className="uppercase text-xs md:text-sm">{label}</p>
 
 									{isPending && <Skeleton width={100} height={20} />}
 
-									{isSuccess && <h2 className="stats-value break-words">{getValueForName(name, data)}</h2>}
+									{isSuccess && <h2 className="stats-value break-words">{data[name]}</h2>}
 								</MotionDiv>
 							))}
 						</>
