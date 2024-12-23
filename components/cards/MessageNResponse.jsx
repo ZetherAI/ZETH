@@ -75,7 +75,7 @@ const MessageNResponse = ({ uid, requestId, won, responded, score, playerAddress
 				{messages &&
 					messages.map((msg, i) => {
 						return (
-							<div key={i}>
+							<div key={i} className=" ">
 								{!msg.isSystem && (
 									<div className="flex gap-3 w-full justify-end">
 										<div className="user-message flex flex-col items-end gap-1">
