@@ -16,7 +16,7 @@ import QuestSidebar from "../../components/questsidebar";
 
 const navs = [
 	{ label: "Home", link: "" },
-	{ label: "Quest", link: "quest" },
+	{ label: "Quest", link: "quests" },
 	// { label: "Assister", link: "assister" },
 	{ label: "Lore", link: "faq" },
 	{ label: "Rules", link: "terms" },
