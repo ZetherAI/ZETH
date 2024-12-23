@@ -55,10 +55,10 @@ function Home() {
 				</div>
 				<div className="flex-center">
 					{/* <span>© Lyra</span> */}
-					<Link href="/">
+					<Link href="https://x.com/lyraverseai?s=21">
 						<FaTwitter className="size-7 lg:size-8" />
 					</Link>
-					<Link href="/">
+					<Link href="https://github.com/Oxlyra">
 						<FaGithub className="size-7 lg:size-8" />
 					</Link>
 				</div>
