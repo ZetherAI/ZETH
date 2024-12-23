@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 // import { motion } from "framer-motion";
 import { MotionDiv } from "@/constants/motionProps";
 
@@ -11,7 +11,7 @@ import { ConnectKitButton } from "connectkit";
 import cn from "classnames";
 import { useAccount, useDisconnect } from "wagmi";
 import Skeleton from "react-loading-skeleton";
-import useGameStats from "../utils/hooks/usegamestats";
+import useGameStats, { toNum } from "../utils/hooks/usegamestats";
 import useCountDown from "../utils/hooks/usecountdown";
 
 function truncateWalletAddress(addr, startLength = 6, endLength = 4) {
@@ -27,7 +27,15 @@ const ChatSidebar = ({ about, stats, examplePrompts }) => {
 
 	const { isPending, isSuccess, data } = useGameStats();
 
-	const { remainingTime } = useCountDown(Date.now() + 600000);
+	const { remainingTime, setFutureTimestamp } = useCountDown(Date.now());
+
+	useEffect(() => {
+		if (toNum(data.gameStartTime) * 1000 > Date.now()) {
+			setFutureTimestamp(toNum(data.gameStartTime) * 1000);
+		} else {
+			setFutureTimestamp((toNum(data.gameStartTime) + toNum(data.gameDuration)) * 1000);
+		}
+	}, [data]);
 
 	return (
 		<div className="relative h-full bg-dark overflow-x-clip overflow-y-auto">
@@ -91,7 +99,9 @@ const ChatSidebar = ({ about, stats, examplePrompts }) => {
 							))}
 
 							<div className="space-y-[6px]">
-								<p className="uppercase text-xs md:text-sm">Countdown</p>
+								<p className="uppercase text-xs md:text-sm">
+									{toNum(data.gameStartTime) * 1000 > Date.now() ? "Game Starts In" : "Game Ends In"}
+								</p>
 
 								<div className="space-y-2">
 									<h2 className="stats-value">

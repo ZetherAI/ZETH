@@ -33,7 +33,8 @@
 		"components/navigation/ChatSidebar.jsx",
 		"app/(ai)/quests/[questSlug]/page.jsx",
 		"app/(ai)/assister/layout.jsx",
-		"components/cards/MessageNResponse.jsx"
+		"components/cards/MessageNResponse.jsx",
+		"components/navigation/ChatTopbar.jsx"
 	],
 	"exclude": ["node_modules"]
 }

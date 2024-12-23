@@ -26,6 +26,14 @@ function getValueForName(name, data) {
 		return data[1]?.result[0] || 0;
 	}
 
+	if (name === "duration") {
+		return data[1]?.result[3] || 0;
+	}
+
+	if (name === "startTime") {
+		return data[1]?.result[4] || 0;
+	}
+
 	if (name === "ethPrice") {
 		return data[5]?.result || 0;
 	}
@@ -114,6 +122,10 @@ export default function useGameStats() {
 			messagePriceRaw: (data && data[1]?.result[0]) || 0,
 
 			ethPrice: getValueForName("ethPrice", data),
+
+			gameDuration: getValueForName("duration", data),
+
+			gameStartTime: getValueForName("startTime", data),
 		},
 	};
 }
