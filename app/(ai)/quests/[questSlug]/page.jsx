@@ -30,7 +30,7 @@ const Home = () => {
 
 	const [fetchParams, setFetchParams] = useState({
 		page: 1,
-		size: 3,
+		size: 15,
 		useGlobalChats: true,
 	});
 

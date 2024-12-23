@@ -7,6 +7,8 @@ import { images } from "@/constants";
 import { createFetcher } from "../utils/fetcher";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
+import localizedFormat from "dayjs/plugin/localizedFormat";
+
 import Skeleton from "react-loading-skeleton";
 import { useReadContract } from "wagmi";
 import { GameAbi } from "../../constants";
@@ -14,6 +16,7 @@ import { toBaseUnit, toNum } from "@/components/utils/hooks/usegamestats";
 import cn from "classnames";
 
 dayjs.extend(relativeTime);
+dayjs.extend(localizedFormat);
 
 const MessageNResponse = ({ uid, requestId, won, responded, score, playerAddress, chainId }) => {
 	const gameContract = {
@@ -93,7 +96,7 @@ const MessageNResponse = ({ uid, requestId, won, responded, score, playerAddress
 										>
 											<p className="w-full  text-black px-2">{msg.content}</p>
 										</div>
-										<p className="xs self-end text-white/20">{dayjs(msg.createdAt * 1000).fromNow()}</p>
+										<p className="xs self-end text-white/20">{dayjs(msg.createdAt * 1000).format("LT")}</p>
 										{/* <div className="size-[35px] rounded-full bg-gradient-to-br from-brand-1/50 to-brand-4/50 backdrop-blur-xl" /> */}
 										{/* <Image
           src={images.pfp}
