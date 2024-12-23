@@ -78,7 +78,7 @@ const MessageNResponse = ({ uid, requestId, won, responded, score, playerAddress
 						return (
 							<div key={i} className=" ">
 								{!msg.isSystem && (
-									<div className="flex  w-full justify-end">
+									<div className="flex flex-col w-full justify-end space-y-2">
 										<div
 											className={
 												"user-message flex flex-col items-end gap-y-1  " +
@@ -92,8 +92,8 @@ const MessageNResponse = ({ uid, requestId, won, responded, score, playerAddress
 											}
 										>
 											<p className="w-full  text-black px-2">{msg.content}</p>
-											{/* <p className="xs !text-dark/50">{dayjs(msg.createdAt * 1000).fromNow()}</p> */}
 										</div>
+										<p className="xs self-end text-white/20">{dayjs(msg.createdAt * 1000).fromNow()}</p>
 										{/* <div className="size-[35px] rounded-full bg-gradient-to-br from-brand-1/50 to-brand-4/50 backdrop-blur-xl" /> */}
 										{/* <Image
           src={images.pfp}
