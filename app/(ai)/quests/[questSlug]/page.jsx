@@ -206,20 +206,10 @@ const Home = () => {
 
 	const adjustHeight = () => {
 		const textarea = inputRef.current;
-		const container = containerRef.current;
 		if (textarea) {
 			textarea.style.height = "auto"; // Reset height
 			const newHeight = Math.min(textarea.scrollHeight, 180); // Cap the height at 200px
 			textarea.style.height = `${newHeight}px`;
-
-			// Calculate number of lines
-			const lineCount = (textarea.value.match(/\n/g) || []).length + 1;
-
-			if (container) {
-				const baseRadius = 60; // Base radius for a single line
-				const radius = Math.max(20, baseRadius - lineCount * 23); // Adjust the divisor to get the desired radius
-				container.style.borderRadius = `${radius}px`;
-			}
 		}
 	};
 
