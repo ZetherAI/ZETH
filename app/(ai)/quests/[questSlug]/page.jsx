@@ -28,8 +28,8 @@ const Home = () => {
 
 	const [fetchParams, setFetchParams] = useState({
 		start: 0,
-		limit: 10,
-		useGlobalChats: false,
+		limit: 2,
+		useGlobalChats: true,
 	});
 
 	const [managedThreads, setManagedThreads] = useState([]);
@@ -89,7 +89,7 @@ const Home = () => {
 				if (!threads.hasMore) return;
 				setFetchParams({
 					...fetchParams,
-					start: fetchParams.start + 20,
+					start: fetchParams.start + fetchParams.limit,
 				});
 			}
 		};
@@ -197,7 +197,7 @@ const Home = () => {
 				className="flex flex-col h-full py-5 gap-4 overflow-y-scroll overflow-x-clip"
 			>
 				{loadingThreads && fetchParams.start !== 0 && (
-					<p className="text-sm text-center py-4 text-white"> Loading more... </p>
+					<p className="text-sm text-center pt-4 pb-12 text-white"> Loading more... </p>
 				)}
 				{!managedThreads && loadingThreads && (
 					<p className="text-sm text-center py-4 text-white"> Loading previous attempts... </p>

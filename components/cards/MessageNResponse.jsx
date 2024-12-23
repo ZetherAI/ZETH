@@ -51,7 +51,7 @@ const MessageNResponse = ({ uid, requestId, won, responded, score, playerAddress
 		isValid = true;
 	}
 
-	if (!isValid) return null;
+	// if (!isValid) return null;
 
 	return (
 		<div className="container  border-b py-4 border-white/10">
@@ -91,7 +91,7 @@ const MessageNResponse = ({ uid, requestId, won, responded, score, playerAddress
 									</div>
 								)}
 
-								{msg.isSystem && isValid && (
+								{msg.isSystem && (
 									<div className="flex gap-2 md:gap-3 w-full justify-start">
 										<Image
 											src={images.lyra}
@@ -100,7 +100,7 @@ const MessageNResponse = ({ uid, requestId, won, responded, score, playerAddress
 										/>
 										<div className="ai-message flex flex-col items-end gap-1">
 											<p className="w-full">{msg.content}</p>
-											<p className="xs !text-light/50">{dayjs(toNum(data[3]) * 1000).fromNow()}</p>
+											{/* <p className="xs !text-light/50">{dayjs(toNum(data[3]) * 1000).fromNow()}</p> */}
 										</div>
 										{/* <div className="size-[35px] rounded-full bg-gradient-to-br from-brand-1/50 to-brand-4/50 backdrop-blur-xl" /> */}
 									</div>
