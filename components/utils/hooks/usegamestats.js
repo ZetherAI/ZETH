@@ -1,7 +1,7 @@
 import { useAccount, useReadContracts } from "wagmi";
 import config from "../../../config";
 import { GameAbi } from "../../../constants";
-import { formatEther } from "viem";
+import { arbitrum } from "wagmi/chains";
 
 function getValueForName(name, data) {
 	if (!data) return 0;
@@ -14,15 +14,37 @@ function getValueForName(name, data) {
 		return data[3]?.result || 0;
 	}
 
+	if (name === "playerAttempts") {
+		return data[4]?.result || 0;
+	}
+
 	if (name === "prizePool") {
-		return formatEther(data[0]?.result || 0) + " ETH";
+		return data[0]?.result || 0;
 	}
 
 	if (name === "messagePrice") {
-		return formatEther(data[1]?.result[0] || 0) + " ETH";
+		return data[1]?.result[0] || 0;
+	}
+
+	if (name === "ethPrice") {
+		return data[5]?.result || 0;
 	}
 
 	return data[0]?.result || 0;
+}
+
+export function toNum(v) {
+	try {
+		const bigIntValue = BigInt(v);
+		return Number(bigIntValue.toString());
+	} catch (err) {
+		console.error(err);
+		return 0;
+	}
+}
+
+function toBaseUnit(v) {
+	return (+v / 100).toFixed(2);
 }
 
 export default function useGameStats() {
@@ -38,12 +60,12 @@ export default function useGameStats() {
 		contracts: [
 			{
 				...gameContract,
-				functionName: "pool",
+				functionName: "prizePool",
 			},
 
 			{
 				...gameContract,
-				functionName: "gameSettings",
+				functionName: "gameConfig",
 			},
 
 			{
@@ -57,23 +79,24 @@ export default function useGameStats() {
 			},
 			{
 				...gameContract,
-				functionName: "playerQueryCount",
+				functionName: "playerAttemptCount",
 				args: [address],
 			},
 
 			{
 				...gameContract,
-				functionName: "getGasEstimate",
-				args: [11],
+				functionName: "ethPrice",
 			},
 		],
 
 		query: {
 			refetchInterval: 5000,
 
-			enabled: isConnected,
+			enabled: isConnected && chain.id === arbitrum.id,
 		},
 	});
+
+	// console.log(data);
 
 	return {
 		isPending,
@@ -83,12 +106,15 @@ export default function useGameStats() {
 
 			totalAttempts: getValueForName("totalAttempts", data),
 
-			prizePool: getValueForName("prizePool", data),
+			prizePool: "$ " + toBaseUnit(toNum(getValueForName("prizePool", data))),
 
-			messagePrice: getValueForName("messagePrice", data),
+			messagePrice: "$ " + toBaseUnit(toNum(getValueForName("messagePrice", data))),
 
-			messagePriceRaw: data[1]?.result[0] || 0,
-			gasEstimateRaw: data[5]?.result[0] || 0,
+			playerAttempts: getValueForName("playerAttempts", data),
+
+			messagePriceRaw: (data && data[1]?.result[0]) || 0,
+
+			ethPrice: getValueForName("ethPrice", data),
 		},
 	};
 }

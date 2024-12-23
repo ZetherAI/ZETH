@@ -3,19 +3,24 @@
 		"inputs": [
 			{
 				"internalType": "address",
-				"name": "_devWallet",
+				"name": "_owner",
 				"type": "address"
 			},
 			{
 				"internalType": "address",
-				"name": "_owner",
+				"name": "_developerWallet",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "_feed",
 				"type": "address"
 			},
 			{
 				"components": [
 					{
 						"internalType": "uint256",
-						"name": "queryFee",
+						"name": "baseQueryFee",
 						"type": "uint256"
 					},
 					{
@@ -30,42 +35,32 @@
 					},
 					{
 						"internalType": "uint256",
-						"name": "gameDuration",
+						"name": "duration",
 						"type": "uint256"
 					},
 					{
 						"internalType": "uint256",
-						"name": "gameStartTime",
+						"name": "startTime",
 						"type": "uint256"
 					},
 					{
 						"internalType": "uint8",
-						"name": "pricePoolPercentage",
+						"name": "prizePoolPercentage",
 						"type": "uint8"
 					},
 					{
 						"internalType": "uint8",
-						"name": "devWalletPercentage",
+						"name": "developerWalletPercentage",
 						"type": "uint8"
 					}
 				],
-				"internalType": "struct Game.GameSettings",
-				"name": "_settings",
+				"internalType": "struct Game.GameConfig",
+				"name": "_config",
 				"type": "tuple"
-			},
-			{
-				"internalType": "contract IAIOracle",
-				"name": "_aiOracle",
-				"type": "address"
 			}
 		],
 		"stateMutability": "payable",
 		"type": "constructor"
-	},
-	{
-		"inputs": [],
-		"name": "AIRequestDoesNotExist",
-		"type": "error"
 	},
 	{
 		"inputs": [],
@@ -74,37 +69,37 @@
 	},
 	{
 		"inputs": [],
-		"name": "AmountLessThanQueryFee",
+		"name": "EtherTransferFailed",
 		"type": "error"
 	},
 	{
 		"inputs": [],
-		"name": "AmountLessThanQueryFeePlusSlippage",
+		"name": "GameEnded",
 		"type": "error"
 	},
 	{
 		"inputs": [],
-		"name": "FailedToSendEthers",
+		"name": "GameInProgress",
 		"type": "error"
 	},
 	{
 		"inputs": [],
-		"name": "GameHasEnded",
+		"name": "GameNotStarted",
 		"type": "error"
 	},
 	{
 		"inputs": [],
-		"name": "GameHasNotStarted",
+		"name": "InsufficientQueryFee",
 		"type": "error"
 	},
 	{
 		"inputs": [],
-		"name": "GameIsInProgress",
+		"name": "InsufficientQueryFeeWithSlippage",
 		"type": "error"
 	},
 	{
 		"inputs": [],
-		"name": "NotAParticipant",
+		"name": "NotAPlayer",
 		"type": "error"
 	},
 	{
@@ -131,38 +126,27 @@
 	},
 	{
 		"inputs": [],
-		"name": "PlayerQueryDoesNotExist",
+		"name": "PlayerAttemptNotFound",
 		"type": "error"
 	},
 	{
 		"inputs": [],
-		"name": "UnableToProcessRefund",
-		"type": "error"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "contract IAIOracle",
-				"name": "expected",
-				"type": "address"
-			},
-			{
-				"internalType": "contract IAIOracle",
-				"name": "found",
-				"type": "address"
-			}
-		],
-		"name": "UnauthorizedCallbackSource",
+		"name": "ReentrancyGuardReentrantCall",
 		"type": "error"
 	},
 	{
 		"inputs": [],
-		"name": "UnsupportedModel",
+		"name": "RefundProcessingFailed",
 		"type": "error"
 	},
 	{
 		"inputs": [],
-		"name": "WinnerAlreadyExists",
+		"name": "RequestIDExists",
+		"type": "error"
+	},
+	{
+		"inputs": [],
+		"name": "WinnerAlreadyDeclared",
 		"type": "error"
 	},
 	{
@@ -183,7 +167,7 @@
 				"components": [
 					{
 						"internalType": "uint256",
-						"name": "queryFee",
+						"name": "baseQueryFee",
 						"type": "uint256"
 					},
 					{
@@ -198,32 +182,32 @@
 					},
 					{
 						"internalType": "uint256",
-						"name": "gameDuration",
+						"name": "duration",
 						"type": "uint256"
 					},
 					{
 						"internalType": "uint256",
-						"name": "gameStartTime",
+						"name": "startTime",
 						"type": "uint256"
 					},
 					{
 						"internalType": "uint8",
-						"name": "pricePoolPercentage",
+						"name": "prizePoolPercentage",
 						"type": "uint8"
 					},
 					{
 						"internalType": "uint8",
-						"name": "devWalletPercentage",
+						"name": "developerWalletPercentage",
 						"type": "uint8"
 					}
 				],
 				"indexed": false,
-				"internalType": "struct Game.GameSettings",
-				"name": "settings",
+				"internalType": "struct Game.GameConfig",
+				"name": "config",
 				"type": "tuple"
 			}
 		],
-		"name": "LyraGameDeployed",
+		"name": "GameLaunched",
 		"type": "event"
 	},
 	{
@@ -262,18 +246,12 @@
 			},
 			{
 				"indexed": false,
-				"internalType": "uint256",
-				"name": "modelId",
-				"type": "uint256"
-			},
-			{
-				"indexed": false,
 				"internalType": "string",
 				"name": "prompt",
 				"type": "string"
 			}
 		],
-		"name": "PlayerAttempt",
+		"name": "PlayerAttemptResult",
 		"type": "event"
 	},
 	{
@@ -293,30 +271,12 @@
 			},
 			{
 				"indexed": false,
-				"internalType": "uint256",
-				"name": "modelId",
-				"type": "uint256"
-			},
-			{
-				"indexed": false,
 				"internalType": "string",
 				"name": "prompt",
 				"type": "string"
-			},
-			{
-				"indexed": false,
-				"internalType": "uint8",
-				"name": "score",
-				"type": "uint8"
-			},
-			{
-				"indexed": false,
-				"internalType": "bool",
-				"name": "won",
-				"type": "bool"
 			}
 		],
-		"name": "PlayerAttemptResult",
+		"name": "PlayerAttempted",
 		"type": "event"
 	},
 	{
@@ -331,7 +291,7 @@
 			{
 				"indexed": false,
 				"internalType": "uint256",
-				"name": "refundDue",
+				"name": "refundAmount",
 				"type": "uint256"
 			}
 		],
@@ -348,15 +308,28 @@
 				"type": "address"
 			}
 		],
-		"name": "WinnerAnnouncement",
+		"name": "WinnerDeclared",
 		"type": "event"
 	},
 	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_feed",
+				"type": "address"
+			}
+		],
+		"name": "changeFeed",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
 		"inputs": [],
-		"name": "aiOracle",
+		"name": "currentWinner",
 		"outputs": [
 			{
-				"internalType": "contract IAIOracle",
+				"internalType": "address",
 				"name": "",
 				"type": "address"
 			}
@@ -372,35 +345,24 @@
 				"type": "uint256"
 			},
 			{
-				"internalType": "bytes",
-				"name": "output",
-				"type": "bytes"
-			},
-			{
-				"internalType": "bytes",
-				"name": "callbackData",
-				"type": "bytes"
+				"internalType": "address",
+				"name": "winnerAddress",
+				"type": "address"
 			}
 		],
-		"name": "aiOracleCallback",
+		"name": "declareWinner",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "callbackGasLimit",
+		"inputs": [],
+		"name": "developerWallet",
 		"outputs": [
 			{
-				"internalType": "uint64",
+				"internalType": "address",
 				"name": "",
-				"type": "uint64"
+				"type": "address"
 			}
 		],
 		"stateMutability": "view",
@@ -408,11 +370,24 @@
 	},
 	{
 		"inputs": [],
-		"name": "gameSettings",
+		"name": "ethPrice",
 		"outputs": [
 			{
 				"internalType": "uint256",
-				"name": "queryFee",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "gameConfig",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "baseQueryFee",
 				"type": "uint256"
 			},
 			{
@@ -427,22 +402,22 @@
 			},
 			{
 				"internalType": "uint256",
-				"name": "gameDuration",
+				"name": "duration",
 				"type": "uint256"
 			},
 			{
 				"internalType": "uint256",
-				"name": "gameStartTime",
+				"name": "startTime",
 				"type": "uint256"
 			},
 			{
 				"internalType": "uint8",
-				"name": "pricePoolPercentage",
+				"name": "prizePoolPercentage",
 				"type": "uint8"
 			},
 			{
 				"internalType": "uint8",
-				"name": "devWalletPercentage",
+				"name": "developerWalletPercentage",
 				"type": "uint8"
 			}
 		],
@@ -450,14 +425,15 @@
 		"type": "function"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "modelId",
-				"type": "uint256"
-			}
-		],
-		"name": "getGasEstimate",
+		"inputs": [],
+		"name": "getRefund",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "initialPrizePool",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -470,44 +446,12 @@
 	},
 	{
 		"inputs": [],
-		"name": "getPrompt",
+		"name": "minSlippagePercentage",
 		"outputs": [
 			{
-				"internalType": "string",
+				"internalType": "uint8",
 				"name": "",
-				"type": "string"
-			}
-		],
-		"stateMutability": "pure",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "initialPricePool",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "requestId",
-				"type": "uint256"
-			}
-		],
-		"name": "isFinalized",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
+				"type": "uint8"
 			}
 		],
 		"stateMutability": "view",
@@ -542,17 +486,68 @@
 	{
 		"inputs": [
 			{
-				"internalType": "string",
-				"name": "inputMessage",
-				"type": "string"
+				"internalType": "uint256",
+				"name": "requestId",
+				"type": "uint256"
 			},
 			{
-				"internalType": "uint256",
-				"name": "modelId",
-				"type": "uint256"
+				"internalType": "string",
+				"name": "userInput",
+				"type": "string"
 			}
 		],
 		"name": "play",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "address",
+						"name": "playerAddress",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "requestId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "fee",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "timestamp",
+						"type": "uint256"
+					},
+					{
+						"internalType": "bool",
+						"name": "isWinner",
+						"type": "bool"
+					},
+					{
+						"internalType": "bool",
+						"name": "isRefunded",
+						"type": "bool"
+					}
+				],
+				"internalType": "struct Game.PlayerAttempt",
+				"name": "",
+				"type": "tuple"
+			}
+		],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "playerAttemptCount",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -560,7 +555,7 @@
 				"type": "uint256"
 			}
 		],
-		"stateMutability": "payable",
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -576,11 +571,11 @@
 				"type": "uint256"
 			}
 		],
-		"name": "playerQueries",
+		"name": "playerAttempts",
 		"outputs": [
 			{
 				"internalType": "address",
-				"name": "sender",
+				"name": "playerAddress",
 				"type": "address"
 			},
 			{
@@ -599,23 +594,13 @@
 				"type": "uint256"
 			},
 			{
-				"internalType": "uint8",
-				"name": "score",
-				"type": "uint8"
-			},
-			{
 				"internalType": "bool",
-				"name": "won",
+				"name": "isWinner",
 				"type": "bool"
 			},
 			{
 				"internalType": "bool",
-				"name": "failed",
-				"type": "bool"
-			},
-			{
-				"internalType": "bool",
-				"name": "refunded",
+				"name": "isRefunded",
 				"type": "bool"
 			}
 		],
@@ -623,14 +608,8 @@
 		"type": "function"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"name": "playerQueryCount",
+		"inputs": [],
+		"name": "prizePool",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -639,39 +618,6 @@
 			}
 		],
 		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "pool",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "queryFeeMinSlippage",
-		"outputs": [
-			{
-				"internalType": "uint8",
-				"name": "",
-				"type": "uint8"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "refundPlayer",
-		"outputs": [],
-		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -684,58 +630,25 @@
 	{
 		"inputs": [
 			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			},
+			{
 				"internalType": "uint256",
 				"name": "",
 				"type": "uint256"
 			}
 		],
-		"name": "requests",
+		"name": "requestIds",
 		"outputs": [
 			{
-				"internalType": "address",
-				"name": "sender",
-				"type": "address"
-			},
-			{
 				"internalType": "uint256",
-				"name": "modelId",
-				"type": "uint256"
-			},
-			{
-				"internalType": "bytes",
-				"name": "input",
-				"type": "bytes"
-			},
-			{
-				"internalType": "bytes",
-				"name": "output",
-				"type": "bytes"
-			},
-			{
-				"internalType": "uint256",
-				"name": "queryIndex",
+				"name": "",
 				"type": "uint256"
 			}
 		],
 		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "modelId",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint64",
-				"name": "gasLimit",
-				"type": "uint64"
-			}
-		],
-		"name": "setCallbackGasLimit",
-		"outputs": [],
-		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -746,7 +659,7 @@
 				"type": "address"
 			}
 		],
-		"name": "setDevWallet",
+		"name": "setDeveloperWallet",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -809,7 +722,7 @@
 				"components": [
 					{
 						"internalType": "uint256",
-						"name": "queryFee",
+						"name": "baseQueryFee",
 						"type": "uint256"
 					},
 					{
@@ -824,55 +737,42 @@
 					},
 					{
 						"internalType": "uint256",
-						"name": "gameDuration",
+						"name": "duration",
 						"type": "uint256"
 					},
 					{
 						"internalType": "uint256",
-						"name": "gameStartTime",
+						"name": "startTime",
 						"type": "uint256"
 					},
 					{
 						"internalType": "uint8",
-						"name": "pricePoolPercentage",
+						"name": "prizePoolPercentage",
 						"type": "uint8"
 					},
 					{
 						"internalType": "uint8",
-						"name": "devWalletPercentage",
+						"name": "developerWalletPercentage",
 						"type": "uint8"
 					}
 				],
-				"internalType": "struct Game.GameSettings",
-				"name": "_settings",
+				"internalType": "struct Game.GameConfig",
+				"name": "_config",
 				"type": "tuple"
 			}
 		],
-		"name": "updateSettings",
+		"name": "updateConfig",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
 		"inputs": [],
-		"name": "winner",
+		"name": "winningAttempt",
 		"outputs": [
 			{
 				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "winnerQuery",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "sender",
+				"name": "playerAddress",
 				"type": "address"
 			},
 			{
@@ -891,23 +791,13 @@
 				"type": "uint256"
 			},
 			{
-				"internalType": "uint8",
-				"name": "score",
-				"type": "uint8"
-			},
-			{
 				"internalType": "bool",
-				"name": "won",
+				"name": "isWinner",
 				"type": "bool"
 			},
 			{
 				"internalType": "bool",
-				"name": "failed",
-				"type": "bool"
-			},
-			{
-				"internalType": "bool",
-				"name": "refunded",
+				"name": "isRefunded",
 				"type": "bool"
 			}
 		],

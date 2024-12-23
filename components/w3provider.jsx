@@ -1,16 +1,15 @@
 "use client";
 
 import { http, createConfig, WagmiProvider } from "wagmi";
-import { arbitrum, arbitrumSepolia } from "wagmi/chains";
+import { arbitrum } from "wagmi/chains";
 import { ConnectKitProvider, getDefaultConfig } from "connectkit";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 
 const wagmiConfig = createConfig(
 	getDefaultConfig({
-		chains: [arbitrum, arbitrumSepolia],
+		chains: [arbitrum],
 		transports: {
 			[arbitrum.id]: http(),
-			[arbitrumSepolia.id]: http(),
 		},
 
 		walletConnectProjectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID,

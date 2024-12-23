@@ -21,7 +21,7 @@ function truncateWalletAddress(addr, startLength = 6, endLength = 4) {
 }
 
 const ChatSidebar = ({ about, stats, examplePrompts }) => {
-	const { isConnected, address } = useAccount();
+	const { isConnected, address, chain } = useAccount();
 	const { disconnect } = useDisconnect();
 
 	const { isPending, isSuccess, data } = useGameStats();
@@ -69,6 +69,8 @@ const ChatSidebar = ({ about, stats, examplePrompts }) => {
 								<div className="space-y-2">
 									<h2 className="stats-value">{truncateWalletAddress(address)}</h2>
 
+									<p className="text-xs font-bold"> {chain.name} </p>
+
 									<button onClick={disconnect} className="bg-white/15 hover:bg-white/20 px-4 py-1 rounded-md">
 										{" "}
 										Disconnect
@@ -79,7 +81,7 @@ const ChatSidebar = ({ about, stats, examplePrompts }) => {
 								<MotionDiv variants={variants.slideInBottom} key={i} className="space-y-[6px]">
 									<p className="uppercase text-xs md:text-sm">{label}</p>
 
-									{isPending && <Skeleton width={100} height={20} />}
+									{(isPending || !isSuccess) && <Skeleton width={100} height={20} />}
 
 									{isSuccess && <h2 className="stats-value break-words">{data[name]}</h2>}
 								</MotionDiv>

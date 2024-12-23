@@ -1,9 +1,16 @@
-import { arbitrum, arbitrumSepolia } from "wagmi/chains";
+import { arbitrum } from "wagmi/chains";
 
 const config = {
 	gameContractAddress: {
-		[arbitrum.id]: "0xD5650Dc4d24265cec6C517C9BdB5E0F93de8F6f9",
-		[arbitrumSepolia.id]: "0x1Ace536d3575454f169c39e6209308dDA80D8FD8",
+		[arbitrum.id]: "0xeE744c05A8BFe7599e833D8dE546A07A9892b9de",
+	},
+
+	apiUrl: process.env.NEXT_PUBLIC_API_URL || "http://localhost:7000/api",
+
+	endpoints: {
+		createThread: "/threads/messages",
+		getThreads: "/threads/player",
+		getThreadMessages: "/threads",
 	},
 };
 

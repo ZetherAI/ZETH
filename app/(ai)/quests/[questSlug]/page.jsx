@@ -1,15 +1,20 @@
 "use client";
 
-import React, { useState } from "react";
-import { ChatTopbar, SubmitButton } from "@/components";
-import { Play } from "lucide-react";
+import React, { useEffect, useState } from "react";
+import { ChatTopbar, MessageNResponse, SubmitButton } from "@/components";
+import { SendHorizonal, Wallet2 } from "lucide-react";
 import { GameStats } from "@/constants/staticText";
-import useGameStats from "@/components/utils/hooks/usegamestats";
+import useGameStats, { toNum } from "@/components/utils/hooks/usegamestats";
 import { useWriteContract, useAccount, useSwitchChain } from "wagmi";
 import { GameAbi } from "../../../../constants";
 import config from "@/config";
-import { arbitrum, arbitrumSepolia } from "wagmi/chains";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { arbitrum } from "wagmi/chains";
 import { ConnectKitButton } from "connectkit";
+import { createFetcher } from "../../../../components/utils/fetcher";
+import cn from "classnames";
+import WorkingIndicator from "../../../../components/WorkingIndicator";
+import { toast } from "sonner";
 
 const Home = () => {
 	// const messageContainer = document.getElementById("message-container");
@@ -19,9 +24,76 @@ const Home = () => {
 
 	const { data } = useGameStats();
 	const { writeContract } = useWriteContract();
-	const { chain } = useAccount();
+	const { chain, address } = useAccount();
 	const { switchChain } = useSwitchChain();
 	const [message, setMessage] = useState("");
+	const { messagePriceRaw, playerAttempts, ethPrice } = data;
+
+	const {
+		data: threads,
+		isPending: loadingThreads,
+		isError: cannotLoadThreads,
+	} = useQuery({
+		queryKey: [config.endpoints.getThreads, address],
+
+		queryFn: createFetcher({
+			url: config.endpoints.getThreads,
+			method: "GET",
+			surfix: `/${address}`,
+		}),
+
+		enabled: !!address,
+	});
+
+	const {
+		mutate,
+		isPending,
+		isError,
+		error,
+		isSuccess,
+		data: thread,
+	} = useMutation({
+		mutationKey: [config.endpoints.createThread, address],
+		mutationFn: createFetcher({
+			url: config.endpoints.createThread,
+			method: "POST",
+		}),
+	});
+
+	useEffect(() => {
+		if (isSuccess && data) {
+			if (chain?.id !== arbitrum.id) {
+				toast.warning("Invalid chain detected, please switch to Arbitrum One");
+
+				switchChain({
+					chainId: arbitrum.id,
+				});
+
+				return;
+			}
+
+			const value = Math.round((toNum(messagePriceRaw) * 1e24) / toNum(ethPrice));
+
+			toast.info("Please confirm transaction in your wallet");
+
+			// console.log(value, thread.requestId);
+
+			writeContract({
+				abi: GameAbi,
+				address: config.gameContractAddress[chain?.id],
+				functionName: "play",
+				args: [thread.requestId, message],
+				value,
+			});
+
+			setMessage("");
+		}
+
+		if (isError) {
+			console.log("Error: ", error);
+			toast.error("Unable to process your request, try again");
+		}
+	}, [isSuccess, thread, isError]);
 
 	function onMessageChange(e) {
 		setMessage(e.target.value);
@@ -30,30 +102,10 @@ const Home = () => {
 	function play() {
 		if (!message) return;
 
-		const chainIds = [arbitrum.id, arbitrumSepolia.id];
-
-		if (!chainIds.includes(chain.id)) {
-			switchChain({
-				chainId: arbitrum.id,
-			});
-		}
-
-		const { gasEstimateRaw, messagePriceRaw } = data;
-
-		const value = +BigInt(gasEstimateRaw).toString() + +BigInt(messagePriceRaw).toString();
-
-		console.log(gasEstimateRaw, messagePriceRaw);
-
-		writeContract({
-			abi: GameAbi,
-			address: config.gameContractAddress[chain?.id],
-			functionName: "play",
-			args: [message, 11],
-
-			value,
+		mutate({
+			playerAddress: address,
+			content: message,
 		});
-
-		setMessage("");
 	}
 
 	return (
@@ -65,13 +117,18 @@ const Home = () => {
 			/>
 
 			{/* ! MESSAGES DISPLAY */}
-			{/* <div id="message-container" className="flex flex-col h-full py-5 gap-4 overflow-y-auto overflow-x-clip">
-				{dummyMessages.map(({ message, ai_response, time }: IMessage, i: number) => (
-					<div key={i} className="container !py-0">
-						<MessageNResponse key={i} message={message} ai_response={ai_response} time={time} />
-					</div>
-				))}
-			</div> */}
+			<div id="message-container" className="flex flex-col h-full py-5 gap-4 overflow-y-auto overflow-x-clip">
+				{!threads && <p className="text-sm text-center py-4 text-white"> Loading previous attempts... </p>}
+
+				{threads &&
+					threads.items.map((t, i) => (
+						<div key={i} className="container  border-b py-4 border-white/10">
+							<MessageNResponse key={i} {...t} />
+						</div>
+					))}
+
+				<WorkingIndicator />
+			</div>
 
 			{/* ! INPUT */}
 			<div className="w-full py-5 border-t border-white/10 shadow-xl shadow-white/5">
@@ -106,9 +163,16 @@ const Home = () => {
 											onClick={handleClick}
 											text=""
 											className={
-												" rounded-full  bg-white/10 hover:bg-white/20 backdrop-blur-lg p-2 lg:p-3 flex-center "
+												" rounded-full  bg-white/10 hover:bg-white/20 backdrop-blur-lg p-2 lg:p-3 flex-center " +
+												cn(isPending && " pointer-events-none opacity-40")
 											}
-											icon={<Play className="size-4 lg:size-6" />}
+											icon={
+												isConnected ? (
+													<SendHorizonal className="size-4 lg:size-6" />
+												) : (
+													<Wallet2 className="size-4 lg:size-6" />
+												)
+											}
 										/>
 									);
 								}}
