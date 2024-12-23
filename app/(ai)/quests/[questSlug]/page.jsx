@@ -15,6 +15,7 @@ import { createFetcher } from "../../../../components/utils/fetcher";
 import cn from "classnames";
 import WorkingIndicator from "../../../../components/WorkingIndicator";
 import { toast } from "sonner";
+import Loader from "@/components/Loader";
 
 const Home = () => {
 	const containerRef = useRef(null);
@@ -249,8 +250,10 @@ const Home = () => {
 												cn(isPending && " pointer-events-none opacity-40")
 											}
 											icon={
-												isConnected ? (
-													<SendHorizonal className="size-4 lg:size-6" />
+												isPending ? (
+													<Loader type="default" size={7} />
+												) : isConnected ? (
+													<SendHorizonal className="size-4 lg:size-6" size={5} />
 												) : (
 													<Wallet2 className="size-4 lg:size-6" />
 												)
