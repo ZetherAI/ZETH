@@ -8,7 +8,7 @@ import useGameStats, { toNum } from "@/components/utils/hooks/usegamestats";
 import { useWriteContract, useAccount, useSwitchChain } from "wagmi";
 import { GameAbi } from "../../../../constants";
 import config from "@/config";
-import { useMutation, useQueryClient, useInfiniteQuery } from "@tanstack/react-query";
+import { useMutation, useQueryClient, useInfiniteQuery, keepPreviousData } from "@tanstack/react-query";
 import { arbitrum } from "wagmi/chains";
 import { ConnectKitButton } from "connectkit";
 import { createFetcher } from "../../../../components/utils/fetcher";
@@ -30,7 +30,7 @@ const Home = () => {
 
 	const [fetchParams, setFetchParams] = useState({
 		cursor: 0,
-		limit: 1,
+		limit: 10,
 		useGlobalChats: true,
 	});
 
@@ -70,9 +70,11 @@ const Home = () => {
 			cursor: lastPage?.nextCursor || fetchParams.cursor,
 		}),
 
+		placeholderData: keepPreviousData,
+
 		enabled: !!address,
 
-		// refetchInterval: 10000,
+		refetchInterval: 10000,
 	});
 
 	const {
