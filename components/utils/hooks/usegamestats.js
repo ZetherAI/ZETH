@@ -35,8 +35,7 @@ function getValueForName(name, data) {
 
 export function toNum(v) {
 	try {
-		const bigIntValue = BigInt(v);
-		return Number(bigIntValue.toString());
+		return Number(BigInt(v));
 	} catch (err) {
 		console.error(err);
 		return 0;
@@ -44,7 +43,7 @@ export function toNum(v) {
 }
 
 export function toBaseUnit(v) {
-	return (+v / 100).toFixed(2);
+	return +(+v / 100).toFixed(2);
 }
 
 export default function useGameStats() {

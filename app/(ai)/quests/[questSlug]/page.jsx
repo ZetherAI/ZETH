@@ -89,7 +89,9 @@ const Home = () => {
 				queryKey: [config.endpoints.getThreads],
 			});
 
-			const value = Math.round((toNum(messagePriceRaw) * 1e24) / toNum(ethPrice));
+			let value = (toNum(messagePriceRaw) * 1e24) / toNum(ethPrice);
+
+			value = Math.round(value + value * 0.1);
 
 			toast.info("Please confirm transaction in your wallet");
 
@@ -143,12 +145,7 @@ const Home = () => {
 			>
 				{!threads && <p className="text-sm text-center py-4 text-white"> Loading previous attempts... </p>}
 
-				{threads &&
-					threads.items.map((t, i) => (
-						<div key={i} className="container  border-b py-4 border-white/10">
-							<MessageNResponse key={i} {...t} chainId={arbitrum.id} />
-						</div>
-					))}
+				{threads && threads.items.map((t, i) => <MessageNResponse key={i} {...t} chainId={arbitrum.id} />)}
 
 				<WorkingIndicator />
 			</div>
