@@ -78,7 +78,7 @@ const ChatTopbar = ({ intro, about, stats, examplePrompts }) => {
 								</p>
 							</>
 						) : (
-							<Skeleton width={100} height={15} count={2} />
+							<Skeleton width={100} height={15} />
 						)}
 					</div>
 					<div className="hide-md">
