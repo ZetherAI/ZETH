@@ -88,7 +88,7 @@ const Home = () => {
 
 		enabled: !!address,
 
-		refetchInterval: 10000,
+		refetchInterval: 5000,
 	});
 
 	const {
