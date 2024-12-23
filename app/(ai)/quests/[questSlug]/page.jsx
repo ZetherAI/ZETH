@@ -8,7 +8,7 @@ import useGameStats, { toNum } from "@/components/utils/hooks/usegamestats";
 import { useWriteContract, useAccount, useSwitchChain } from "wagmi";
 import { GameAbi } from "../../../../constants";
 import config from "@/config";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { arbitrum } from "wagmi/chains";
 import { ConnectKitButton } from "connectkit";
 import { createFetcher } from "../../../../components/utils/fetcher";
@@ -17,11 +17,7 @@ import WorkingIndicator from "../../../../components/WorkingIndicator";
 import { toast } from "sonner";
 
 const Home = () => {
-	// const messageContainer = document.getElementById("message-container");
-	// if (messageContainer) {
-	//   messageContainer.scrollTop = messageContainer?.scrollHeight;
-	// }
-
+	const queryClient = useQueryClient();
 	const { data } = useGameStats();
 	const { writeContract } = useWriteContract();
 	const { chain, address } = useAccount();
@@ -43,6 +39,8 @@ const Home = () => {
 		}),
 
 		enabled: !!address,
+
+		refetchInterval: 30000,
 	});
 
 	const {
@@ -61,7 +59,14 @@ const Home = () => {
 	});
 
 	useEffect(() => {
-		if (isSuccess && data) {
+		const messageContainer = document.getElementById("message-container");
+		if (messageContainer) {
+			messageContainer.scrollTop = messageContainer?.scrollHeight;
+		}
+	}, [threads]);
+
+	useEffect(() => {
+		if (isSuccess && thread) {
 			if (chain?.id !== arbitrum.id) {
 				toast.warning("Invalid chain detected, please switch to Arbitrum One");
 
@@ -71,6 +76,10 @@ const Home = () => {
 
 				return;
 			}
+
+			queryClient.refetchQueries({
+				queryKey: [config.endpoints.getThreads],
+			});
 
 			const value = Math.round((toNum(messagePriceRaw) * 1e24) / toNum(ethPrice));
 
@@ -93,7 +102,7 @@ const Home = () => {
 			console.log("Error: ", error);
 			toast.error("Unable to process your request, try again");
 		}
-	}, [isSuccess, thread, isError]);
+	}, [isSuccess, isError, thread]);
 
 	function onMessageChange(e) {
 		setMessage(e.target.value);
@@ -101,6 +110,8 @@ const Home = () => {
 
 	function play() {
 		if (!message) return;
+
+		if (isPending) return;
 
 		mutate({
 			playerAddress: address,

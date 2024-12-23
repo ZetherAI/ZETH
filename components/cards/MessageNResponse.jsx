@@ -7,6 +7,7 @@ import { images } from "@/constants";
 import { createFetcher } from "../utils/fetcher";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
+import Skeleton from "react-loading-skeleton";
 
 dayjs.extend(relativeTime);
 
@@ -16,19 +17,25 @@ const MessageNResponse = ({ uid, requestId, won, responded, score, playerAddress
 		isPending: loadingMsg,
 		isError: cannotLoadMsgs,
 	} = useQuery({
-		queryKey: [config.endpoints.getThreadMessages, playerAddress],
+		queryKey: [config.endpoints.getThreadMessages, uid, playerAddress],
 
 		queryFn: createFetcher({
 			url: config.endpoints.getThreadMessages,
 			method: "GET",
 			surfix: `/${uid}/messages`,
 		}),
-
-		refetchInterval: 5000,
 	});
 
 	return (
 		<div className="flex flex-col gap-3">
+			{!messages && (
+				<div className="flex gap-2 md:gap-3 w-full justify-end">
+					<div className="ai-message flex flex-col items-end gap-1">
+						<Skeleton height={40} width={200} borderRadius={10} />
+					</div>
+					{/* <div className="size-[35px] rounded-full bg-gradient-to-br from-brand-1/50 to-brand-4/50 backdrop-blur-xl" /> */}
+				</div>
+			)}
 			{messages &&
 				messages.map((msg, i) => {
 					return (
