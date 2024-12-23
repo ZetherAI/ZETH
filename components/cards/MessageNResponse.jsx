@@ -61,7 +61,7 @@ const MessageNResponse = ({ uid, requestId, won, responded, score, playerAddress
 		<div className="container  border-b py-4 border-white/5">
 			<div className="flex flex-col gap-x-2 gap-y-8 relative pb-4">
 				{data && (
-					<p className="absolute shadow-lg -top-6   lg:-top-8 left-1/2 -translate-x-1/2 bg-black z-20 text-xs font-medium rounded-lg text-white px-2 py-1">
+					<p className="absolute shadow-lg -top-6   lg:-top-8 left-1/2 -translate-x-1/2 bg-black z-20 text-xs  rounded-lg text-white px-2 py-1">
 						{toBaseUnit(toNum(data[2])) > 0 ? `$${toBaseUnit(toNum(data[2]))}` : "awaiting payment..."}
 
 						{won && " | Winner 🏆"}
