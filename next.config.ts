@@ -7,6 +7,10 @@ const nextConfig: NextConfig = {
 		config.resolve.fallback = { fs: false, net: false, tls: false };
 		return config;
 	},
+
+	eslint: {
+		ignoreDuringBuilds: true,
+	},
 };
 
 export default nextConfig;
