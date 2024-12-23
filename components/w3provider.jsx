@@ -20,6 +20,8 @@ const wagmiConfig = createConfig(
 			"Lyra is the cosmic guardian, overseeing a growing prize pool and testing the ingenuity and wits of humanity.",
 		appUrl: "https://www.lyraverse.xyz",
 		appIcon: "https://www.lyraverse.xyz/favicon.ico",
+
+		syncConnectedChain: true,
 	})
 );
 
