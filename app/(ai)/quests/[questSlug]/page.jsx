@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { ChatTopbar, MessageNResponse, SubmitButton } from "@/components";
 import { SendHorizonal, Wallet2 } from "lucide-react";
 import { GameStats } from "@/constants/staticText";
@@ -17,6 +17,7 @@ import WorkingIndicator from "../../../../components/WorkingIndicator";
 import { toast } from "sonner";
 
 const Home = () => {
+	const containerRef = useRef(null);
 	const queryClient = useQueryClient();
 	const { data } = useGameStats();
 	const { writeContract } = useWriteContract();
@@ -59,9 +60,16 @@ const Home = () => {
 	});
 
 	useEffect(() => {
-		const messageContainer = document.getElementById("message-container");
-		if (messageContainer) {
-			messageContainer.scrollTop = messageContainer?.scrollHeight;
+		if (containerRef.current) {
+			const offset = 0;
+			const scrollHeight = containerRef.current.scrollHeight;
+			const clientHeight = containerRef.current.clientHeight;
+			const scrollTopPosition = scrollHeight - clientHeight - offset;
+
+			containerRef.current.scrollTo({
+				top: scrollTopPosition,
+				behavior: "smooth",
+			});
 		}
 	}, [threads]);
 
@@ -128,7 +136,11 @@ const Home = () => {
 			/>
 
 			{/* ! MESSAGES DISPLAY */}
-			<div id="message-container" className="flex flex-col h-full py-5 gap-4 overflow-y-auto overflow-x-clip">
+			<div
+				ref={containerRef}
+				id="message-container"
+				className="flex flex-col h-full py-5 gap-4 overflow-y-auto overflow-x-clip"
+			>
 				{!threads && <p className="text-sm text-center py-4 text-white"> Loading previous attempts... </p>}
 
 				{threads &&
