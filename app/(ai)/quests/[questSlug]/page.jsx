@@ -56,12 +56,16 @@ const Home = () => {
 
 		enabled: !!address,
 
-		refetchInterval: 30000,
+		refetchInterval: 10000,
 	});
 
 	useEffect(() => {
 		if (threads && threads.items) {
-			setManagedThreads((prev) => threads.items.concat(prev));
+			if (fetchParams.start > 0) {
+				setManagedThreads((prev) => threads.items.concat(prev));
+			} else {
+				setManagedThreads(threads.items);
+			}
 
 			// console.log(managedThreads.length);
 		}
