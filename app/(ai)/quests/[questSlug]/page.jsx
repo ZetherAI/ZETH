@@ -146,7 +146,7 @@ const Home = () => {
 				{threads &&
 					threads.items.map((t, i) => (
 						<div key={i} className="container  border-b py-4 border-white/10">
-							<MessageNResponse key={i} {...t} />
+							<MessageNResponse key={i} {...t} chainId={arbitrum.id} />
 						</div>
 					))}
 

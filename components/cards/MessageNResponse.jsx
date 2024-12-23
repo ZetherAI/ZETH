@@ -8,10 +8,17 @@ import { createFetcher } from "../utils/fetcher";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import Skeleton from "react-loading-skeleton";
+import { useReadContract } from "wagmi";
+import { GameAbi } from "../../constants";
 
 dayjs.extend(relativeTime);
 
-const MessageNResponse = ({ uid, requestId, won, responded, score, playerAddress }) => {
+const MessageNResponse = ({ uid, requestId, won, responded, score, playerAddress, chainId }) => {
+	const gameContract = {
+		address: config.gameContractAddress[chainId],
+		abi: GameAbi,
+	};
+
 	const {
 		data: messages,
 		isPending: loadingMsg,
@@ -26,8 +33,27 @@ const MessageNResponse = ({ uid, requestId, won, responded, score, playerAddress
 		}),
 	});
 
+	const { data } = useReadContract({
+		...gameContract,
+		functionName: "playerAttempts",
+		args: [playerAddress, requestId],
+
+		query: {
+			enabled: !!(requestId && playerAddress),
+			refetchInterval: 10000,
+		},
+	});
+
+	console.log(data);
+
 	return (
-		<div className="flex flex-col gap-3">
+		<div className="flex flex-col gap-3 relative">
+			{data && (
+				<p className="absolute -top-8 left-1/2 -translate-x-1/2 bg-black z-20 text-xs font-medium rounded-lg text-white px-2 py-1">
+					Paid: {data[2]}
+				</p>
+			)}
+
 			{!messages && (
 				<div className="flex gap-2 md:gap-3 w-full justify-end">
 					<div className="ai-message flex flex-col items-end gap-1">
