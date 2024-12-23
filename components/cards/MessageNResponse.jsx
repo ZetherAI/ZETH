@@ -51,7 +51,7 @@ const MessageNResponse = ({ uid, requestId, won, responded, score, playerAddress
 		isValid = true;
 	}
 
-	// if (!isValid) return null;
+	if (!isValid) return null;
 
 	return (
 		<div className="container  border-b py-4 border-white/10">
