@@ -62,7 +62,7 @@ const Home = () => {
 		if (threads && threads.items) {
 			setManagedThreads((prev) => threads.items.concat(prev));
 
-			console.log(managedThreads.length);
+			// console.log(managedThreads.length);
 		}
 	}, [threads]);
 
@@ -85,7 +85,7 @@ const Home = () => {
 		const handleScroll = () => {
 			if (containerRef.current && containerRef.current.scrollTop === 0) {
 				if (loadingThreads || !threads.hasMore) {
-					console.log(loadingThreads, threads?.hasMore);
+					// console.log(loadingThreads, threads?.hasMore);
 					return;
 				}
 
