@@ -18,6 +18,7 @@ import Loader from "@/components/Loader";
 
 const Home = () => {
 	const containerRef = useRef(null);
+	const inputRef = useRef(null);
 	const lastMessageRef = useRef(null);
 
 	const queryClient = useQueryClient();
@@ -184,6 +185,48 @@ const Home = () => {
 		}
 	}, [isSuccess, isError, thread]);
 
+	// For ENTER CLICKS
+
+	useEffect(() => {
+		const handleKeyDown = (e) => {
+			if (e.key === "Enter") {
+				e.preventDefault();
+				play();
+			}
+		};
+
+		document.addEventListener("keydown", handleKeyDown);
+
+		return () => {
+			document.removeEventListener("keydown", handleKeyDown);
+		};
+	}, []);
+
+	// Adjust height of input box
+
+	const adjustHeight = () => {
+		const textarea = inputRef.current;
+		const container = containerRef.current;
+		if (textarea) {
+			textarea.style.height = "auto"; // Reset height
+			const newHeight = Math.min(textarea.scrollHeight, 180); // Cap the height at 200px
+			textarea.style.height = `${newHeight}px`;
+
+			// Calculate number of lines
+			const lineCount = (textarea.value.match(/\n/g) || []).length + 1;
+
+			if (container) {
+				const baseRadius = 60; // Base radius for a single line
+				const radius = Math.max(20, baseRadius - lineCount * 23); // Adjust the divisor to get the desired radius
+				container.style.borderRadius = `${radius}px`;
+			}
+		}
+	};
+
+	useEffect(() => {
+		adjustHeight();
+	}, [message]);
+
 	function onMessageChange(e) {
 		setMessage(e.target.value);
 	}
@@ -239,14 +282,15 @@ const Home = () => {
 			</div>
 
 			{/* ! INPUT */}
-			<div className="w-full py-5 border-t border-white/10 shadow-xl shadow-white/5">
+			<div className="w-full py-5 border-t border-white/10 shadow-xl shadow-white/5 ">
 				<div className="container !py-0">
 					<div className="flex w-full gap-3 py-2 px-4 rounded-xl bg-white/10 backdrop-blur-md relative">
 						<textarea
+							ref={inputRef}
 							value={message}
 							onChange={onMessageChange}
-							className="w-full !bg-transparent text-light placeholder:text-light/50 placeholder:font-light focus:!ring-0 focus:outline-none resize-none pr-12 md:pr-16 lg:pr-20 overflow-y-hidden"
-							rows={3}
+							className="w-full !bg-transparent text-light placeholder:text-light/50 placeholder:font-light focus:!ring-0 focus:outline-none resize-none pr-12 md:pr-16 lg:pr-20 overflow-y-scroll  no-scrollbar"
+							rows={2}
 							autoFocus
 							maxLength={1000}
 							placeholder={`Pay ${gameStats.messagePrice} to send a message`}
@@ -272,7 +316,7 @@ const Home = () => {
 											text=""
 											className={
 												" rounded-full  bg-white/10 hover:bg-white/20 backdrop-blur-lg p-2 lg:p-3 flex-center " +
-												cn(isPending && " pointer-events-none opacity-40")
+												cn((isPending || message.length < 1) && " pointer-events-none opacity-40")
 											}
 											icon={
 												isPending ? (
