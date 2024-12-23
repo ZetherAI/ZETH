@@ -29,13 +29,13 @@ const Home = () => {
 	const { messagePriceRaw, ethPrice } = gameStats;
 
 	const [fetchParams, setFetchParams] = useState({
-		cursor: 0,
-		limit: 10,
+		page: 1,
+		size: 3,
 		useGlobalChats: true,
 	});
 
 	function toggleGlobalChats() {
-		setFetchParams({ ...fetchParams, useGlobalChats: !fetchParams.useGlobalChats, cursor: 0 });
+		setFetchParams({ ...fetchParams, useGlobalChats: !fetchParams.useGlobalChats, page: 1 });
 	}
 
 	const {
@@ -65,10 +65,23 @@ const Home = () => {
 			...fetchParams,
 		},
 
-		getNextPageParam: (lastPage, pages) => ({
-			...fetchParams,
-			cursor: lastPage?.nextCursor || fetchParams.cursor,
-		}),
+		getNextPageParam: (lastPage, pages, lastPageParam) => {
+			if (lastPage.items.length === 0) {
+				return undefined;
+			}
+
+			return { ...lastPageParam, page: lastPageParam.page + 1 };
+		},
+
+		getPreviousPageParam: (firstPage, pages, firstPageParam) => {
+			if (firstPageParam.page <= 1) {
+				return undefined;
+			}
+			return {
+				...firstPageParam,
+				page: firstPageParam.page - 1,
+			};
+		},
 
 		placeholderData: keepPreviousData,
 
