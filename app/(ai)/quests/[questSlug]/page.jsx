@@ -24,25 +24,47 @@ const Home = () => {
 	const { chain, address } = useAccount();
 	const { switchChain } = useSwitchChain();
 	const [message, setMessage] = useState("");
-	const { messagePriceRaw, playerAttempts, ethPrice } = data;
+	const { messagePriceRaw, ethPrice } = data;
+
+	const [fetchParams, setFetchParams] = useState({
+		start: 0,
+		limit: 2,
+		useGlobalChats: false,
+	});
+
+	const [managedThreads, setManagedThreads] = useState([]);
+
+	const searchStr = new URLSearchParams(fetchParams).toString();
+
+	function toggleGlobalChats() {
+		setFetchParams({ ...fetchParams, useGlobalChats: !fetchParams.useGlobalChats, start: 0 });
+	}
 
 	const {
 		data: threads,
 		isPending: loadingThreads,
 		isError: cannotLoadThreads,
 	} = useQuery({
-		queryKey: [config.endpoints.getThreads, address],
+		queryKey: [config.endpoints.getThreads, fetchParams, address],
 
 		queryFn: createFetcher({
 			url: config.endpoints.getThreads,
 			method: "GET",
-			surfix: `/${address}`,
+			surfix: `/${address}?${searchStr}`,
 		}),
 
 		enabled: !!address,
 
 		refetchInterval: 30000,
 	});
+
+	useEffect(() => {
+		if (threads && threads.items) {
+			setManagedThreads((prev) => threads.items.concat(prev));
+
+			console.log(managedThreads, threads.items);
+		}
+	}, [threads]);
 
 	const {
 		mutate,
@@ -59,14 +81,43 @@ const Home = () => {
 		}),
 	});
 
+	const handleScroll = () => {
+		if (loadingThreads) return;
+
+		if (!threads.hasMore) return;
+
+		if (containerRef.current && containerRef.current.scrollTop === 0) {
+			setFetchParams({
+				...fetchParams,
+				start: fetchParams.start + 20,
+			});
+		}
+	};
+
+	useEffect(() => {
+		const container = containerRef.current;
+
+		// --- load more
+
+		container.addEventListener("scroll", handleScroll);
+
+		return () => {
+			if (container) {
+				container.removeEventListener("scroll", handleScroll);
+			}
+		};
+	}, []);
+
 	useEffect(() => {
 		if (containerRef.current) {
+			const container = containerRef.current;
+
 			const offset = 0;
-			const scrollHeight = containerRef.current.scrollHeight;
-			const clientHeight = containerRef.current.clientHeight;
+			const scrollHeight = container.scrollHeight;
+			const clientHeight = container.clientHeight;
 			const scrollTopPosition = scrollHeight - clientHeight - offset;
 
-			containerRef.current.scrollTo({
+			container.scrollTo({
 				top: scrollTopPosition,
 				behavior: "smooth",
 			});
@@ -135,17 +186,24 @@ const Home = () => {
 				intro="Outsmart Lyra, the guardian of the Quantum Nexus, to unlock the growing prize pool and claim cosmic rewards."
 				about="Outsmart Lyra, guardian of the Quantum Nexus, by crafting authentic, strategic queries that challenge her unyielding logic. Navigate her complex decision-making process to unlock the ever-growing prize pool, earning rewards that have the power to reshape the very fabric of the cosmos."
 				stats={GameStats}
+				globalChatsEnabled={fetchParams.useGlobalChats}
+				toggleGlobalChats={toggleGlobalChats}
 			/>
 
 			{/* ! MESSAGES DISPLAY */}
 			<div
 				ref={containerRef}
 				id="message-container"
-				className="flex flex-col h-full py-5 gap-4 overflow-y-auto overflow-x-clip"
+				className="flex flex-col h-full py-5 gap-4 overflow-y-scroll overflow-x-clip"
 			>
-				{!threads && <p className="text-sm text-center py-4 text-white"> Loading previous attempts... </p>}
+				{loadingThreads && fetchParams.start !== 0 && (
+					<p className="text-sm text-center py-4 text-white"> Loading more... </p>
+				)}
+				{!managedThreads && loadingThreads && (
+					<p className="text-sm text-center py-4 text-white"> Loading previous attempts... </p>
+				)}
 
-				{threads && threads.items.map((t, i) => <MessageNResponse key={i} {...t} chainId={arbitrum.id} />)}
+				{managedThreads && managedThreads.map((t, i) => <MessageNResponse key={i} {...t} chainId={arbitrum.id} />)}
 
 				<WorkingIndicator />
 			</div>

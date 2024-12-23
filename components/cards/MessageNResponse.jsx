@@ -75,9 +75,9 @@ const MessageNResponse = ({ uid, requestId, won, responded, score, playerAddress
 				{messages &&
 					messages.map((msg, i) => {
 						return (
-							<>
+							<div key={i}>
 								{!msg.isSystem && (
-									<div key={i} className="flex gap-3 w-full justify-end">
+									<div className="flex gap-3 w-full justify-end">
 										<div className="user-message flex flex-col items-end gap-1">
 											<p className="w-full text-black">{msg.content}</p>
 											<p className="xs !text-dark/50">{dayjs(msg.createdAt * 1000).fromNow()}</p>
@@ -92,7 +92,7 @@ const MessageNResponse = ({ uid, requestId, won, responded, score, playerAddress
 								)}
 
 								{msg.isSystem && isValid && (
-									<div key={i + 100} className="flex gap-2 md:gap-3 w-full justify-start">
+									<div className="flex gap-2 md:gap-3 w-full justify-start">
 										<Image
 											src={images.lyra}
 											alt="user"
@@ -105,7 +105,7 @@ const MessageNResponse = ({ uid, requestId, won, responded, score, playerAddress
 										{/* <div className="size-[35px] rounded-full bg-gradient-to-br from-brand-1/50 to-brand-4/50 backdrop-blur-xl" /> */}
 									</div>
 								)}
-							</>
+							</div>
 						);
 					})}
 

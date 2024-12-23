@@ -5,20 +5,18 @@ import { usePathname } from "next/navigation";
 import { Menu } from "lucide-react";
 import { MotionDiv } from "@/constants/motionProps";
 import { toast } from "sonner";
-import { useAccount, useDisconnect } from "wagmi";
+import { useAccount } from "wagmi";
 import Skeleton from "react-loading-skeleton";
 import useGameStats, { toNum } from "../utils/hooks/usegamestats";
 import useCountDown from "../utils/hooks/usecountdown";
 import { ChatSidebar, Logo, PopupWrapper } from "@/components";
 
-const ChatTopbar = ({ intro, about, stats, examplePrompts }) => {
+const ChatTopbar = ({ intro, about, stats, examplePrompts, globalChatsEnabled, toggleGlobalChats }) => {
 	const [showMenu, setShowMenu] = useState(false);
-	const [isGlobal, setIsGlobal] = useState(true);
 
 	const pathname = usePathname();
 
 	const { isConnected } = useAccount();
-	const {} = useDisconnect();
 
 	const { isPending, isSuccess, data } = useGameStats();
 
@@ -37,8 +35,9 @@ const ChatTopbar = ({ intro, about, stats, examplePrompts }) => {
 	}, [pathname]);
 
 	const toggleSwitch = () => {
-		setIsGlobal(!isGlobal);
-		toast.success(`Global chats ${isGlobal ? "disabled" : "enabled"}`, {
+		toggleGlobalChats();
+
+		toast.success(`Global chats ${globalChatsEnabled ? "disabled" : "enabled"}`, {
 			duration: 1000,
 		});
 	};
@@ -59,13 +58,13 @@ const ChatTopbar = ({ intro, about, stats, examplePrompts }) => {
 					<button
 						onClick={toggleSwitch}
 						className={`flex-v-center !gap-2 rounded-[2rem] backdrop-blur-sm md:py-[6px] md:px-2 ${
-							isGlobal ? "bg-brand-1/50 md:bg-brand-1/50" : "md:bg-white/5"
+							globalChatsEnabled ? "bg-brand-1/50 md:bg-brand-1/50" : "md:bg-white/5"
 						}`}
 					>
-						<div className="switch" data-ison={isGlobal}>
+						<div className="switch" data-ison={globalChatsEnabled}>
 							<MotionDiv className="handle flex-center" layout transition={spring} />
 						</div>
-						<p className="text-sm show-md">Global Chat</p>
+						<p className="text-sm show-md">Global Chat </p>
 						{/* <ChevronDown /> */}
 					</button>
 					<div className="hide-md flex-center !gap-[2px] flex-col">
