@@ -264,7 +264,7 @@ const Home = () => {
 							</ConnectKitButton.Custom>
 						</div>
 					</div>
-					<p className="w-full xs text-center opactity-90 pt-3">70% of message fees goes to the price pool</p>
+					<p className="w-full xs text-center opactity-90 pt-3">75% of message fees go to the prize pool</p>
 				</div>
 			</div>
 		</div>
