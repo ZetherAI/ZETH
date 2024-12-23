@@ -24,7 +24,7 @@ function Home() {
 				</Motion>
 				<div className="flex-center lg:py-2 !gap-2 md:!gap-3">
 					<Motion custom={2} className="">
-						<Button text="EXPLORE QUESTS" link="/quest" className="btn-1 xl:!text-xl lg:py-4 xl:!px-10" />
+						<Button text="EXPLORE QUESTS" link="/quests" className="btn-1 xl:!text-xl lg:py-4 xl:!px-10" />
 					</Motion>
 					<Motion custom={3} className="">
 						<ConnectKitButton.Custom>

@@ -18,8 +18,8 @@ const navs = [
 	{ label: "Home", link: "" },
 	{ label: "Quest", link: "quest" },
 	// { label: "Assister", link: "assister" },
-	{ label: "FAQ", link: "faq" },
-	{ label: "Terms", link: "terms" },
+	{ label: "Lore", link: "faq" },
+	{ label: "Rules", link: "terms" },
 	{ label: "The Experiment", link: "the-experiment" },
 ];
 
