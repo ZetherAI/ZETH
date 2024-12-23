@@ -33,10 +33,10 @@ const Home = () => {
 
 	return (
 		<div className="w-full h-full flex flex-col justify-between">
-			<ChatTopbar
+			{/* <ChatTopbar
 				intro="Outsmart Lyra, the guardian of the Quantum Nexus, to unlock the growing prize pool and claim cosmic rewards."
 				examplePrompts={ExamplePrompts}
-			/>
+			/> */}
 
 			{/* ! MESSAGES DISPLAY */}
 			<div id="message-container" className="flex flex-col h-full py-5 gap-4 overflow-y-auto overflow-x-clip"></div>
