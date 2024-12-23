@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, Fragment } from "react";
 import { ChatTopbar, MessageNResponse, SubmitButton } from "@/components";
 import { SendHorizonal, Wallet2 } from "lucide-react";
 import { GameStats } from "@/constants/staticText";
@@ -8,68 +8,72 @@ import useGameStats, { toNum } from "@/components/utils/hooks/usegamestats";
 import { useWriteContract, useAccount, useSwitchChain } from "wagmi";
 import { GameAbi } from "../../../../constants";
 import config from "@/config";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient, useInfiniteQuery } from "@tanstack/react-query";
 import { arbitrum } from "wagmi/chains";
 import { ConnectKitButton } from "connectkit";
 import { createFetcher } from "../../../../components/utils/fetcher";
 import cn from "classnames";
-import WorkingIndicator from "../../../../components/WorkingIndicator";
 import { toast } from "sonner";
 import Loader from "@/components/Loader";
 
 const Home = () => {
 	const containerRef = useRef(null);
+	const lastMessageRef = useRef(null);
+
 	const queryClient = useQueryClient();
-	const { data } = useGameStats();
+	const { data: gameStats } = useGameStats();
 	const { writeContract } = useWriteContract();
 	const { chain, address } = useAccount();
 	const { switchChain } = useSwitchChain();
 	const [message, setMessage] = useState("");
-	const { messagePriceRaw, ethPrice } = data;
+	const { messagePriceRaw, ethPrice } = gameStats;
 
 	const [fetchParams, setFetchParams] = useState({
-		start: 0,
-		limit: 5,
+		cursor: 0,
+		limit: 1,
 		useGlobalChats: true,
 	});
 
-	const [managedThreads, setManagedThreads] = useState([]);
-
-	const searchStr = new URLSearchParams(fetchParams).toString();
-
 	function toggleGlobalChats() {
-		setFetchParams({ ...fetchParams, useGlobalChats: !fetchParams.useGlobalChats, start: 0 });
+		setFetchParams({ ...fetchParams, useGlobalChats: !fetchParams.useGlobalChats, cursor: 0 });
 	}
 
 	const {
-		data: threads,
-		isPending: loadingThreads,
-		isError: cannotLoadThreads,
-	} = useQuery({
-		queryKey: [config.endpoints.getThreads, fetchParams, address],
+		data,
+		isFetchingNextPage,
+		hasNextPage,
+		fetchNextPage,
 
-		queryFn: createFetcher({
-			url: config.endpoints.getThreads,
-			method: "GET",
-			surfix: `/${address}?${searchStr}`,
+		status,
+		error: fetchThreadsError,
+	} = useInfiniteQuery({
+		queryKey: [config.endpoints.getThreads, fetchParams],
+
+		queryFn: async ({ pageParam }) => {
+			const searchStr = new URLSearchParams(pageParam).toString();
+
+			const res = await createFetcher({
+				url: config.endpoints.getThreads,
+				method: "GET",
+				surfix: `/${address}?${searchStr}`,
+			})();
+
+			return res;
+		},
+
+		initialPageParam: {
+			...fetchParams,
+		},
+
+		getNextPageParam: (lastPage, pages) => ({
+			...fetchParams,
+			cursor: lastPage?.nextCursor || fetchParams.cursor,
 		}),
 
 		enabled: !!address,
 
-		refetchInterval: 10000,
+		// refetchInterval: 10000,
 	});
-
-	useEffect(() => {
-		if (threads && threads.items) {
-			if (fetchParams.start > 0) {
-				setManagedThreads((prev) => threads.items.concat(prev));
-			} else {
-				setManagedThreads(threads.items);
-			}
-
-			// console.log(managedThreads.length);
-		}
-	}, [threads]);
 
 	const {
 		mutate,
@@ -77,6 +81,7 @@ const Home = () => {
 		isError,
 		error,
 		isSuccess,
+		reset,
 		data: thread,
 	} = useMutation({
 		mutationKey: [config.endpoints.createThread, address],
@@ -89,15 +94,9 @@ const Home = () => {
 	useEffect(() => {
 		const handleScroll = () => {
 			if (containerRef.current && containerRef.current.scrollTop === 0) {
-				if (loadingThreads || !threads.hasMore) {
-					// console.log(loadingThreads, threads?.hasMore);
-					return;
+				if (hasNextPage && !isFetchingNextPage) {
+					fetchNextPage();
 				}
-
-				setFetchParams((prevParams) => ({
-					...prevParams,
-					start: prevParams.start + prevParams.limit,
-				}));
 			}
 		};
 
@@ -112,20 +111,14 @@ const Home = () => {
 				container.removeEventListener("scroll", handleScroll);
 			}
 		};
-	}, [loadingThreads, threads?.hasMore]);
+	}, [hasNextPage, isFetchingNextPage]);
 
 	const scrollDownToBottom = () => {
-		if (containerRef.current) {
-			const container = containerRef.current;
-
-			const offset = 0;
-			const scrollHeight = container.scrollHeight;
-			const clientHeight = container.clientHeight;
-			const scrollTopPosition = scrollHeight - clientHeight - offset;
-
-			container.scrollTo({
-				top: scrollTopPosition,
+		if (lastMessageRef.current) {
+			lastMessageRef.current.scrollIntoView({
 				behavior: "smooth",
+				block: "end",
+				inline: "nearest",
 			});
 		}
 	};
@@ -171,6 +164,8 @@ const Home = () => {
 		if (isError) {
 			console.log("Error: ", error);
 			toast.error("Unable to process your request, try again");
+
+			reset();
 		}
 	}, [isSuccess, isError, thread]);
 
@@ -181,7 +176,7 @@ const Home = () => {
 	function play() {
 		if (!message) return;
 
-		if (isPending) return;
+		if (isPending || isError) return;
 
 		mutate({
 			playerAddress: address,
@@ -205,16 +200,27 @@ const Home = () => {
 				id="message-container"
 				className="flex flex-col h-full py-5 gap-4 overflow-y-scroll overflow-x-clip"
 			>
-				{loadingThreads && fetchParams.start !== 0 && (
-					<p className="text-sm text-center pt-4 pb-12 text-white"> Loading more... </p>
-				)}
-				{!managedThreads && loadingThreads && (
-					<p className="text-sm text-center py-4 text-white"> Loading previous attempts... </p>
-				)}
+				{isFetchingNextPage && <p className="text-sm text-center pt-4 pb-12 text-white"> Loading more... </p>}
 
-				{managedThreads && managedThreads.map((t, i) => <MessageNResponse key={i} {...t} chainId={arbitrum.id} />)}
+				{status === "pending" ? (
+					<p className="text-sm text-center py-4 text-white"> Loading messages... </p>
+				) : status === "error" ? (
+					<p className="text-sm text-center py-4 text-white">
+						{" "}
+						Unable to load messages, please try again {console.log(fetchThreadsError)}{" "}
+					</p>
+				) : null}
 
-				<WorkingIndicator />
+				{status === "success" &&
+					data.pages.map((page, i) => {
+						return (
+							<Fragment key={i}>
+								{page && page.items.map((d, j) => <MessageNResponse key={j} {...d} chainId={arbitrum.id} />)}
+							</Fragment>
+						);
+					})}
+
+				<div className="pb-16" ref={lastMessageRef}></div>
 			</div>
 
 			{/* ! INPUT */}
@@ -224,11 +230,11 @@ const Home = () => {
 						<textarea
 							value={message}
 							onChange={onMessageChange}
-							className="w-full !bg-transparent text-light placeholder:text-light/50 placeholder:font-light focus:!ring-0 focus:outline-none resize-none pr-12 md:pr-16 lg:pr-20"
+							className="w-full !bg-transparent text-light placeholder:text-light/50 placeholder:font-light focus:!ring-0 focus:outline-none resize-none pr-12 md:pr-16 lg:pr-20 overflow-y-hidden"
 							rows={3}
 							autoFocus
 							maxLength={1000}
-							placeholder={`Pay ${data.messagePrice} to send a message`}
+							placeholder={`Pay ${gameStats.messagePrice} to send a message`}
 						/>
 
 						<div className="absolute right-4 top-1/2 -translate-y-1/2">
