@@ -129,10 +129,10 @@ const ChatSidebar = ({ about, stats, examplePrompts }) => {
 						</MotionDiv>
 						<div className="flex-v-center">
 							<Motion>
-								<Button text="FAQ" link="/faq" className="btn-3 !px-3" icon={<List className="size-4" />} />
+								<Button text="Lore" link="/faq" className="btn-3 !px-3" icon={<List className="size-4" />} />
 							</Motion>
 							<Motion>
-								<Button text="Terms" link="/terms" className="btn-4 !px-3" icon={<Handshake className="size-4" />} />
+								<Button text="Rules" link="/terms" className="btn-4 !px-3" icon={<Handshake className="size-4" />} />
 							</Motion>
 						</div>
 					</MotionDiv>
