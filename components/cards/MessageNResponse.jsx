@@ -10,6 +10,7 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import Skeleton from "react-loading-skeleton";
 import { useReadContract } from "wagmi";
 import { GameAbi } from "../../constants";
+import { toBaseUnit, toNum } from "@/components/utils/hooks/usegamestats";
 
 dayjs.extend(relativeTime);
 
@@ -50,7 +51,7 @@ const MessageNResponse = ({ uid, requestId, won, responded, score, playerAddress
 		<div className="flex flex-col gap-3 relative">
 			{data && (
 				<p className="absolute -top-8 left-1/2 -translate-x-1/2 bg-black z-20 text-xs font-medium rounded-lg text-white px-2 py-1">
-					Paid: {data[2]}
+					Paid: ${toBaseUnit(toNum(data[2]))}
 				</p>
 			)}
 

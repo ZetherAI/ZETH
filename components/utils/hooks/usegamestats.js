@@ -43,7 +43,7 @@ export function toNum(v) {
 	}
 }
 
-function toBaseUnit(v) {
+export function toBaseUnit(v) {
 	return (+v / 100).toFixed(2);
 }
 
