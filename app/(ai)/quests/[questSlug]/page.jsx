@@ -306,7 +306,7 @@ const Home = () => {
 											text=""
 											className={
 												" rounded-full  bg-white/10 hover:bg-white/20 backdrop-blur-lg p-2 lg:p-3 flex-center " +
-												cn((isPending || message.length < 1) && " pointer-events-none opacity-40")
+												cn((isPending || (message.length < 1 && isConnected)) && " pointer-events-none opacity-40")
 											}
 											icon={
 												isPending ? (
