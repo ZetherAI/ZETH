@@ -12,6 +12,7 @@ import cn from "classnames";
 import { useAccount, useDisconnect } from "wagmi";
 import Skeleton from "react-loading-skeleton";
 import useGameStats from "../utils/hooks/usegamestats";
+import useCountDown from "../utils/hooks/usecountdown";
 
 function truncateWalletAddress(addr, startLength = 6, endLength = 4) {
 	if (!addr || addr.length <= startLength + endLength) {
@@ -25,6 +26,8 @@ const ChatSidebar = ({ about, stats, examplePrompts }) => {
 	const { disconnect } = useDisconnect();
 
 	const { isPending, isSuccess, data } = useGameStats();
+
+	const { remainingTime } = useCountDown(Date.now() + 600000);
 
 	return (
 		<div className="relative h-full bg-dark overflow-x-clip overflow-y-auto">
@@ -86,6 +89,16 @@ const ChatSidebar = ({ about, stats, examplePrompts }) => {
 									{isSuccess && <h2 className="stats-value break-words">{data[name]}</h2>}
 								</MotionDiv>
 							))}
+
+							<div className="space-y-[6px]">
+								<p className="uppercase text-xs md:text-sm">Countdown</p>
+
+								<div className="space-y-2">
+									<h2 className="stats-value">
+										{remainingTime.hoursStr}:{remainingTime.minutesStr}:{remainingTime.secondsStr}
+									</h2>
+								</div>
+							</div>
 						</>
 					)}
 				</MotionDiv>
