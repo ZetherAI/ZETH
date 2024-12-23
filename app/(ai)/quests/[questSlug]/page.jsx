@@ -28,7 +28,7 @@ const Home = () => {
 
 	const [fetchParams, setFetchParams] = useState({
 		start: 0,
-		limit: 2,
+		limit: 1,
 		useGlobalChats: false,
 	});
 
@@ -62,7 +62,7 @@ const Home = () => {
 		if (threads && threads.items) {
 			setManagedThreads((prev) => threads.items.concat(prev));
 
-			console.log(managedThreads, threads.items);
+			console.log(managedThreads.length);
 		}
 	}, [threads]);
 
@@ -81,23 +81,20 @@ const Home = () => {
 		}),
 	});
 
-	const handleScroll = () => {
-		if (loadingThreads) return;
-
-		if (!threads.hasMore) return;
-
-		if (containerRef.current && containerRef.current.scrollTop === 0) {
-			setFetchParams({
-				...fetchParams,
-				start: fetchParams.start + 20,
-			});
-		}
-	};
-
 	useEffect(() => {
-		const container = containerRef.current;
+		const handleScroll = () => {
+			if (containerRef.current && containerRef.current.scrollTop === 0) {
+				if (loadingThreads) return;
 
-		// --- load more
+				if (!threads.hasMore) return;
+				setFetchParams({
+					...fetchParams,
+					start: fetchParams.start + 20,
+				});
+			}
+		};
+
+		const container = containerRef.current;
 
 		container.addEventListener("scroll", handleScroll);
 
@@ -106,9 +103,9 @@ const Home = () => {
 				container.removeEventListener("scroll", handleScroll);
 			}
 		};
-	}, []);
+	}, [loadingThreads, threads, fetchParams]);
 
-	useEffect(() => {
+	const scrollDownToBottom = () => {
 		if (containerRef.current) {
 			const container = containerRef.current;
 
@@ -122,10 +119,13 @@ const Home = () => {
 				behavior: "smooth",
 			});
 		}
-	}, [threads]);
+	};
 
 	useEffect(() => {
 		if (isSuccess && thread) {
+			// scroll down
+			scrollDownToBottom();
+
 			if (chain?.id !== arbitrum.id) {
 				toast.warning("Invalid chain detected, please switch to Arbitrum One");
 

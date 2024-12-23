@@ -62,7 +62,7 @@ const useCountdownTimer = (futureTimestampOrDatetime, onCountdownEnd) => {
 				secondsStr,
 				millisecondsStr,
 			});
-		}, 10); // Update every 10 milliseconds
+		}, 200); // Update every 10 milliseconds
 
 		return () => clearInterval(intervalId);
 	}, [futureTimestamp, onCountdownEnd]);
