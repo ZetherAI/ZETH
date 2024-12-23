@@ -28,7 +28,7 @@ const Home = () => {
 
 	const [fetchParams, setFetchParams] = useState({
 		start: 0,
-		limit: 2,
+		limit: 5,
 		useGlobalChats: true,
 	});
 
@@ -84,26 +84,30 @@ const Home = () => {
 	useEffect(() => {
 		const handleScroll = () => {
 			if (containerRef.current && containerRef.current.scrollTop === 0) {
-				if (loadingThreads) return;
+				if (loadingThreads || !threads.hasMore) {
+					console.log(loadingThreads, threads?.hasMore);
+					return;
+				}
 
-				if (!threads.hasMore) return;
-				setFetchParams({
-					...fetchParams,
-					start: fetchParams.start + fetchParams.limit,
-				});
+				setFetchParams((prevParams) => ({
+					...prevParams,
+					start: prevParams.start + prevParams.limit,
+				}));
 			}
 		};
 
 		const container = containerRef.current;
 
-		container.addEventListener("scroll", handleScroll);
+		if (container) {
+			container.addEventListener("scroll", handleScroll);
+		}
 
 		return () => {
 			if (container) {
 				container.removeEventListener("scroll", handleScroll);
 			}
 		};
-	}, [loadingThreads, threads, fetchParams]);
+	}, [loadingThreads, threads?.hasMore]);
 
 	const scrollDownToBottom = () => {
 		if (containerRef.current) {
