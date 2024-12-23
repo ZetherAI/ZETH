@@ -3,181 +3,181 @@
 @tailwind utilities;
 
 :root {
-  --dark: #090709;
-  --light: #fcf8fe;
-  --brand-1: #490161; /* purple */
-  --brand-2: #ed3e09; /* orange */
-  --brand-3: #36afd0; /* blue */
+	--dark: #090709;
+	--light: #fcf8fe;
+	--brand-1: #490161; /* purple */
+	--brand-2: #ed3e09; /* orange */
+	--brand-3: #36afd0; /* blue */
 
-  --dark-2: #1e1c1e;
+	--dark-2: #1e1c1e;
 }
 
 html,
 body {
-  height: 100%;
-  overscroll-behavior-y: contain;
-  @apply bg-dark;
+	height: 100%;
+	overscroll-behavior-y: contain;
+	@apply bg-dark;
 }
 
 * {
-  box-sizing: border-box;
-  font-family: var(--font-inter);
-  @apply text-white;
+	box-sizing: border-box;
+	font-family: var(--font-inter);
+	@apply text-white;
 }
 
 * {
-  scrollbar-color: var(--dark-2) black;
+	scrollbar-color: var(--dark-2) black;
 }
 
 *::-webkit-scrollbar {
-  width: 8px !important;
-  height: 8px !important;
+	width: 8px !important;
+	height: 8px !important;
 }
 *::-webkit-scrollbar-thumb {
-  /* Foreground */
-  background: var(--dark-2);
+	/* Foreground */
+	background: var(--dark-2);
 }
 *::-webkit-scrollbar-track {
-  /* Background */
-  background: black;
+	/* Background */
+	background: black;
 }
 
 h1,
 h2,
 h3 {
-  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.484);
-  @apply font-semibold leading-[115%];
+	text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.484);
+	@apply font-semibold leading-[115%];
 }
 
 .flex-v-center {
-  @apply flex items-center gap-3;
+	@apply flex items-center gap-3;
 }
 .flex-center {
-  @apply flex items-center justify-center gap-3 w-full;
+	@apply flex items-center justify-center gap-3 w-full;
 }
 
 .grid-3 {
-  @apply grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3;
+	@apply grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3;
 }
 
 .container {
-  @apply p-4 md:px-[3rem] lg:px-[3rem] lg:py-[25px] xl:px-[4rem] w-full max-w-[1200px] mx-auto;
+	@apply p-4 md:px-[3rem] lg:px-[3rem] lg:py-[25px] xl:px-[4rem] w-full max-w-[1200px] mx-auto;
 }
 
 .banner-container {
-  @apply w-full h-[120px] lg:h-[200px] relative rounded-xl overflow-hidden text-center;
+	@apply w-full h-[120px] lg:h-[200px] relative rounded-xl overflow-hidden text-center;
 }
 
 .display {
-  @apply text-3xl lg:text-[4vw] xl:text-[3.25rem];
+	@apply text-3xl lg:text-[4vw] xl:text-[3.25rem];
 }
 
 .heading {
-  @apply text-[23px] md:text-2xl lg:text-[2.5vw] xl:text-[2rem];
+	@apply text-[23px] md:text-2xl lg:text-[2.5vw] xl:text-[2rem];
 }
 
 .stats-value {
-  @apply text-[23px] md:text-2xl lg:text-[2.15vw] xl:text-[1.9rem];
+	@apply text-[23px] md:text-2xl lg:text-[2.15vw] xl:text-[1.9rem];
 }
 
 .featured-title {
-  @apply text-2xl lg:text-[2.65vw] xl:text-[2.15rem] !font-medium;
+	@apply text-2xl lg:text-[2.65vw] xl:text-[2.15rem] !font-medium;
 }
 
 .subheading {
-  @apply text-base lg:text-[2vw] xl:text-[1.5rem] !font-medium;
+	@apply text-base lg:text-[2vw] xl:text-[1.5rem] !font-medium;
 }
 .subheading-faq {
-  @apply text-base lg:text-[2vw] xl:text-[1.25rem] !font-medium;
+	@apply text-base lg:text-[2vw] xl:text-[1.25rem] !font-medium;
 }
 
 p,
 li,
 input,
 textarea {
-  @apply text-[3.5vw] sm:text-sm lg:text-sm xl:text-base font-light text-light;
+	@apply text-[3.5vw] sm:text-sm lg:text-sm xl:text-base font-light text-light;
 }
 
 .xs {
-  @apply text-[3vw] sm:text-[12px] xl:text-xs font-light text-light;
+	@apply text-[3vw] sm:text-[12px] xl:text-xs font-light text-light;
 }
 
 .card {
-  @apply bg-black/80 backdrop-blur p-4 md:p-7 rounded-2xl md:rounded-3xl shadow-md shadow-light/5 border border-light/5;
+	@apply bg-black/80 backdrop-blur p-4 md:p-7 rounded-2xl md:rounded-3xl shadow-md shadow-light/5 border border-light/5;
 }
 
 .btn-1,
 .btn-2 {
-  @apply py-3 px-4 lg:px-8 rounded-xl text-[3.5vw] sm:text-sm md:text-base font-semibold flex items-center gap-2 w-full md:max-w-fit text-center uppercase;
+	@apply py-3 px-4 lg:px-8 rounded-xl text-[3.5vw] sm:text-sm md:text-base font-semibold flex items-center gap-2 w-full md:max-w-fit text-center uppercase;
 }
 
 .btn-3,
 .btn-4 {
-  @apply py-2 lg:py-2 px-3 lg:px-5 rounded-xl text-xs font-semibold flex items-center gap-2 max-w-fit uppercase;
+	@apply py-2 lg:py-2 px-3 lg:px-5 rounded-xl text-xs font-semibold flex items-center gap-2 max-w-fit uppercase;
 }
 
 .btn-1 {
-  @apply backdrop-blur-sm bg-brand-1/40;
+	@apply backdrop-blur-sm bg-brand-1/40;
 }
 
 .btn-2 {
-  @apply backdrop-blur bg-white/5;
+	@apply backdrop-blur bg-white/5;
 }
 
 .btn-3 {
-  @apply backdrop-blur bg-brand-4/50;
+	@apply backdrop-blur bg-brand-4/50;
 }
 
 .btn-4 {
-  @apply backdrop-blur bg-brand-3/50;
+	@apply backdrop-blur bg-brand-3/50;
 }
 
 .show-md {
-  @apply hidden md:!flex;
+	@apply hidden md:!flex;
 }
 .show-lg {
-  @apply hidden lg:!flex;
+	@apply hidden lg:!flex;
 }
 
 .hide-md {
-  @apply md:hidden;
+	@apply md:hidden;
 }
 .hide-lg {
-  @apply lg:hidden;
+	@apply lg:hidden;
 }
 
 .transition-500 {
-  @apply transition-all duration-500 ease-in-out;
+	@apply transition-all duration-500 ease-in-out;
 }
 
 .sidebar-card {
-  @apply flex flex-col gap-4 relative rounded-xl bg-white/5 backdrop-blur-sm border-black !w-full p-4 md:p-5 bg-pattern bg-cover bg-center overflow-clip;
+	@apply flex flex-col gap-4 relative rounded-xl bg-white/5 backdrop-blur-sm border-black !w-full p-4 md:p-5 bg-pattern bg-cover bg-center overflow-clip;
 }
 
 .toast-custom {
-  @apply rounded-xl bg-brand-1/50 backdrop-blur-sm  p-4 md:p-5 bg-cover bg-center overflow-clip border-transparent;
+	@apply rounded-xl bg-brand-1/50 backdrop-blur-sm  p-4 md:p-5 bg-cover bg-center overflow-clip border-transparent;
 }
 
 /* Toggle */
 .switch {
-  @apply w-[40px] h-[26px] bg-white/10 flex justify-start rounded-[2rem] p-1 cursor-pointer;
+	@apply w-[40px] h-[26px] bg-white/10 flex justify-start rounded-[2rem] p-1 cursor-pointer;
 }
 
 .switch[data-isOn="true"] {
-  @apply justify-end;
+	@apply justify-end;
 }
 
 .handle {
-  @apply size-[18px]  bg-white rounded-full;
+	@apply size-[18px]  bg-white rounded-full;
 }
 
 .user-message,
 .ai-message {
-  @apply p-3 backdrop-blur-lg max-w-[80%] rounded-xl;
+	@apply p-3 backdrop-blur-lg max-w-[80%];
 }
 .user-message {
-  @apply bg-light/90 !text-dark self-end;
+	@apply bg-light/90 !text-dark self-end;
 }
 .ai-message {
-  @apply bg-white/5 self-start;
+	@apply bg-white/5 self-start;
 }

@@ -11,6 +11,7 @@ import Skeleton from "react-loading-skeleton";
 import { useReadContract } from "wagmi";
 import { GameAbi } from "../../constants";
 import { toBaseUnit, toNum } from "@/components/utils/hooks/usegamestats";
+import cn from "classnames";
 
 dayjs.extend(relativeTime);
 
@@ -54,10 +55,10 @@ const MessageNResponse = ({ uid, requestId, won, responded, score, playerAddress
 	if (!isValid) return null;
 
 	return (
-		<div className="container  border-b py-4 border-white/10">
-			<div className="flex flex-col gap-3 relative">
+		<div className="container  border-b py-4 border-white/5">
+			<div className="flex flex-col gap-x-2 gap-y-8 relative pb-4">
 				{data && (
-					<p className="absolute -top-8 left-1/2 -translate-x-1/2 bg-black z-20 text-xs font-medium rounded-lg text-white px-2 py-1">
+					<p className="absolute shadow-lg -top-6   lg:-top-8 left-1/2 -translate-x-1/2 bg-black z-20 text-xs font-medium rounded-lg text-white px-2 py-1">
 						{toBaseUnit(toNum(data[2])) > 0 ? `$${toBaseUnit(toNum(data[2]))}` : "awaiting payment..."}
 
 						{won && " | Winner 🏆"}
@@ -77,10 +78,21 @@ const MessageNResponse = ({ uid, requestId, won, responded, score, playerAddress
 						return (
 							<div key={i} className=" ">
 								{!msg.isSystem && (
-									<div className="flex gap-3 w-full justify-end">
-										<div className="user-message flex flex-col items-end gap-1">
-											<p className="w-full text-black">{msg.content}</p>
-											<p className="xs !text-dark/50">{dayjs(msg.createdAt * 1000).fromNow()}</p>
+									<div className="flex  w-full justify-end">
+										<div
+											className={
+												"user-message flex flex-col items-end gap-y-1  " +
+												cn({
+													"rounded-[15px]": msg.content.length < 30, // Really Short messages
+
+													"rounded-[70px]": msg.content.length >= 30 && msg.content.length < 50, // Short messages
+													"rounded-[50px]": msg.content.length >= 50 && msg.content.length < 100, // Medium messages
+													"rounded-[20px]": msg.content.length >= 100, // Long messages
+												})
+											}
+										>
+											<p className="w-full  text-black px-2">{msg.content}</p>
+											{/* <p className="xs !text-dark/50">{dayjs(msg.createdAt * 1000).fromNow()}</p> */}
 										</div>
 										{/* <div className="size-[35px] rounded-full bg-gradient-to-br from-brand-1/50 to-brand-4/50 backdrop-blur-xl" /> */}
 										{/* <Image
@@ -98,9 +110,20 @@ const MessageNResponse = ({ uid, requestId, won, responded, score, playerAddress
 											alt="user"
 											className="size-[35px] lg:size-[40px] rounded-full object-cover"
 										/>
-										<div className="ai-message flex flex-col items-end gap-1">
+										<div
+											className={
+												"ai-message flex flex-col items-end gap-y-1 " +
+												cn({
+													"rounded-[15px]": msg.content.length < 30, // Really Short messages
+
+													"rounded-[70px]": msg.content.length >= 30 && msg.content.length < 50, // Short messages
+													"rounded-[50px]": msg.content.length >= 50 && msg.content.length < 100, // Medium messages
+													"rounded-[20px]": msg.content.length >= 100, // Long messages
+												})
+											}
+										>
 											<p className="w-full">{msg.content}</p>
-											<p className="xs !text-light/50">{dayjs(toNum(data[3]) * 1000).fromNow()}</p>
+											{/* <p className="xs !text-light/50">{dayjs(toNum(data[3]) * 1000).fromNow()}</p> */}
 										</div>
 										{/* <div className="size-[35px] rounded-full bg-gradient-to-br from-brand-1/50 to-brand-4/50 backdrop-blur-xl" /> */}
 									</div>
