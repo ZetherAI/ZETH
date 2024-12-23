@@ -28,7 +28,7 @@ const Home = () => {
 
 	const [fetchParams, setFetchParams] = useState({
 		start: 0,
-		limit: 1,
+		limit: 10,
 		useGlobalChats: false,
 	});
 
