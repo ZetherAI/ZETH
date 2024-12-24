@@ -1,16 +1,38 @@
 "use client";
 
-import React from "react";
+import { useEffect } from "react";
 import Link from "next/link";
 import { Button, Motion } from "@/components";
 import { ConnectKitButton } from "connectkit";
 import { useRouter } from "next/navigation";
 import cn from "classnames";
-
+import { useAccount, useSwitchChain, useDisconnect } from "wagmi";
+import { arbitrum } from "wagmi/chains";
 import { FaGithub, FaTwitter } from "react-icons/fa";
+import { toast } from "sonner";
 
 function Home() {
 	const router = useRouter();
+
+	const { chain } = useAccount();
+	const { disconnect } = useDisconnect();
+	const { switchChain, isPending: isSwitchingChain } = useSwitchChain();
+
+	// Unsupported chain warning
+
+	useEffect(() => {
+		if (chain?.id !== arbitrum.id && !isSwitchingChain) {
+			toast.warning("Invalid chain detected, please switch to Arbitrum One");
+
+			if (confirm("Unsupported chain, switch to Arbitrum One?")) {
+				switchChain({
+					chainId: arbitrum.id,
+				});
+			} else {
+				disconnect();
+			}
+		}
+	}, [chain, isSwitchingChain]);
 
 	return (
 		<div className="fixed bottom-0 left-0 w-full p-5 md:p-7">

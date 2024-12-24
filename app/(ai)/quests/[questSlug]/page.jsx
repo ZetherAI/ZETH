@@ -5,7 +5,7 @@ import { ChatTopbar, MessageNResponse, SubmitButton } from "@/components";
 import { SendHorizonal, Wallet2 } from "lucide-react";
 import { GameStats } from "@/constants/staticText";
 import useGameStats, { toNum } from "@/components/utils/hooks/usegamestats";
-import { useWriteContract, useAccount, useSwitchChain } from "wagmi";
+import { useWriteContract, useAccount, useSwitchChain, useDisconnect } from "wagmi";
 import { GameAbi } from "../../../../constants";
 import config from "@/config";
 import { useMutation, useQueryClient, useInfiniteQuery, keepPreviousData } from "@tanstack/react-query";
@@ -25,7 +25,8 @@ const Home = () => {
 	const { data: gameStats } = useGameStats();
 	const { writeContract } = useWriteContract();
 	const { chain, address } = useAccount();
-	const { switchChain } = useSwitchChain();
+	const { disconnect } = useDisconnect();
+	const { switchChain, isPending: isSwitchingChain } = useSwitchChain();
 	const [message, setMessage] = useState("");
 	const { messagePriceRaw, ethPrice } = gameStats;
 
@@ -139,20 +140,26 @@ const Home = () => {
 		}
 	};
 
+	// Unsupported chain warning
+
+	useEffect(() => {
+		if (chain?.id !== arbitrum.id && !isSwitchingChain) {
+			toast.warning("Invalid chain detected, please switch to Arbitrum One");
+
+			if (confirm("Unsupported chain, switch to Arbitrum One?")) {
+				switchChain({
+					chainId: arbitrum.id,
+				});
+			} else {
+				disconnect();
+			}
+		}
+	}, [chain, isSwitchingChain]);
+
 	useEffect(() => {
 		if (isSuccess && thread) {
 			// scroll down
 			scrollDownToBottom();
-
-			if (chain?.id !== arbitrum.id) {
-				toast.warning("Invalid chain detected, please switch to Arbitrum One");
-
-				switchChain({
-					chainId: arbitrum.id,
-				});
-
-				return;
-			}
 
 			queryClient.refetchQueries({
 				queryKey: [config.endpoints.getThreads],

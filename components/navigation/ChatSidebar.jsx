@@ -80,7 +80,7 @@ const ChatSidebar = ({ about, stats, examplePrompts }) => {
 								<div className="space-y-2">
 									<h2 className="stats-value">{truncateWalletAddress(address)}</h2>
 
-									<p className="text-xs font-bold"> {chain.name} </p>
+									<p className="text-xs font-bold"> {chain?.name} </p>
 
 									<button onClick={disconnect} className="bg-white/15 hover:bg-white/20 px-4 py-1 rounded-md">
 										{" "}

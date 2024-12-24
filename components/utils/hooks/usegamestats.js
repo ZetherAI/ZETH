@@ -99,7 +99,7 @@ export default function useGameStats() {
 		query: {
 			refetchInterval: 5000,
 
-			enabled: isConnected && chain.id === arbitrum.id,
+			enabled: isConnected && chain?.id === arbitrum.id,
 		},
 	});
 
