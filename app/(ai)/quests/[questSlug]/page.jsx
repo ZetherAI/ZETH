@@ -172,9 +172,7 @@ const Home = () => {
 			reset();
 		}
 
-		if (isPending) {
-			scrollDownToBottom();
-		}
+		scrollDownToBottom();
 	}, [isSuccess, isError, thread, isPending]);
 
 	// Unsupported chain warning
