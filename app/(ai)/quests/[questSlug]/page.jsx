@@ -15,6 +15,7 @@ import { createFetcher } from "../../../../components/utils/fetcher";
 import cn from "classnames";
 import { toast } from "sonner";
 import Loader from "@/components/Loader";
+import WorkingIndicator from "../../../../components/WorkingIndicator";
 
 const Home = () => {
 	const containerRef = useRef(null);
@@ -170,7 +171,11 @@ const Home = () => {
 
 			reset();
 		}
-	}, [isSuccess, isError, thread]);
+
+		if (isPending) {
+			scrollDownToBottom();
+		}
+	}, [isSuccess, isError, thread, isPending]);
 
 	// Unsupported chain warning
 
@@ -305,6 +310,8 @@ const Home = () => {
 							</Fragment>
 						);
 					})}
+
+				<WorkingIndicator working={isPending} />
 
 				<div className="pb-16" ref={lastMessageRef}></div>
 			</div>
