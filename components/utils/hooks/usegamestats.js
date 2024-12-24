@@ -41,6 +41,10 @@ function getValueForName(name, data) {
 	return data[0]?.result || 0;
 }
 
+export function generateRequestId() {
+	return Math.floor(Math.random() * 1e16).toString();
+}
+
 export function toNum(v) {
 	try {
 		return Number(BigInt(v));

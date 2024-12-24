@@ -4,7 +4,7 @@ import React, { useEffect, useState, useRef, Fragment } from "react";
 import { ChatTopbar, MessageNResponse, SubmitButton } from "@/components";
 import { SendHorizonal, Wallet2 } from "lucide-react";
 import { GameStats } from "@/constants/staticText";
-import useGameStats, { toNum } from "@/components/utils/hooks/usegamestats";
+import useGameStats, { toNum, generateRequestId } from "@/components/utils/hooks/usegamestats";
 import { useWriteContract, useAccount, useSwitchChain, useDisconnect } from "wagmi";
 import { GameAbi } from "../../../../constants";
 import config from "@/config";
@@ -18,12 +18,20 @@ import Loader from "@/components/Loader";
 
 const Home = () => {
 	const containerRef = useRef(null);
+	const requestIdRef = useRef(null);
 	const inputRef = useRef(null);
 	const lastMessageRef = useRef(null);
 
 	const queryClient = useQueryClient();
 	const { data: gameStats } = useGameStats();
-	const { writeContract } = useWriteContract();
+	const {
+		writeContract,
+		data: txHash,
+		isPending: processingPlay,
+		isError: isPlayError,
+		error: playError,
+		reset: resetPlay,
+	} = useWriteContract();
 	const { chain, address } = useAccount();
 	const { disconnect } = useDisconnect();
 	const { switchChain, isPending: isSwitchingChain } = useSwitchChain();
@@ -45,7 +53,6 @@ const Home = () => {
 		isFetchingNextPage,
 		hasNextPage,
 		fetchNextPage,
-
 		status,
 		error: fetchThreadsError,
 	} = useInfiniteQuery({
@@ -92,21 +99,7 @@ const Home = () => {
 		refetchInterval: 5000,
 	});
 
-	const {
-		mutate,
-		isPending,
-		isError,
-		error,
-		isSuccess,
-		reset,
-		data: thread,
-	} = useMutation({
-		mutationKey: [config.endpoints.createThread, address],
-		mutationFn: createFetcher({
-			url: config.endpoints.createThread,
-			method: "POST",
-		}),
-	});
+	// load more handler
 
 	useEffect(() => {
 		const handleScroll = () => {
@@ -130,6 +123,24 @@ const Home = () => {
 		};
 	}, [hasNextPage, isFetchingNextPage]);
 
+	const {
+		mutate,
+		isPending,
+		isError,
+		error,
+		isSuccess,
+		reset,
+		data: thread,
+	} = useMutation({
+		mutationKey: [config.endpoints.createThread, address],
+		mutationFn: createFetcher({
+			url: config.endpoints.createThread,
+			method: "POST",
+		}),
+
+		retry: 2,
+	});
+
 	const scrollDownToBottom = () => {
 		if (lastMessageRef.current) {
 			lastMessageRef.current.scrollIntoView({
@@ -139,6 +150,27 @@ const Home = () => {
 			});
 		}
 	};
+
+	// Listen for getThreads status changes
+
+	useEffect(() => {
+		if (isSuccess) {
+			setMessage("");
+			// scroll down
+			scrollDownToBottom();
+
+			queryClient.refetchQueries({
+				queryKey: [config.endpoints.getThreads],
+			});
+		}
+
+		if (isError) {
+			console.log("Error: ", error);
+			toast.error("Lyra could not respond to your message, please try again later");
+
+			reset();
+		}
+	}, [isSuccess, isError, thread]);
 
 	// Unsupported chain warning
 
@@ -155,42 +187,6 @@ const Home = () => {
 			}
 		}
 	}, [chain, isSwitchingChain]);
-
-	useEffect(() => {
-		if (isSuccess && thread) {
-			// scroll down
-			scrollDownToBottom();
-
-			queryClient.refetchQueries({
-				queryKey: [config.endpoints.getThreads],
-			});
-
-			let value = (toNum(messagePriceRaw) * 1e24) / toNum(ethPrice);
-
-			value = Math.round(value + value * 0.1);
-
-			toast.info("Please confirm transaction in your wallet");
-
-			// console.log(value, thread.requestId);
-
-			writeContract({
-				abi: GameAbi,
-				address: config.gameContractAddress[chain?.id],
-				functionName: "play",
-				args: [thread.requestId, message],
-				value,
-			});
-
-			setMessage("");
-		}
-
-		if (isError) {
-			console.log("Error: ", error);
-			toast.error("Unable to process your request, try again");
-
-			reset();
-		}
-	}, [isSuccess, isError, thread]);
 
 	// For ENTER CLICKS
 
@@ -228,16 +224,51 @@ const Home = () => {
 		setMessage(e.target.value);
 	}
 
+	// Send a message to lyra
+
 	function play() {
 		if (!message) return;
 
 		if (isPending || isError) return;
 
-		mutate({
-			playerAddress: address,
-			content: message,
+		const requestId = generateRequestId();
+
+		requestIdRef.current = requestId;
+
+		const slippage = 0.1;
+
+		let value = (toNum(messagePriceRaw) * 1e24) / toNum(ethPrice);
+
+		value = Math.round(value + value * slippage);
+
+		writeContract({
+			abi: GameAbi,
+			address: config.gameContractAddress[chain?.id],
+			functionName: "play",
+			args: [BigInt(requestId), message],
+			value,
 		});
+
+		toast.info("Please confirm transaction in your wallet");
 	}
+
+	// Listen for tx hash
+
+	useEffect(() => {
+		if (txHash && !isPending) {
+			mutate({
+				playerAddress: address,
+				requestId: requestIdRef.current,
+				content: message,
+			});
+		}
+
+		if (isPlayError) {
+			toast.error(playError.shortMessage);
+
+			resetPlay();
+		}
+	}, [txHash, isPlayError]);
 
 	return (
 		<div className="w-full h-full flex flex-col justify-between">
@@ -287,7 +318,7 @@ const Home = () => {
 							value={message}
 							onChange={onMessageChange}
 							className="w-full !bg-transparent text-light placeholder:text-light/50 placeholder:font-light focus:!ring-0 focus:outline-none resize-none pr-12 md:pr-16 lg:pr-20 overflow-y-scroll  no-scrollbar"
-							rows={2}
+							rows={3}
 							autoFocus
 							maxLength={1000}
 							placeholder={`Pay ${gameStats.messagePrice} to send a message`}
@@ -313,10 +344,13 @@ const Home = () => {
 											text=""
 											className={
 												" rounded-full  bg-white/10 hover:bg-white/20 backdrop-blur-lg p-2 lg:p-3 flex-center " +
-												cn((isPending || (message.length < 1 && isConnected)) && " pointer-events-none opacity-40")
+												cn(
+													(processingPlay || isPending || (message.length < 1 && isConnected)) &&
+														" pointer-events-none opacity-40"
+												)
 											}
 											icon={
-												isPending ? (
+												isPending || processingPlay ? (
 													<Loader type="default" size={7} />
 												) : isConnected ? (
 													<SendHorizonal className="size-4 lg:size-6" size={5} />
