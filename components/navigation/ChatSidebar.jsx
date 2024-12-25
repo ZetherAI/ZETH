@@ -56,22 +56,6 @@ const ChatSidebar = ({ about, stats, examplePrompts }) => {
 					transition={{ staggerChildren: 0.1 }}
 					className={`sidebar-card ` + cn(false && "  min-h-[150px] flex flex-col justify-center items-center ")}
 				>
-					{/* {!isConnected && (
-						<ConnectKitButton.Custom>
-							{({ isConnecting, show }) => {
-								return (
-									<Button
-										text={isConnecting ? "CONNECTING.." : "CONNECT WALLET"}
-										className={
-											"btn-2 xl:!text-xl lg:py-4 xl:!px-10 " + cn(isConnecting && " pointer-events-none opacity-40 ")
-										}
-										onClick={show}
-									/>
-								);
-							}}
-						</ConnectKitButton.Custom>
-					)} */}
-
 					<>
 						<div className="space-y-[6px]">
 							{isConnected && <p className="uppercase text-xs md:text-sm">Account</p>}
