@@ -54,19 +54,27 @@ const Home = () => {
 		isFetchingNextPage,
 		hasNextPage,
 		fetchNextPage,
-		error: fetchThreadsError,
 		isError: isFetchThreadsError,
 		isLoading: threadsLoading,
 	} = useInfiniteQuery({
 		queryKey: [config.endpoints.getThreads, fetchParams],
 
 		queryFn: async ({ pageParam }) => {
-			const searchStr = new URLSearchParams(pageParam).toString();
+			const p = {
+				page: pageParam.page,
+				size: pageParam.size,
+			};
+
+			if (!pageParam.useGlobalChats) {
+				p.playerAddress = address;
+			}
+
+			const searchStr = new URLSearchParams(p).toString();
 
 			const res = await createFetcher({
 				url: config.endpoints.getThreads,
 				method: "GET",
-				surfix: `/${address}?${searchStr}`,
+				surfix: `?${searchStr}`,
 			})();
 
 			return res;
@@ -96,7 +104,7 @@ const Home = () => {
 
 		placeholderData: keepPreviousData,
 
-		enabled: !!address,
+		enabled: fetchParams.useGlobalChats || !!address,
 
 		refetchInterval: 5000,
 	});
@@ -292,7 +300,7 @@ const Home = () => {
 			>
 				{isFetchingNextPage && <p className="text-sm text-center pt-4 pb-12 text-white"> Loading more... </p>}
 
-				{!address && (
+				{!address && !fetchParams.useGlobalChats && (
 					<p className="text-sm text-center pt-4 pb-12 text-white"> Connect your wallet to see your messages </p>
 				)}
 
