@@ -34,7 +34,8 @@
 		"app/(ai)/quests/[questSlug]/page.jsx",
 		"app/(ai)/assister/layout.jsx",
 		"components/cards/MessageNResponse.jsx",
-		"components/navigation/ChatTopbar.jsx"
+		"components/navigation/ChatTopbar.jsx",
+		"components/cards/QuestCard.jsx"
 	],
 	"exclude": ["node_modules"]
 }
