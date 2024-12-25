@@ -9,7 +9,7 @@ const wagmiConfig = createConfig(
 	getDefaultConfig({
 		chains: [arbitrum],
 		transports: {
-			[arbitrum.id]: http(),
+			[arbitrum.id]: http(`https://arbitrum-mainnet.infura.io/v3/${process.env.NEXT_PUBLIC_INFURA_KEY}`),
 		},
 
 		walletConnectProjectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID,

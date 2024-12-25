@@ -21,7 +21,7 @@ function Home() {
 	// Unsupported chain warning
 
 	useEffect(() => {
-		if (chain?.id !== arbitrum.id && !isSwitchingChain) {
+		if (chain?.id && chain?.id !== arbitrum.id && !isSwitchingChain) {
 			toast.warning("Invalid chain detected, please switch to Arbitrum One");
 
 			if (confirm("Unsupported chain, switch to Arbitrum One?")) {

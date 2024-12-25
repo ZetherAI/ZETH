@@ -54,9 +54,9 @@ const ChatSidebar = ({ about, stats, examplePrompts }) => {
 					animate="animate"
 					exit="exit"
 					transition={{ staggerChildren: 0.1 }}
-					className={`sidebar-card ` + cn(!isConnected && "  min-h-[150px] flex flex-col justify-center items-center ")}
+					className={`sidebar-card ` + cn(false && "  min-h-[150px] flex flex-col justify-center items-center ")}
 				>
-					{!isConnected && (
+					{/* {!isConnected && (
 						<ConnectKitButton.Custom>
 							{({ isConnecting, show }) => {
 								return (
@@ -70,47 +70,59 @@ const ChatSidebar = ({ about, stats, examplePrompts }) => {
 								);
 							}}
 						</ConnectKitButton.Custom>
-					)}
+					)} */}
 
-					{isConnected && (
-						<>
-							<div className="space-y-[6px]">
-								<p className="uppercase text-xs md:text-sm">Account</p>
+					<>
+						<div className="space-y-[6px]">
+							{isConnected && <p className="uppercase text-xs md:text-sm">Account</p>}
 
-								<div className="space-y-2">
-									<h2 className="stats-value">{truncateWalletAddress(address)}</h2>
+							<div className="space-y-2">
+								{isConnected && (
+									<>
+										<h2 className="stats-value">{truncateWalletAddress(address)}</h2>
 
-									<p className="text-xs font-bold"> {chain?.name} </p>
+										<p className="text-xs font-bold"> {chain?.name} </p>
+									</>
+								)}
 
-									<button onClick={disconnect} className="bg-white/15 hover:bg-white/20 px-4 py-1 rounded-md">
-										{" "}
-										Disconnect
-									</button>
-								</div>
+								<ConnectKitButton.Custom>
+									{({ isConnecting, show, isConnected }) => {
+										return (
+											<Button
+												text={isConnecting ? "Connecting.." : isConnected ? "Disconnect" : "Connect Wallet"}
+												className={
+													"bg-white/15 hover:bg-white/20 px-4 py-2 rounded-xl   " +
+													cn(isConnecting && " pointer-events-none opacity-40 ")
+												}
+												onClick={isConnected ? disconnect : show}
+											/>
+										);
+									}}
+								</ConnectKitButton.Custom>
 							</div>
-							{stats.map(({ label, name }, i) => (
-								<MotionDiv variants={variants.slideInBottom} key={i} className="space-y-[6px]">
-									<p className="uppercase text-xs md:text-sm">{label}</p>
+						</div>
+						{stats.map(({ label, name }, i) => (
+							<MotionDiv variants={variants.slideInBottom} key={i} className="space-y-[6px]">
+								<p className="uppercase text-xs md:text-sm">{label}</p>
 
-									{(isPending || !isSuccess) && <Skeleton width={100} height={20} />}
+								{(isPending || !isSuccess) && <Skeleton width={100} height={20} />}
 
-									{isSuccess && <h2 className="stats-value break-words">{data[name]}</h2>}
-								</MotionDiv>
-							))}
+								{isSuccess && <h2 className="stats-value break-words">{data[name]}</h2>}
+							</MotionDiv>
+						))}
 
-							<div className="space-y-[6px]">
-								<p className="uppercase text-xs md:text-sm">
-									{toNum(data.gameStartTime) * 1000 > Date.now() ? "Game Starts In" : "Game Ends In"}
-								</p>
+						<div className="space-y-[6px]">
+							<p className="uppercase text-xs md:text-sm">
+								{toNum(data.gameStartTime) * 1000 > Date.now() ? "Game Starts In" : "Game Ends In"}
+							</p>
 
-								<div className="space-y-2">
-									<h2 className="stats-value">
-										{remainingTime.hoursStr}:{remainingTime.minutesStr}:{remainingTime.secondsStr}
-									</h2>
-								</div>
+							<div className="space-y-2">
+								<h2 className="stats-value">
+									{remainingTime.hoursStr}:{remainingTime.minutesStr}:{remainingTime.secondsStr}
+								</h2>
 							</div>
-						</>
-					)}
+						</div>
+					</>
 				</MotionDiv>
 
 				{about && (

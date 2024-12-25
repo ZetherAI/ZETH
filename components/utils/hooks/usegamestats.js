@@ -88,15 +88,25 @@ export default function useGameStats() {
 				...gameContract,
 				functionName: "totalAttempts",
 			},
-			{
-				...gameContract,
-				functionName: "playerAttemptCount",
-				args: [address],
-			},
 
 			{
 				...gameContract,
 				functionName: "ethPrice",
+			},
+		],
+
+		query: {
+			refetchInterval: 5000,
+		},
+	});
+
+	const { data2 } = useReadContracts({
+		// allowFailure: false,
+		contracts: [
+			{
+				...gameContract,
+				functionName: "playerAttemptCount",
+				args: [address],
 			},
 		],
 
@@ -121,7 +131,7 @@ export default function useGameStats() {
 
 			messagePrice: "$ " + toBaseUnit(toNum(getValueForName("messagePrice", data))),
 
-			playerAttempts: getValueForName("playerAttempts", data),
+			playerAttempts: getValueForName("playerAttempts", data2),
 
 			messagePriceRaw: (data && data[1]?.result[0]) || 0,
 
