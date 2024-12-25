@@ -4,7 +4,7 @@ import config from "../../../config";
 import { GameAbi } from "../../../constants";
 import { arbitrum } from "wagmi/chains";
 import { useQuery } from "@tanstack/react-query";
-import { useEffect, useMemo } from "react";
+import { useMemo } from "react";
 
 const publicClient = createPublicClient({
 	chain: arbitrum,
@@ -12,8 +12,6 @@ const publicClient = createPublicClient({
 });
 
 export default function useGameStats() {
-	const { data: blockNumber } = useBlockNumber({ watch: true });
-
 	const gameContract = {
 		address: config.gameContractAddress[arbitrum.id],
 		abi: GameAbi,
@@ -52,17 +50,10 @@ export default function useGameStats() {
 			};
 		},
 
-		enabled: !!blockNumber,
+		refetchInterval: 30000,
 
 		refetchOnWindowFocus: false,
 	});
-
-	useEffect(() => {
-		if (blockNumber && toNum(blockNumber) % 60 === 0 && !isFetching && !isPending) {
-			refetch();
-			// console.log("Refreshing now");
-		}
-	}, [blockNumber]);
 
 	// console.log("Stats: ", gameStats, "Error: ", error);
 
