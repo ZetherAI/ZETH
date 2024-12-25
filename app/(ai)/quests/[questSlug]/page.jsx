@@ -315,15 +315,14 @@ const Home = () => {
 			</div>
 
 			{/* ! INPUT */}
-			<div className="w-full py-5 border-t border-white/10 shadow-xl shadow-white/5 ">
-				<div className="container !py-0">
+			<div className="w-full  border-t border-white/10 shadow-xl shadow-white/5 ">
+				<div className="container-2 pb-2 pt-6 ">
 					<div className="flex w-full gap-3 py-2 px-4 rounded-xl bg-white/10 backdrop-blur-md relative">
 						<textarea
 							ref={inputRef}
 							value={message}
 							onChange={onMessageChange}
 							className="w-full !bg-transparent text-light placeholder:text-light/50 placeholder:font-light focus:!ring-0 focus:outline-none resize-none pr-12 md:pr-16 lg:pr-20 overflow-y-scroll  no-scrollbar"
-							rows={3}
 							autoFocus
 							maxLength={1000}
 							placeholder={`Pay ${gameStats.messagePrice} to send a message`}
@@ -358,9 +357,9 @@ const Home = () => {
 												isPending || processingPlay ? (
 													<Loader type="default" size={7} />
 												) : isConnected ? (
-													<SendHorizonal className="size-4 lg:size-6" size={5} />
+													<SendHorizonal className="size-4 lg:size-5" size={5} />
 												) : (
-													<Wallet2 className="size-4 lg:size-6" />
+													<Wallet2 className="size-4 lg:size-5" />
 												)
 											}
 										/>
@@ -369,7 +368,7 @@ const Home = () => {
 							</ConnectKitButton.Custom>
 						</div>
 					</div>
-					<p className="w-full xs text-center opactity-90 pt-3">75% of message fees go to the prize pool</p>
+					<p className="w-full text-xs text-center opacity-90 pt-3">75% of message fees go to the prize pool</p>
 				</div>
 			</div>
 		</div>

@@ -18,7 +18,7 @@ const ChatTopbar = ({ intro, about, stats, examplePrompts, globalChatsEnabled, t
 
 	const { isConnected } = useAccount();
 
-	const { isPending, isSuccess, data } = useGameStats();
+	const { data } = useGameStats();
 
 	const { remainingTime, setFutureTimestamp } = useCountDown(Date.now());
 
@@ -49,7 +49,7 @@ const ChatTopbar = ({ intro, about, stats, examplePrompts, globalChatsEnabled, t
 
 	return (
 		<div>
-			<div className="border-b border-white/5 pb-5 shadow-2xl shadow-light/5">
+			<div className="border-b border-white/5 pb-2 shadow-2xl shadow-light/5">
 				<div className="flex-v-center justify-between gap-5 container bg-black/30 backdrop-blur-sm !pb-4">
 					<div className="show-md">
 						<Logo showName />
@@ -84,14 +84,14 @@ const ChatTopbar = ({ intro, about, stats, examplePrompts, globalChatsEnabled, t
 						<Menu onClick={() => setShowMenu(true)} />
 					</div>
 				</div>
-				<div className="container !py-0 flex gap-2">
+				{/* <div className="container !py-0 flex gap-2">
 					<div className="sidebar-card !bg-none !flex-row gap-2">
 						<div className="min-w-fit hide-md">
 							<Logo />
 						</div>
 						<p>{intro}</p>
 					</div>
-				</div>
+				</div> */}
 			</div>
 			{showMenu && (
 				<div className="hide-md">
