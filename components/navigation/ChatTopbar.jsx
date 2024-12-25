@@ -5,7 +5,6 @@ import { usePathname } from "next/navigation";
 import { Menu } from "lucide-react";
 import { MotionDiv } from "@/constants/motionProps";
 import { toast } from "sonner";
-import { useAccount } from "wagmi";
 import Skeleton from "react-loading-skeleton";
 import useGameStats, { toNum } from "../utils/hooks/usegamestats";
 import useCountDown from "../utils/hooks/usecountdown";
@@ -16,9 +15,7 @@ const ChatTopbar = ({ intro, about, stats, examplePrompts, globalChatsEnabled, t
 
 	const pathname = usePathname();
 
-	const { isConnected } = useAccount();
-
-	const { data } = useGameStats();
+	const { data, isSuccess } = useGameStats();
 
 	const { remainingTime, setFutureTimestamp } = useCountDown(Date.now());
 
@@ -68,11 +65,11 @@ const ChatTopbar = ({ intro, about, stats, examplePrompts, globalChatsEnabled, t
 						{/* <ChevronDown /> */}
 					</button>
 					<div className="hide-md flex-center !gap-[2px] flex-col">
-						{isConnected && data ? (
+						{isSuccess && data ? (
 							<>
 								<p className="!text-white font-semibold">Price Pool: {data.prizePool} </p>
 								<p className="opacity-90 xs">
-									{toNum(data.gameStartTime) * 1000 > Date.now() ? "Game Starts In " : "Game Ends In "}
+									{data.gameStartTime * 1000 > Date.now() ? "Game Starts In " : "Game Ends In "}
 									{remainingTime.hoursStr}:{remainingTime.minutesStr}:{remainingTime.secondsStr}
 								</p>
 							</>
