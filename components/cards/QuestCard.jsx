@@ -62,7 +62,7 @@ const QuestCard = () => {
 				{isSuccess && data && (
 					<div className="flex flex-row justify-start items-center space-x-4">
 						<p className="uppercase font-medium text-xs md:text-sm">
-							{data.gameStartTime * 1000 > Date.now() ? "Game Starts In" : "Game Ends In"}
+							{data.gameStartTime * 1000 > Date.now() ? "Starts In" : "Ends In"}
 						</p>
 
 						<div className="space-y-2">
