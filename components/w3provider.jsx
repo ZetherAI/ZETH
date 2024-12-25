@@ -1,6 +1,6 @@
 "use client";
 
-import { http, createConfig, WagmiProvider } from "wagmi";
+import { http, createConfig, WagmiProvider, fallback } from "wagmi";
 import { arbitrum } from "wagmi/chains";
 import { ConnectKitProvider, getDefaultConfig } from "connectkit";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
@@ -9,7 +9,7 @@ const wagmiConfig = createConfig(
 	getDefaultConfig({
 		chains: [arbitrum],
 		transports: {
-			[arbitrum.id]: http(`https://arbitrum-mainnet.infura.io/v3/${process.env.NEXT_PUBLIC_INFURA_KEY}`),
+			[arbitrum.id]: fallback([http(`https://arbitrum-mainnet.infura.io/v3/${process.env.NEXT_PUBLIC_INFURA_KEY}`)]),
 		},
 
 		walletConnectProjectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID,

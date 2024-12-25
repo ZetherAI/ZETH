@@ -54,8 +54,9 @@ const Home = () => {
 		isFetchingNextPage,
 		hasNextPage,
 		fetchNextPage,
-		status,
 		error: fetchThreadsError,
+		isError: isFetchThreadsError,
+		isLoading: threadsLoading,
 	} = useInfiniteQuery({
 		queryKey: [config.endpoints.getThreads, fetchParams],
 
@@ -291,16 +292,19 @@ const Home = () => {
 			>
 				{isFetchingNextPage && <p className="text-sm text-center pt-4 pb-12 text-white"> Loading more... </p>}
 
-				{status === "pending" ? (
-					<p className="text-sm text-center py-4 text-white"> Loading messages... </p>
-				) : status === "error" ? (
-					<p className="text-sm text-center py-4 text-white">
-						{" "}
-						Unable to load messages, please try again {console.log(fetchThreadsError)}{" "}
-					</p>
-				) : null}
+				{!address && (
+					<p className="text-sm text-center pt-4 pb-12 text-white"> Connect your wallet to see your messages </p>
+				)}
 
-				{status === "success" &&
+				{isFetchThreadsError && !data && (
+					<p className="text-sm text-center py-4 text-white">Unable to load messages, please try again</p>
+				)}
+
+				{threadsLoading && !isFetchThreadsError && !data && (
+					<p className="text-sm text-center py-4 text-white"> Loading messages... </p>
+				)}
+
+				{data &&
 					data.pages.map((page, i) => {
 						return (
 							<Fragment key={i}>
@@ -308,6 +312,10 @@ const Home = () => {
 							</Fragment>
 						);
 					})}
+
+				{data && data.pages.length === 0 && (
+					<p className="text-sm text-center pt-4 pb-12 text-white"> No messages yet, send a message to Lyra now! </p>
+				)}
 
 				<WorkingIndicator working={isPending} />
 

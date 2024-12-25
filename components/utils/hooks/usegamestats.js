@@ -1,45 +1,82 @@
-import { useAccount, useReadContracts } from "wagmi";
+import { useBlockNumber } from "wagmi";
+import { createPublicClient, http } from "viem";
 import config from "../../../config";
 import { GameAbi } from "../../../constants";
 import { arbitrum } from "wagmi/chains";
+import { useQuery } from "@tanstack/react-query";
+import { useMemo } from "react";
 
-function getValueForName(name, data) {
-	if (!data) return 0;
+const publicClient = createPublicClient({
+	chain: arbitrum,
+	transport: http(`https://arbitrum-mainnet.infura.io/v3/${process.env.NEXT_PUBLIC_INFURA_KEY}`),
+});
 
-	if (name === "totalParticipants") {
-		return data[2]?.result || 0;
-	}
+export default function useGameStats() {
+	const { data: blockNumber } = useBlockNumber({ watch: true });
 
-	if (name === "totalAttempts") {
-		return data[3]?.result || 0;
-	}
+	const gameContract = {
+		address: config.gameContractAddress[arbitrum.id],
+		abi: GameAbi,
+		chainId: arbitrum.id,
+	};
 
-	if (name === "playerAttempts") {
-		return data[4]?.result || 0;
-	}
+	const {
+		data: gameStats,
+		isPending,
+		isError,
+		isSuccess,
+	} = useQuery({
+		queryKey: ["gameStats"],
+		queryFn: async () => {
+			const [prizePool, gameConfig, totalPlayers, totalAttempts, ethPrice] = await Promise.all([
+				publicClient.readContract({ ...gameContract, functionName: "prizePool" }),
+				publicClient.readContract({ ...gameContract, functionName: "gameConfig" }),
+				publicClient.readContract({ ...gameContract, functionName: "totalPlayers" }),
+				publicClient.readContract({ ...gameContract, functionName: "totalAttempts" }),
+				publicClient.readContract({ ...gameContract, functionName: "ethPrice" }),
+			]);
 
-	if (name === "prizePool") {
-		return data[0]?.result || 0;
-	}
+			return {
+				prizePool,
+				gameConfig,
+				totalPlayers,
+				totalAttempts,
+				ethPrice,
+			};
+		},
 
-	if (name === "messagePrice") {
-		return data[1]?.result[0] || 0;
-	}
+		enabled: blockNumber && toNum(blockNumber) % 10 === 0, // Only refetch when blockNumber is a multiple of 10,
 
-	if (name === "duration") {
-		return data[1]?.result[3] || 0;
-	}
+		refetchOnWindowFocus: false,
+		staleTime: 30000,
+	});
 
-	if (name === "startTime") {
-		return data[1]?.result[4] || 0;
-	}
+	// console.log("Stats: ", gameStats, "Error: ", error);
 
-	if (name === "ethPrice") {
-		return data[5]?.result || 0;
-	}
+	// Format the fetched data
+	const formattedStats = useMemo(() => {
+		if (!gameStats) return {};
 
-	return data[0]?.result || 0;
+		return {
+			totalParticipants: toNum(gameStats.totalPlayers || 0),
+			totalAttempts: toNum(gameStats.totalAttempts || 0),
+			prizePool: `$ ${toBaseUnit(toNum(gameStats.prizePool || 0))}`,
+			messagePrice: `$ ${toBaseUnit(toNum(gameStats.gameConfig?.[0] || 0))}`,
+			ethPrice: toNum(gameStats.ethPrice || 0),
+			gameDuration: toNum(gameStats.gameConfig?.[3] || 0),
+			gameStartTime: toNum(gameStats.gameConfig?.[4] || 0),
+		};
+	}, [gameStats]);
+
+	return {
+		isPending,
+		isError,
+		isSuccess,
+		data: formattedStats,
+	};
 }
+
+// -------------------------------------------
 
 export function generateRequestId() {
 	return Math.floor(Math.random() * 1e16).toString();
@@ -49,97 +86,11 @@ export function toNum(v) {
 	try {
 		return Number(BigInt(v));
 	} catch (err) {
-		console.error(err);
+		// console.error(err);
 		return 0;
 	}
 }
 
 export function toBaseUnit(v) {
 	return +(+v / 100).toFixed(2);
-}
-
-export default function useGameStats() {
-	const { isConnected, address, chain } = useAccount();
-
-	const gameContract = {
-		address: config.gameContractAddress[chain?.id],
-		abi: GameAbi,
-	};
-
-	const { data, isPending, isSuccess } = useReadContracts({
-		// allowFailure: false,
-		contracts: [
-			{
-				...gameContract,
-				functionName: "prizePool",
-			},
-
-			{
-				...gameContract,
-				functionName: "gameConfig",
-			},
-
-			{
-				...gameContract,
-				functionName: "totalPlayers",
-			},
-
-			{
-				...gameContract,
-				functionName: "totalAttempts",
-			},
-
-			{
-				...gameContract,
-				functionName: "ethPrice",
-			},
-		],
-
-		query: {
-			refetchInterval: 5000,
-		},
-	});
-
-	const { data2 } = useReadContracts({
-		// allowFailure: false,
-		contracts: [
-			{
-				...gameContract,
-				functionName: "playerAttemptCount",
-				args: [address],
-			},
-		],
-
-		query: {
-			refetchInterval: 5000,
-
-			enabled: isConnected && chain?.id === arbitrum.id,
-		},
-	});
-
-	// console.log(data);
-
-	return {
-		isPending,
-		isSuccess,
-		data: {
-			totalParticipants: getValueForName("totalParticipants", data),
-
-			totalAttempts: getValueForName("totalAttempts", data),
-
-			prizePool: "$ " + toBaseUnit(toNum(getValueForName("prizePool", data))),
-
-			messagePrice: "$ " + toBaseUnit(toNum(getValueForName("messagePrice", data))),
-
-			playerAttempts: getValueForName("playerAttempts", data2),
-
-			messagePriceRaw: (data && data[1]?.result[0]) || 0,
-
-			ethPrice: getValueForName("ethPrice", data),
-
-			gameDuration: getValueForName("duration", data),
-
-			gameStartTime: getValueForName("startTime", data),
-		},
-	};
 }
