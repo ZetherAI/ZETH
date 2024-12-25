@@ -313,7 +313,7 @@ const Home = () => {
 						);
 					})}
 
-				{data && data.pages.length === 0 && (
+				{data && !data.pages.length && (
 					<p className="text-sm text-center pt-4 pb-12 text-white"> No messages yet, send a message to Lyra now! </p>
 				)}
 
