@@ -86,7 +86,7 @@ const MessageNResponse = ({ uid, requestId, won, responded, score, playerAddress
 											className={
 												"user-message flex flex-col items-end gap-y-1  " +
 												cn({
-													" rounded-[15px] ": msg.content.length < 30, // Really Short messages
+													" rounded-[16px] ": msg.content.length < 30, // Really Short messages
 
 													" rounded-[70px] ": msg.content.length >= 30 && msg.content.length < 50, // Short messages
 													" rounded-[50px] ": msg.content.length >= 50 && msg.content.length < 100, // Medium messages
@@ -97,12 +97,6 @@ const MessageNResponse = ({ uid, requestId, won, responded, score, playerAddress
 											<p className="w-full  text-black  ">{msg.content}</p>
 										</div>
 										<p className="xs self-end text-white/20">{dayjs(msg.createdAt * 1000).format("LT")}</p>
-										{/* <div className="size-[35px] rounded-full bg-gradient-to-br from-brand-1/50 to-brand-4/50 backdrop-blur-xl" /> */}
-										{/* <Image
-          src={images.pfp}
-          alt="user"
-          className="size-[35px] rounded-full object-cover"
-          /> */}
 									</div>
 								)}
 
@@ -117,7 +111,7 @@ const MessageNResponse = ({ uid, requestId, won, responded, score, playerAddress
 											className={
 												"ai-message flex flex-col items-end gap-y-1 " +
 												cn({
-													" rounded-[15px] ": msg.content.length < 30, // Really Short messages
+													" rounded-[16px] ": msg.content.length < 30, // Really Short messages
 
 													" rounded-[70px] ": msg.content.length >= 30 && msg.content.length < 50, // Short messages
 													" rounded-[50px] ": msg.content.length >= 50 && msg.content.length < 100, // Medium messages

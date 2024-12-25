@@ -26,18 +26,22 @@ export default function useGameStats() {
 		isError,
 		isSuccess,
 		isFetching,
-
 		refetch,
+		error,
 	} = useQuery({
 		queryKey: ["gameStats"],
 		queryFn: async () => {
-			const [prizePool, gameConfig, totalPlayers, totalAttempts, ethPrice] = await Promise.all([
-				publicClient.readContract({ ...gameContract, functionName: "prizePool" }),
-				publicClient.readContract({ ...gameContract, functionName: "gameConfig" }),
-				publicClient.readContract({ ...gameContract, functionName: "totalPlayers" }),
-				publicClient.readContract({ ...gameContract, functionName: "totalAttempts" }),
-				publicClient.readContract({ ...gameContract, functionName: "ethPrice" }),
-			]);
+			const results = await publicClient.multicall({
+				contracts: [
+					{ ...gameContract, functionName: "prizePool" },
+					{ ...gameContract, functionName: "gameConfig" },
+					{ ...gameContract, functionName: "totalPlayers" },
+					{ ...gameContract, functionName: "totalAttempts" },
+					{ ...gameContract, functionName: "ethPrice" },
+				],
+			});
+
+			const [prizePool, gameConfig, totalPlayers, totalAttempts, ethPrice] = results.map((result) => result?.result);
 
 			return {
 				prizePool,
@@ -54,9 +58,9 @@ export default function useGameStats() {
 	});
 
 	useEffect(() => {
-		if (blockNumber && toNum(blockNumber) % 45 === 0 && !isFetching && !isPending) {
+		if (blockNumber && toNum(blockNumber) % 60 === 0 && !isFetching && !isPending) {
 			refetch();
-			console.log("Refreshing now");
+			// console.log("Refreshing now");
 		}
 	}, [blockNumber]);
 
@@ -71,6 +75,7 @@ export default function useGameStats() {
 			totalAttempts: toNum(gameStats.totalAttempts || 0),
 			prizePool: `$ ${toBaseUnit(toNum(gameStats.prizePool || 0))}`,
 			messagePrice: `$ ${toBaseUnit(toNum(gameStats.gameConfig?.[0] || 0))}`,
+			messagePriceRaw: toNum(gameStats.gameConfig?.[0]),
 			ethPrice: toNum(gameStats.ethPrice || 0),
 			gameDuration: toNum(gameStats.gameConfig?.[3] || 0),
 			gameStartTime: toNum(gameStats.gameConfig?.[4] || 0),
