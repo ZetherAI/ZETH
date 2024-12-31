@@ -18,7 +18,7 @@ import cn from "classnames";
 dayjs.extend(relativeTime);
 dayjs.extend(localizedFormat);
 
-const MessageNResponse = ({ uid, requestId, won, responded, score, playerAddress, chainId }) => {
+const MessageNResponse = ({ uid, requestId, won, playerAddress, chainId }) => {
 	const gameContract = {
 		address: config.gameContractAddress[chainId],
 		abi: GameAbi,
@@ -62,9 +62,7 @@ const MessageNResponse = ({ uid, requestId, won, responded, score, playerAddress
 			<div className="flex flex-col gap-x-2 gap-y-8 relative pb-4">
 				{data && (
 					<p className="absolute shadow-lg -top-6   lg:-top-8 left-1/2 -translate-x-1/2 bg-black z-20 text-xs  rounded-lg text-white px-2 py-1">
-						{toBaseUnit(toNum(data[2])) > 0 ? `$${toBaseUnit(toNum(data[2]))}` : "awaiting payment..."}
-
-						{won && " | Winner 🏆"}
+						{toBaseUnit(toNum(data[2])) > 0 ? `$${toBaseUnit(toNum(data[2]))}` : ""}
 					</p>
 				)}
 
@@ -97,6 +95,12 @@ const MessageNResponse = ({ uid, requestId, won, responded, score, playerAddress
 											<p className="w-full  text-black  ">{msg.content}</p>
 										</div>
 										<p className="xs self-end text-white/20">{dayjs(msg.createdAt * 1000).format("LT")}</p>
+
+										{won && (
+											<div className="pt-2 w-max  self-end">
+												<p className=" text-white  text-xs  py-2 px-4 rounded-2xl bg-[#A67C00] ">🏆 Winner</p>
+											</div>
+										)}
 									</div>
 								)}
 

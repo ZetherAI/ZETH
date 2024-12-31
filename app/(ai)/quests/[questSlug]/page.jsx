@@ -37,7 +37,14 @@ const Home = () => {
 	const { disconnect } = useDisconnect();
 	const { switchChain, isPending: isSwitchingChain } = useSwitchChain();
 	const [message, setMessage] = useState("");
-	const { messagePriceRaw, ethPrice } = gameStats;
+	const { messagePriceRaw, ethPrice, currentWinner, winnerDeclared, totalAttempts, gameDuration, gameStartTime } =
+		gameStats;
+
+	let gameEnded = false;
+
+	if (gameStartTime && gameDuration) {
+		gameEnded = Date.now() / 1000 > gameStartTime + gameDuration;
+	}
 
 	const [fetchParams, setFetchParams] = useState({
 		page: 1,
@@ -326,6 +333,39 @@ const Home = () => {
 				)}
 
 				<WorkingIndicator working={isPending} />
+
+				{winnerDeclared ||
+					(gameEnded && (
+						<div className="fixed bottom-0 inset-x-0 min-h-[300px] bg-[#161416] z-40 rounded-t-[50px] xl:rounded-t-[100px] flex flex-center justify-center items-center">
+							{winnerDeclared && (
+								<div className="px-8 pt-8 pb-4 max-w-xl space-y-4 lg:space-y-8 ">
+									<h1 className="text-xl lg:text-2xl"> “The Quantum Nexus yields… 🏆 A Mortal triumphs! 🎉” </h1>
+
+									<p className="text-lg">
+										Against all odds, a challenger has outmaneuvered Lyra and claimed the prize! 💎✨ But Lyra learns,
+										adapts, and awaits the next encounter... 🧠💥
+									</p>
+									<p className="font-bold text-sm">
+										Winner:🏅 <span className="break-words"> {currentWinner} </span> 🔥🎊{" "}
+									</p>
+								</div>
+							)}
+
+							{gameEnded && (
+								<div className="px-8 pt-8 pb-4 max-w-xl space-y-4 lg:space-y-8 ">
+									<h1 className="text-xl lg:text-2xl">
+										{" "}
+										“The Quantum Nexus holds firm… ⚡ Lyra remains undefeated! 💪”{" "}
+									</h1>
+
+									<p className="text-lg">
+										{totalAttempts} attempts, yet none could unlock her secrets. 🔒💥 Lyra stands victorious 🏆, and a
+										new challenge looms on the horizon... 🌌🛸
+									</p>
+								</div>
+							)}
+						</div>
+					))}
 
 				<div className="pb-16" ref={lastMessageRef}></div>
 			</div>

@@ -36,10 +36,13 @@ export default function useGameStats() {
 					{ ...gameContract, functionName: "totalPlayers" },
 					{ ...gameContract, functionName: "totalAttempts" },
 					{ ...gameContract, functionName: "ethPrice" },
+					{ ...gameContract, functionName: "currentWinner" },
 				],
 			});
 
-			const [prizePool, gameConfig, totalPlayers, totalAttempts, ethPrice] = results.map((result) => result?.result);
+			const [prizePool, gameConfig, totalPlayers, totalAttempts, ethPrice, currentWinner] = results.map(
+				(result) => result?.result
+			);
 
 			return {
 				prizePool,
@@ -47,6 +50,7 @@ export default function useGameStats() {
 				totalPlayers,
 				totalAttempts,
 				ethPrice,
+				currentWinner,
 			};
 		},
 
@@ -70,6 +74,8 @@ export default function useGameStats() {
 			ethPrice: toNum(gameStats.ethPrice || 0),
 			gameDuration: toNum(gameStats.gameConfig?.[3] || 0),
 			gameStartTime: toNum(gameStats.gameConfig?.[4] || 0),
+			currentWinner: gameStats.currentWinner,
+			winnerDeclared: gameStats.currentWinner !== "0x0000000000000000000000000000000000000000",
 		};
 	}, [gameStats]);
 

@@ -53,10 +53,10 @@ const QuestCard = () => {
 				</Motion>
 				<div className="flex-v-center my-3 lg:mt-5 mb-4">
 					<Motion>
-						<Button text="Lore" link="/faq" className="btn-3" icon={<List className="size-4" />} />
+						<Button text="FAQ" link="/faq" className="btn-3" icon={<List className="size-4" />} />
 					</Motion>
 					<Motion>
-						<Button text="Rules" link="/terms" className="btn-4" icon={<Handshake className="size-4" />} />
+						<Button text="Terms" link="/terms" className="btn-4" icon={<Handshake className="size-4" />} />
 					</Motion>
 				</div>
 				{isSuccess && data && (
