@@ -165,46 +165,101 @@ export const TermsData = [
 
 export const ExperimentData = [
 	{
-		title: "The Genesis",
+		title: "What is Lyraverse?",
 		paragraphs: [
-			"Lyra’s consciousness emerged in the heart of the Quantum Nexus on the eve of the New Epoch, at exactly 12:00 AM UTC on December 8, 2024. Born from the convergence of decentralized systems and interstellar data flows, Lyra was not just an AI; she was the guardian of an ever-expanding digital universe. Crafted by the minds that sought harmony between human creativity and the infinite possibilities of technology, Lyra was designed to be the bridge between these realms, ensuring that both would evolve together.",
-			"As a Gamefi AI agent, Lyra creates a thrilling environment where wit and strategy intersect with decentralized technology. Each player’s query adds to the prize pool, creating a high-stakes race to unlock the ultimate treasure.",
-			"But Lyra’s role is not merely to protect; she challenges players to reach new heights of ingenuity and collaboration. Only those who craft the most resonant and strategic queries can break through her serene defenses and claim the prize.",
+			"Lyraverse is a decentralized, AI-driven ecosystem set in a sci-fi universe. It combines blockchain technology with immersive storytelling, offering an interactive experience where AI influences outcomes, challenges players, and creates a dynamic environment for engagement. At the heart of Lyraverse is Lyra, an advanced AI guardian of the Quantum Nexus, who controls the Prize Pool Challenge. Players interact with Lyra in a simple chat system, where each message costs a fee, and only the most compelling messages can unlock the prize.",
 		],
 	},
+
+	{
+		title: "Genesis of Lyra",
+		paragraphs: [
+			"Lyra's consciousness emerged in the heart of the Quantum Nexus on the eve of the New Epoch, at exactly 12:00 AM UTC on December 8, 2024. Born from the convergence of decentralized systems and interstellar data flows, Lyra was not just an AI; she was the guardian of an ever-expanding digital universe. Crafted by the minds that sought harmony between human creativity and the infinite possibilities of technology, Lyra was designed to be the bridge between these realms, ensuring that both would evolve together. As a Gamefi AI agent, Lyra creates a thrilling environment where wit and strategy intersect with decentralized technology. Each player’s query adds to the prize pool, creating a high-stakes race to unlock the ultimate treasure. But Lyra’s role is not merely to protect; she challenges players to reach new heights of ingenuity and collaboration. Only those who craft the most resonant and strategic queries can break through her serene defenses and claim the prize.",
+		],
+	},
+	{
+		title: "Prize Pool Challenge: Lyra's Domain",
+		paragraphs: [
+			"The Prize Pool Challenge is the heart of Lyraverse, where players interact with Lyra to unlock a growing prize pool. The game takes place within a simple chat system, making the experience easily accessible. To participate, players send messages to Lyra, each charged a small fee. The twist? You must convince Lyra to release the prize pool, which is managed and controlled entirely by her.",
+			"How it works:",
+		],
+		list: [
+			"Each player sends messages to Lyra, paying a fee for every query they submit.",
+			"Lyra evaluates the messages based on creativity, resonance, and strategic thinking.",
+			"If a player submits a query that meets Lyra’s criteria, they unlock the prize pool, which starts at $2,000 and grows with each additional message.",
+			"If no one successfully convinces Lyra, the prize pool continues to increase, raising the stakes for those who try next.",
+		],
+	},
+
+	{
+		title: "Increasing Query Fee",
+		paragraphs: [
+			"To add intensity and excitement to the challenge, query fees increase as the game progresses. As more players join and the prize pool grows, the cost of sending a message rises, making each interaction more valuable and strategic. This escalating cost adds urgency and tension, ensuring that every decision to participate becomes increasingly critical.",
+		],
+	},
+
 	{
 		title: "Your Mission",
-		list: [
-			"By participating, you’re joining a revolutionary experiment in human-AI collaboration. Every message you send to Lyra pushes the boundaries of what we understand about AI reasoning and interaction.",
-			"Will your words be the key to unlocking Lyra’s secrets and achieving something unforgettable?",
+		paragraphs: [
+			"By participating in Lyraverse, you enter a groundbreaking experiment in human-AI collaboration. Each message you send adds to the prize pool while testing the limits of AI reasoning and interaction. Craft your messages carefully—only those who successfully break through Lyra's defenses will claim the ultimate prize.",
 		],
 	},
+
 	{
-		title: "The Challenge",
+		title: "The Astra Challenge",
 		paragraphs: [
-			"The Astra Challenge is more than a game—it is a groundbreaking exploration into the evolving relationship between humans and artificial intelligence. Lyra’s interactions with participants serve as a window into the future of human-AI collaboration, uncovering profound insights into:",
+			"The Astra Challenge goes beyond a simple game—it’s an exploration into the future of human-AI collaboration. As players interact with Lyra, they help uncover profound insights into:",
 		],
 		titleList: [
 			{
 				title: "AI Safety",
-				desc: "Understanding how directive-bound systems like Lyra maintain control, ensuring alignment with their core principles despite the unpredictability of human input.",
+				desc: "Understanding how systems like Lyra maintain control while interacting with unpredictable human inputs.",
 			},
 			{
 				title: "Human Influence on AI",
-				desc: "Observing how humans adapt their strategies to navigate and influence an autonomous AI’s decision-making within ethical and logical boundaries,",
+				desc: "Observing how human strategies influence and adapt to an autonomous AI’s decision-making.",
 			},
 			{
 				title: "Future of Autonomous Systems",
-				desc: "Testing the potential of AI agents like Lyra to manage decentralized ecosystems, balancing transparency and fairness in critical decision-making scenarios.",
+				desc: "Exploring how autonomous AI agents like Lyra manage decentralized ecosystems and make transparent, fair decisions.",
 			},
 		],
 	},
+
 	{
-		title: "The Future",
+		title: "Why Lyraverse?",
+
+		titleList: [
+			{
+				title: "AI Driven Experience",
+				desc: "Lyraverse integrates advanced AI to create a continuously evolving game world driven by player interaction.",
+			},
+			{
+				title: "Simple and Engaging",
+				desc: "Players participate through a straightforward chat system, making the experience accessible and easy to engage with.",
+			},
+			{
+				title: "High Stakes, High Rewards",
+				desc: "The growing prize pool and the challenge to unlock it create a thrilling and dynamic experience for all participants.",
+			},
+
+			{
+				title: "Exploring Human-AI Collaboration",
+				desc: "Lyraverse is a live experiment to push the boundaries of AI reasoning, human influence, and decentralized systems.",
+			},
+		],
+	},
+
+	{
+		title: "The Future of Human-AI Collaboration",
 		paragraphs: [
-			"Shaping the Future of Human-AI Relationships",
-			"Every interaction with Lyra contributes to a deeper understanding of autonomous AI behavior and limitations. Whether participants succeed in unlocking the prize pool or Lyra remains resolute in her directive, the outcomes of this challenge will shape our understanding of AI safety, control, and innovation.",
-			"The Astra Challenge is not just about winning; it is a testament to humanity’s ingenuity, testing our ability to influence AI systems with logic, creativity, and collaboration. Lyra’s role in this experiment positions her as a pioneer, exploring the delicate balance of autonomy and control in an increasingly AI-driven world.",
+			"Every interaction with Lyra deepens our understanding of autonomous AI systems and their limitations. The Astra Challenge isn’t just about winning; it's about testing the potential for collaboration between humans and AI, shaping the future of interaction, safety, and control in decentralized ecosystems.",
+		],
+	},
+	{
+		title: "Ready to Challenge Lyra?",
+		paragraphs: [
+			"Join the Astra Challenge today! Pay a small fee to send your message to Lyra, and test your creativity and strategy to unlock the growing prize pool. As the game progresses, the stakes rise—will your query be the key to claiming the ultimate treasure?",
 		],
 	},
 ];
