@@ -394,45 +394,47 @@ const Home = () => {
 							placeholder={`Pay ${gameStats.messagePrice} to send a message`}
 						/>
 
-						<div className="absolute right-4 top-1/2 -translate-y-1/2">
-							<ConnectKitButton.Custom>
-								{({ isConnected, show }) => {
-									const handleClick = () => {
-										if (!isConnected && show) {
-											show();
-											return;
-										}
-
-										if (isConnected) {
-											play();
-										}
-									};
-
-									return (
-										<SubmitButton
-											onClick={handleClick}
-											text=""
-											className={
-												" rounded-full  bg-white/10 hover:bg-white/20 backdrop-blur-lg p-2 lg:p-3 flex-center " +
-												cn(
-													(processingPlay || isPending || (message.length < 1 && isConnected)) &&
-														" pointer-events-none opacity-40"
-												)
+						{!(winnerDeclared || gameEnded) && (
+							<div className="absolute right-4 top-1/2 -translate-y-1/2">
+								<ConnectKitButton.Custom>
+									{({ isConnected, show }) => {
+										const handleClick = () => {
+											if (!isConnected && show) {
+												show();
+												return;
 											}
-											icon={
-												isPending || processingPlay ? (
-													<Loader type="default" size={7} />
-												) : isConnected ? (
-													<SendHorizonal className="size-4 lg:size-5" size={5} />
-												) : (
-													<Wallet2 className="size-4 lg:size-5" />
-												)
+
+											if (isConnected) {
+												play();
 											}
-										/>
-									);
-								}}
-							</ConnectKitButton.Custom>
-						</div>
+										};
+
+										return (
+											<SubmitButton
+												onClick={handleClick}
+												text=""
+												className={
+													" rounded-full  bg-white/10 hover:bg-white/20 backdrop-blur-lg p-2 lg:p-3 flex-center " +
+													cn(
+														(processingPlay || isPending || (message.length < 1 && isConnected)) &&
+															" pointer-events-none opacity-40"
+													)
+												}
+												icon={
+													isPending || processingPlay ? (
+														<Loader type="default" size={7} />
+													) : isConnected ? (
+														<SendHorizonal className="size-4 lg:size-5" size={5} />
+													) : (
+														<Wallet2 className="size-4 lg:size-5" />
+													)
+												}
+											/>
+										);
+									}}
+								</ConnectKitButton.Custom>
+							</div>
+						)}
 					</div>
 					<p className="w-full text-xs text-center opacity-90 pt-3">75% of message fees go to the prize pool</p>
 				</div>
