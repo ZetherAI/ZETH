@@ -86,7 +86,7 @@ const MessageNResponse = ({ uid, requestId, won, playerAddress, chainId }) => {
 												cn({
 													" rounded-[16px] ": msg.content.length < 30, // Really Short messages
 
-													" rounded-[70px] ": msg.content.length >= 30 && msg.content.length < 50, // Short messages
+													" rounded-[20px] ": msg.content.length >= 30 && msg.content.length < 50, // Short messages
 													" rounded-[50px] ": msg.content.length >= 50 && msg.content.length < 100, // Medium messages
 													" rounded-[15px] ": msg.content.length >= 100, // Long messages
 												})
@@ -117,7 +117,7 @@ const MessageNResponse = ({ uid, requestId, won, playerAddress, chainId }) => {
 												cn({
 													" rounded-[16px] ": msg.content.length < 30, // Really Short messages
 
-													" rounded-[70px] ": msg.content.length >= 30 && msg.content.length < 50, // Short messages
+													" rounded-[20px] ": msg.content.length >= 30 && msg.content.length < 50, // Short messages
 													" rounded-[50px] ": msg.content.length >= 50 && msg.content.length < 100, // Medium messages
 													" rounded-[15px] ": msg.content.length >= 100, // Long messages
 												})

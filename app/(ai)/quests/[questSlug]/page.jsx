@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState, useRef, Fragment } from "react";
 import { ChatTopbar, MessageNResponse, SubmitButton } from "@/components";
-import { SendHorizonal, Wallet2 } from "lucide-react";
+import { SendHorizonal, Wallet2, X } from "lucide-react";
 import { GameStats } from "@/constants/staticText";
 import useGameStats, { toNum, generateRequestId } from "@/components/utils/hooks/usegamestats";
 import { useWriteContract, useAccount, useSwitchChain, useDisconnect } from "wagmi";
@@ -37,6 +37,7 @@ const Home = () => {
 	const { disconnect } = useDisconnect();
 	const { switchChain, isPending: isSwitchingChain } = useSwitchChain();
 	const [message, setMessage] = useState("");
+	const [showBoard, setShowBoard] = useState(true);
 	const { messagePriceRaw, ethPrice, currentWinner, winnerDeclared, totalAttempts, gameDuration, gameStartTime } =
 		gameStats;
 
@@ -334,14 +335,22 @@ const Home = () => {
 
 				<WorkingIndicator working={isPending} />
 
-				{winnerDeclared ||
-					(gameEnded && (
-						<div className="fixed bottom-0 inset-x-0 min-h-[300px] bg-[#161416] z-40 rounded-t-[50px] xl:rounded-t-[100px] flex flex-center justify-center items-center">
+				{showBoard && (winnerDeclared || gameEnded) && (
+					<>
+						<div className="fixed inset-0 inset-y-0 w-full min-h-screen bg-black backdrop-blur-sm z-10 bg-opacity-60"></div>
+						<div className="fixed w-max lg:max-w-2xl h-max bottom-0  inset-x-0   lg:top-1/2 lg:-translate-y-1/2 left-1/2 -translate-x-1/2 bg-[#161416] z-40 rounded-t-[50px] lg:rounded-[40px] flex flex-col flex-center justify-center items-center text-center">
+							<div
+								onClick={() => setShowBoard(false)}
+								className="w-full flex flex-row justify-end items-center pt-4 pr-4  cursor-pointer  "
+							>
+								<X size={25} />
+							</div>
+
 							{winnerDeclared && (
-								<div className="px-8 pt-8 pb-4 max-w-xl space-y-4 lg:space-y-8 ">
+								<div className="px-8 py-4   space-y-4 lg:space-y-8 max-w-[100%] lg:max-w-xl">
 									<h1 className="text-xl lg:text-2xl"> “The Quantum Nexus yields… 🏆 A Mortal triumphs! 🎉” </h1>
 
-									<p className="text-lg">
+									<p className="text-lg ">
 										Against all odds, a challenger has outmaneuvered Lyra and claimed the prize! 💎✨ But Lyra learns,
 										adapts, and awaits the next encounter... 🧠💥
 									</p>
@@ -352,7 +361,7 @@ const Home = () => {
 							)}
 
 							{gameEnded && (
-								<div className="px-8 pt-8 pb-4 max-w-xl space-y-4 lg:space-y-8 ">
+								<div className="px-8 py-8  space-y-4 lg:space-y-8 max-w-[100%] lg:max-w-xl">
 									<h1 className="text-xl lg:text-2xl">
 										{" "}
 										“The Quantum Nexus holds firm… ⚡ Lyra remains undefeated! 💪”{" "}
@@ -365,7 +374,8 @@ const Home = () => {
 								</div>
 							)}
 						</div>
-					))}
+					</>
+				)}
 
 				<div className="pb-16" ref={lastMessageRef}></div>
 			</div>
