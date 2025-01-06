@@ -53,20 +53,20 @@ const QuestCard = () => {
 				</Motion>
 				<div className="flex-v-center my-3 lg:mt-5 mb-4">
 					<Motion>
-						<Button text="FAQ" link="/faq" className="btn-3" icon={<List className="size-4" />} />
+						<Button text="Lore" link="/faq" className="btn-3" icon={<List className="size-4" />} />
 					</Motion>
 					<Motion>
-						<Button text="Terms" link="/terms" className="btn-4" icon={<Handshake className="size-4" />} />
+						<Button text="Rules" link="/terms" className="btn-4" icon={<Handshake className="size-4" />} />
 					</Motion>
 				</div>
 				{isSuccess && data && (
 					<div className="flex flex-row justify-start items-center space-x-4">
 						<p className="uppercase font-medium text-xs md:text-sm">
-							{data.gameStartTime * 1000 > Date.now() ? "Starts In" : "Ends In"}
+							{data.gameStartTime * 1000 > Date.now() ? "Starts In:" : "Ends In:"}
 						</p>
 
 						<div className="space-y-2">
-							<h2 className="font-bold text-lg">
+							<h2 className="font-bold text-lg text-gradient">
 								{remainingTime.hoursStr}:{remainingTime.minutesStr}:{remainingTime.secondsStr}
 							</h2>
 						</div>

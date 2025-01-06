@@ -69,6 +69,13 @@ h3 {
 	@apply grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3;
 }
 
+.text-gradient {
+	background: linear-gradient(90deg, #a349a3, #43a3c8);
+	background-clip: text;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
 .container {
 	@apply p-4 md:px-[3rem] lg:px-[3rem] lg:py-[25px] xl:px-[4rem] w-full max-w-[1200px] mx-auto;
 }

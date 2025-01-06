@@ -101,7 +101,7 @@ const ChatSidebar = ({ about, stats, examplePrompts }) => {
 							</p>
 
 							<div className="space-y-2">
-								<h2 className="stats-value">
+								<h2 className="stats-value text-gradient">
 									{remainingTime.hoursStr}:{remainingTime.minutesStr}:{remainingTime.secondsStr}
 								</h2>
 							</div>

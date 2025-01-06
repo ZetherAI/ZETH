@@ -19,7 +19,7 @@ const navs = [
 	{ label: "Quest", link: "quests" },
 	{ label: "FAQ", link: "faq" },
 	{ label: "Terms", link: "terms" },
-	{ label: "The Experiment", link: "the-experiment" },
+	{ label: "Litepaper", link: "the-experiment" },
 ];
 
 const Icon = ({ i, color }: { i: number; color: string }) => (
