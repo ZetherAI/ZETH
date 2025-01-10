@@ -1,36 +1,38 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Lyraverse
+
+Lyraverse is a decentralized, AI-driven ecosystem set in a sci-fi universe. It combines blockchain technology with immersive storytelling, offering an interactive experience where AI influences outcomes, challenges players, and creates a dynamic environment for engagement. :contentReference[oaicite:0]{index=0}
+
+## Overview
+
+At the heart of Lyraverse is Lyra, an advanced AI guardian of the Quantum Nexus, who controls the Prize Pool Challenge. Participants are invited to prove their worth by engaging in quests and challenges to unlock the prize. :contentReference[oaicite:1]{index=1}
+
+## Features
+
+- **Decentralized Ecosystem**: Built on blockchain technology to ensure transparency and security.
+- **AI-Driven Interactions**: Lyra, the AI guardian, dynamically influences the storyline and challenges.
+- **Immersive Storytelling**: Engage in a rich sci-fi universe with evolving narratives.
+- **Prize Pool Challenges**: Test your ingenuity and wits to unlock rewards.
 
 ## Getting Started
 
-First, run the development server:
+To participate in the Lyraverse:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+1. **Visit the Website**: Explore the universe at [lyraverse.xyz](https://www.lyraverse.xyz/).
+2. **Explore Quests**: Engage in various quests to test your skills.
+3. **Join the Community**: Connect with other participants and share your experiences.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Documentation
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+For more detailed information, refer to the following resources:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **FAQ**: Find answers to common questions.
+- **Terms**: Understand the terms and conditions.
+- **Litepaper**: Learn more about the project's vision and technical details.
 
-## Learn More
+## Community and Support
 
-To learn more about Next.js, take a look at the following resources:
+Join our community to stay updated and connect with other members:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Twitter**: Follow us at [@LyraverseAI](https://www.x.com/LyraverseAI/).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+For support or inquiries, please contact us through our website.
