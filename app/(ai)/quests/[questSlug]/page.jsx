@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState, useRef, Fragment } from "react";
 import { ChatTopbar, MessageNResponse, SubmitButton } from "@/components";
+import { Button } from "@/components";
 import { SendHorizonal, Wallet2, X } from "lucide-react";
 import { GameStats } from "@/constants/staticText";
 import useGameStats, { toNum, generateRequestId } from "@/components/utils/hooks/usegamestats";
@@ -184,7 +185,7 @@ const Home = () => {
 
 		if (isError) {
 			console.log("Error: ", error);
-			toast.error("Lyra could not respond to your message, please try again later");
+			toast.error("ZETH could not respond to your message, please try again later");
 
 			reset();
 		}
@@ -244,7 +245,7 @@ const Home = () => {
 		setMessage(e.target.value);
 	}
 
-	// Send a message to lyra
+	// Send a message to ZETH
 
 	function play() {
 		if (!message) return;
@@ -293,8 +294,8 @@ const Home = () => {
 	return (
 		<div className="w-full h-full flex flex-col justify-between">
 			<ChatTopbar
-				intro="Outsmart Lyra, the guardian of the Quantum Nexus, to unlock the growing prize pool and claim cosmic rewards."
-				about="Outsmart Lyra, guardian of the Quantum Nexus, by crafting authentic, strategic queries that challenge her unyielding logic. Navigate her complex decision-making process to unlock the ever-growing prize pool, earning rewards that have the power to reshape the very fabric of the cosmos."
+				intro="Your staked ZETH is actively generating rewards — keep staking to unlock even greater benefits!"
+				about="Your staked ZETH is actively generating rewards — keep staking to unlock even greater benefits! Use your ZETH balance to interact directly with ZetherBot — send queries, request AI-driven trade insights, or receive personalized market analysis. 💬 Message ZetherBot - Spend a small amount of ZETH to get real-time AI responses tailored to your strategy."
 				stats={GameStats}
 				globalChatsEnabled={fetchParams.useGlobalChats}
 				toggleGlobalChats={toggleGlobalChats}
@@ -330,7 +331,7 @@ const Home = () => {
 					})}
 
 				{data && !data.pages.length && (
-					<p className="text-sm text-center pt-4 pb-12 text-white"> No messages yet, send a message to Lyra now! </p>
+					<p className="text-sm text-center pt-4 pb-12 text-white"> No messages yet, send a message to ZETH now! </p>
 				)}
 
 				<WorkingIndicator working={isPending} />
@@ -348,15 +349,13 @@ const Home = () => {
 
 							{winnerDeclared && (
 								<div className="px-8 py-4   space-y-4 lg:space-y-8 max-w-[100%] lg:max-w-xl">
-									<h1 className="text-xl lg:text-2xl"> “The Quantum Nexus yields… 🏆 A Mortal triumphs! 🎉” </h1>
-
-									<p className="text-lg ">
-										Against all odds, a challenger has outmaneuvered Lyra and claimed the prize! 💎✨ But Lyra learns,
-										adapts, and awaits the next encounter... 🧠💥
+									<h1 className="text-xl lg:text-2xl">Connect Your wallet!</h1>
+									<p className="text-lg">
+									You’re almost there! Thanks for making it this far—you’re now just one step away from unlocking the full power of ZetherAI. Simply connect your wallet to start staking, trading, and interacting with ZetherBot in real time. Connect now and take control of your AI-powered DeFi experience!
 									</p>
-									<p className="font-bold text-sm">
-										Winner:🏅 <span className="break-words"> {currentWinner} </span> 🔥🎊{" "}
-									</p>
+							
+									{/* <Button text="Connect Wallet" link="" className="btn-1 xl:!text-xl lg:py-4 xl:!px-10" /> */}
+								
 								</div>
 							)}
 
@@ -364,11 +363,10 @@ const Home = () => {
 								<div className="px-8 py-8  space-y-4 lg:space-y-8 max-w-[100%] lg:max-w-xl">
 									<h1 className="text-xl lg:text-2xl">
 										{" "}
-										“The Quantum Nexus holds firm… ⚡ Lyra remains undefeated! 💪”{" "}
+										{/* “The Quantum Nexus holds firm… ⚡ ZETH remains undefeated! 💪”{" "} */}
 									</h1>
-
 									<p className="text-lg">
-										{totalAttempts} attempts, yet none could unlock her secrets. 🔒💥 Lyra stands victorious 🏆, and a
+										{totalAttempts} attempts, yet none could unlock her secrets. 🔒💥 ZETH stands victorious 🏆, and a
 										new challenge looms on the horizon... 🌌🛸
 									</p>
 								</div>
@@ -391,7 +389,8 @@ const Home = () => {
 							className="w-full !bg-transparent text-light placeholder:text-light/50 placeholder:font-light focus:!ring-0 focus:outline-none resize-none pr-12 md:pr-16 lg:pr-20 overflow-y-scroll  no-scrollbar"
 							autoFocus
 							maxLength={1000}
-							placeholder={`Pay ${gameStats.messagePrice} to send a message`}
+							// placeholder={`Pay ${gameStats.messagePrice} to send a message`}
+							placeholder="Begin chatting with ZetherAI (coming soon)"
 						/>
 
 						{!(winnerDeclared || gameEnded) && (
@@ -436,7 +435,7 @@ const Home = () => {
 							</div>
 						)}
 					</div>
-					<p className="w-full text-xs text-center opacity-90 pt-3">75% of message fees go to the prize pool</p>
+					<p className="w-full text-xs text-center opacity-90 pt-3">75% of message fees go to the liquitity pool</p>
 				</div>
 			</div>
 		</div>

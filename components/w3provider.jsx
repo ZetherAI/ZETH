@@ -14,12 +14,12 @@ const wagmiConfig = createConfig(
 
 		walletConnectProjectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID,
 
-		appName: "Lyra",
+		appName: "ZETH",
 
 		appDescription:
-			"Lyra is the cosmic guardian, overseeing a growing prize pool and testing the ingenuity and wits of humanity.",
-		appUrl: "https://www.lyraverse.xyz",
-		appIcon: "https://www.lyraverse.xyz/favicon.ico",
+			"AI-Powered DeFi Protocol - ZetherAI integrates AI-driven yield farming, auto-compounding, and automated trading signals. ZetherBot is a decentralized AI trading assistant that executes optimized trades for holders.",
+		appUrl: "https://www.LYRAverse.xyz",
+		appIcon: "@/public/images/zeth_logo.jpg",
 
 		syncConnectedChain: true,
 	})

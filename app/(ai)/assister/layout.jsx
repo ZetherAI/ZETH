@@ -1,7 +1,7 @@
 export const metadata = {
-	title: "Lyra | The Cosmic Guardian",
+	title: "ZETH | AI Tading Assistant",
 	description:
-		"Lyra is the cosmic guardian, overseeing a growing prize pool and testing the ingenuity and wits of humanity.",
+		"ZetherBot is a decentralized AI trading assistant that executes optimized trades for holders.",
 };
 
 export default function RootLayout({ children }) {

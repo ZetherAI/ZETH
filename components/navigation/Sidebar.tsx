@@ -16,10 +16,10 @@ import QuestSidebar from "../../components/questsidebar";
 
 const navs = [
 	{ label: "Home", link: "" },
-	{ label: "Quest", link: "quests" },
-	{ label: "FAQ", link: "faq" },
+	{ label: "Get Started", link: "quests" },
+	{ label: "Tokenonmics", link: "faq" },
 	{ label: "Terms", link: "terms" },
-	{ label: "Litepaper", link: "the-experiment" },
+	// { label: "Litepaper", link: "the-experiment" },
 ];
 
 const Icon = ({ i, color }: { i: number; color: string }) => (

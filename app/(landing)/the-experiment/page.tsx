@@ -23,9 +23,9 @@ const TheExperiment = () => {
 				<div className="bg-pfp bg-center bg-no-repeat bg-cover rounded-xl w-full h-full flex flex-col justify-end ">
 					<div className="heading flex-center w-full h-full bg-gradient-to-r from-brand-1/50 to-brand-3/10">
 						<div className="heading flex-center w-full h-full bg-gradient-to-r from-brand-1/50 to-brand-3/10">
-							<Motion custom={1} className="heading font-semibold p-5">
+							{/* <Motion custom={1} className="heading font-semibold p-5">
 								Litepaper
-							</Motion>
+							</Motion> */}
 						</div>
 					</div>
 				</div>

@@ -14,7 +14,7 @@ const Logo = ({
   return (
     <Link href="/" className="flex-v-center">
       <Image
-        src={black ? images.lyra : images.lyra}
+        src={black ? images.LYRA : images.LYRA}
         alt="diamond photos"
         width={250}
         height={100}
@@ -23,7 +23,7 @@ const Logo = ({
       />
       {showName && (
         <h2 className="text-[1.2rem] lg:text-[1.7vw] xl:text-[1.35rem] tracking-[0.1em] font-bold transition-500">
-          LYRA
+          ZetherAI
         </h2>
       )}
     </Link>

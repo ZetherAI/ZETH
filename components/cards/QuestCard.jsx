@@ -10,18 +10,21 @@ import { images } from "@/constants";
 import { Motion, Button, DotGrid } from "@/components";
 import useGameStats from "../utils/hooks/usegamestats";
 import useCountdownTimer from "../utils/hooks/usecountdown";
+import { TermsData } from "@/constants/staticText";
 
 const QuestCard = () => {
 	const { data, isSuccess } = useGameStats();
 
+	const botLaunch = Date.now() * 1.0003
+
 	const { remainingTime, setFutureTimestamp } = useCountdownTimer(Date.now());
 
 	useEffect(() => {
-		if (data.gameStartTime * 1000 > Date.now()) {
-			setFutureTimestamp(data.gameStartTime * 1000);
-		} else {
-			setFutureTimestamp((data.gameStartTime + data.gameDuration) * 1000);
-		}
+		// if (data.gameStartTime * 1000 > Date.now()) {
+			setFutureTimestamp(botLaunch * 1);
+		// } else {
+		// 	setFutureTimestamp((data.gameStartTime + data.gameDuration) * 1000);
+		// }
 	}, [data]);
 
 	return (
@@ -62,7 +65,7 @@ const QuestCard = () => {
 				{isSuccess && data && (
 					<div className="flex flex-row justify-start items-center space-x-4">
 						<p className="uppercase font-medium text-xs md:text-sm">
-							{data.gameStartTime * 1000 > Date.now() ? "Starts In:" : "Ends In:"}
+							{botLaunch * 1000 > Date.now() ? "Full Subscription Available In:" : "Available In:"}
 						</p>
 
 						<div className="space-y-2">
@@ -72,10 +75,17 @@ const QuestCard = () => {
 						</div>
 					</div>
 				)}
-				<Motion tag="p">{featuredQuest.desc}</Motion>
+				<div className="flex flex-col gap-3 lg:gap-4 py-7 ">
+				<Motion tag="p"><b>{featuredQuest.desc}</b></Motion>
+				<Motion tag="p"><b>Flexible Subscription Plans</b> - Choose from multiple tiers based on your trading needs, with options for monthly, quarterly, or annual access.</Motion>
+				<Motion tag="p"><b>Exclusive AI Insights</b> - Subscribers receive premium analytics, predictive market signals, and early access to new AI-driven trading strategies.</Motion>
+				<Motion tag="p"><b>Staking Benefits</b> - Holders of ZETH tokens may receive discounts or additional perks when subscribing to ZetherBot's premium features.</Motion>
+				<Motion tag="p"><b>Seamless Wallet Integration</b> - Connect your wallet effortlessly and manage your subscription directly within the ZetherAI ecosystem.</Motion>
+				<Motion tag="p"><b>Transparent & Secure Payments</b> - Pay with ZETH tokens or supported cryptocurrencies, with no hidden fees or surprise charges.</Motion>
 				<Motion className="flex mt-5">
-					<Button text="Explore Quest" link="/quests/the-cosmic-price-pool" className="btn-1 !bg-brand-4/50" />
+					<Button text="Start Trial" link="/quests/the-cosmic-price-pool" className="btn-1 !bg-brand-4/50" />
 				</Motion>
+				</div>
 			</div>
 		</Motion>
 	);

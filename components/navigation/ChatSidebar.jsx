@@ -78,7 +78,8 @@ const ChatSidebar = ({ about, stats, examplePrompts }) => {
 													"bg-white/15 hover:bg-white/20 px-4 py-2 rounded-xl   " +
 													cn(isConnecting && " pointer-events-none opacity-40 ")
 												}
-												onClick={isConnected ? disconnect : show}
+												
+												/*onClick={isConnected ? disconnect : show}*/
 											/>
 										);
 									}}
@@ -97,7 +98,7 @@ const ChatSidebar = ({ about, stats, examplePrompts }) => {
 
 						<div className="space-y-[6px]">
 							<p className="uppercase text-xs md:text-sm">
-								{toNum(data.gameStartTime) * 1000 > Date.now() ? "Game Starts In" : "Game Ends In"}
+								{toNum(data.gameStartTime) * 1000 > Date.now() ? "Game Starts In" : "Subscription Ends In"}
 							</p>
 
 							<div className="space-y-2">

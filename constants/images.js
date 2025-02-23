@@ -1,11 +1,11 @@
-import lyra from "@/public/images/lyra-icon.jpg";
-import banner from "@/public/images/banner.png";
+import LYRA from "@/public/images/zeth_logo.jpg";
+import banner from "@/public/images/aeth_banner1.jpg";
 import comingSoon from "@/public/images/coming-soon.png";
-import pfp from "@/public/images/pfp.jpg";
-import quest from "@/public/images/quest.jpg";
+import pfp from "@/public/images/aeth_pfp.png";
+import quest from "@/public/images/zeth_macbook.png";
 
 const images = {
-  lyra,
+  LYRA,
   banner,
   pfp,
   quest,

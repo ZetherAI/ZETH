@@ -25,9 +25,9 @@ const inter = localFont({
 });
 
 export const metadata: Metadata = {
-	title: "Lyra | The Cosmic Guardian",
+	title: "ZETH | AI Tading Assistant",
 	description:
-		"Lyra is the cosmic guardian, overseeing a growing prize pool and testing the ingenuity and wits of humanity.",
+		"ZetherBot is a decentralized AI trading assistant that executes optimized trades for holders.",
 };
 
 export default function RootLayout({
@@ -38,7 +38,7 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body
-				className={`${geistSans.variable} ${inter.variable} ${geistMono.variable} antialiased bg-lyra-sm lg:bg-lyra-lg bg-fixed bg-center bg-cover oveflow-hidden`}
+				className={`${geistSans.variable} ${inter.variable} ${geistMono.variable} antialiased bg-LYRA-sm lg:bg-LYRA-lg bg-fixed bg-center bg-cover oveflow-hidden`}
 			>
 				<W3Provider>
 					<SkeletonTheme baseColor="#1c1c1f" highlightColor="#2f2f33" duration={1}>

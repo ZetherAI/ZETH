@@ -67,9 +67,9 @@ const ChatTopbar = ({ intro, about, stats, examplePrompts, globalChatsEnabled, t
 					<div className="hide-md flex-center !gap-[2px] flex-col">
 						{isSuccess && data ? (
 							<>
-								<p className="!text-white font-semibold">Price Pool: {data.prizePool} </p>
+								<p className="!text-white font-semibold">ZETH Holdings: {data.prizePool} </p>
 								<p className="opacity-90 xs">
-									{data.gameStartTime * 1000 > Date.now() ? "Game Starts In " : "Game Ends In "}
+									{data.gameStartTime * 1000 > Date.now() ? "Game Starts In " : "Subscription Ends In "}
 									{remainingTime.hoursStr}:{remainingTime.minutesStr}:{remainingTime.secondsStr}
 								</p>
 							</>
