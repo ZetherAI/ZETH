@@ -41,7 +41,7 @@ function Home() {
 					ZetherAI (ZETH)
 				</Motion>
 				<Motion tag="p" custom={1} className="">
-				AetherAI is the fusion of artificial intelligence and decentralized finance (DeFi), creating an autonomous ecosystem where AI optimizes trading, staking, and yield generation.
+				ZetherAI is the fusion of artificial intelligence and decentralized finance (DeFi), creating an autonomous ecosystem where AI optimizes trading, staking, and yield generation.
 				</Motion>
 				<div className="flex-center lg:py-2 !gap-2 md:!gap-3">
 					<Motion custom={2} className="">
