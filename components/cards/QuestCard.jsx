@@ -77,7 +77,7 @@ const QuestCard = () => {
 				)}
 				<div className="flex flex-col gap-3 lg:gap-4 py-7 ">
 				<Motion tag="p"><b>{featuredQuest.desc}</b></Motion>
-				<Motion tag="p"><b>Flexible Subscription Plans</b> - Choose from multiple tiers based on your trading needs, with options for monthly, quarterly, or annual access.</Motion>
+				<Motion tag="p"><b>Flexible Subscription Plan</b> - Choose from multiple tiers based on your trading needs, with options for monthly, quarterly, or annual access.</Motion>
 				<Motion tag="p"><b>Exclusive AI Insights</b> - Subscribers receive premium analytics, predictive market signals, and early access to new AI-driven trading strategies.</Motion>
 				<Motion tag="p"><b>Staking Benefits</b> - Holders of ZETH tokens may receive discounts or additional perks when subscribing to ZetherBot's premium features.</Motion>
 				<Motion tag="p"><b>Seamless Wallet Integration</b> - Connect your wallet effortlessly and manage your subscription directly within the ZetherAI ecosystem.</Motion>
