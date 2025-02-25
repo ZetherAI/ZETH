@@ -25,10 +25,8 @@ export default {
         //"brand-4": "#a13a9e",
       },
       backgroundImage: {
-        //"LYRA-lg": "url('/images/bg-LYRA.jpg')",
-        "LYRA-lg": "url('/images/aeth_banner1.jpg')",
-        //"LYRA-sm": "url('/images/portrait.png')",
-        "LYRA-sm": "url('/images/aeth_banner1.jpg')",
+        "ZETH-lg": "url('/images/aeth_banner1.jpg')",
+        "ZETH-sm": "url('/images/aeth_banner1.jpg')",
         pfp: "url('/images/aeth_pfp2.jpg')",
         pattern: "url('/images/bg.png')",
       },

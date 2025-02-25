@@ -107,7 +107,7 @@ const MessageNResponse = ({ uid, requestId, won, playerAddress, chainId }) => {
 								{msg.isSystem && (
 									<div className="flex gap-2 md:gap-3 w-full justify-start">
 										<Image
-											src={images.LYRA}
+											src={images.ZETH}
 											alt="user"
 											className="size-[35px] lg:size-[40px] rounded-full object-cover"
 										/>

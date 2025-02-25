@@ -40,6 +40,9 @@ function Home() {
 				<Motion tag="h1" custom={0} className="display uppercase">
 					ZetherAI (ZETH)
 				</Motion>
+				<Motion tag="p" custom={0} className="ca">
+					Smart Contract CA: <i>coming soon</i>
+				</Motion>
 				<Motion tag="p" custom={1} className="">
 				ZetherAI is the fusion of artificial intelligence and decentralized finance (DeFi), creating an autonomous ecosystem where AI optimizes trading, staking, and yield generation.
 				</Motion>
@@ -76,7 +79,7 @@ function Home() {
 					</Motion>
 				</div>
 				<div className="flex-center">
-					{/* <span>© LYRA</span> */}
+					{/* <span>© ZETH</span> */}
 					<Link href="https://x.com/ZetherAI">
 						<FaTwitter className="size-7 lg:size-8" />
 					</Link>

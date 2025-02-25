@@ -111,6 +111,10 @@ h3 {
 	@apply text-base lg:text-[2vw] xl:text-[1.25rem] !font-medium;
 }
 
+.ca {
+font-size: 20px
+}
+
 p,
 li,
 input,

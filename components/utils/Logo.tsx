@@ -14,7 +14,7 @@ const Logo = ({
   return (
     <Link href="/" className="flex-v-center">
       <Image
-        src={black ? images.LYRA : images.LYRA}
+        src={black ? images.ZETH : images.ZETH}
         alt="diamond photos"
         width={250}
         height={100}

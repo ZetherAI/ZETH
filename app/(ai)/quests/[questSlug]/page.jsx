@@ -349,9 +349,11 @@ const Home = () => {
 
 							{winnerDeclared && (
 								<div className="px-8 py-4   space-y-4 lg:space-y-8 max-w-[100%] lg:max-w-xl">
-									<h1 className="text-xl lg:text-2xl">Connect Your wallet!</h1>
+									<h1 className="text-xl lg:text-2xl">Connect Your Wallet</h1>
 									<p className="text-lg">
-									You’re almost there! Thanks for making it this far—you’re now just one step away from unlocking the full power of ZetherAI. Simply connect your wallet to start staking, trading, and interacting with ZetherBot in real time. Connect now and take control of your AI-powered DeFi experience!
+									You’re almost there! Thank you for making it this far, you're now just one step away from unlocking the full power of ZetherAI. Simply connect your wallet to start staking, trading, and interacting with ZetherBot in real time. Connect now and take control of your AI-powered DeFi experience.
+									<br></br>
+									<br></br>
 									</p>
 							
 									{/* <Button text="Connect Wallet" link="" className="btn-1 xl:!text-xl lg:py-4 xl:!px-10" /> */}

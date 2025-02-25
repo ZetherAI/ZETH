@@ -18,7 +18,7 @@ const wagmiConfig = createConfig(
 
 		appDescription:
 			"AI-Powered DeFi Protocol - ZetherAI integrates AI-driven yield farming, auto-compounding, and automated trading signals. ZetherBot is a decentralized AI trading assistant that executes optimized trades for holders.",
-		appUrl: "https://www.LYRAverse.xyz",
+		appUrl: "https://www.zetherai.xyz",
 		appIcon: "@/public/images/zeth_logo.jpg",
 
 		syncConnectedChain: true,

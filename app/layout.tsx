@@ -38,7 +38,7 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body
-				className={`${geistSans.variable} ${inter.variable} ${geistMono.variable} antialiased bg-LYRA-sm lg:bg-LYRA-lg bg-fixed bg-center bg-cover oveflow-hidden`}
+				className={`${geistSans.variable} ${inter.variable} ${geistMono.variable} antialiased bg-ZETH-sm lg:bg-ZETH-lg bg-fixed bg-center bg-cover oveflow-hidden`}
 			>
 				<W3Provider>
 					<SkeletonTheme baseColor="#1c1c1f" highlightColor="#2f2f33" duration={1}>
