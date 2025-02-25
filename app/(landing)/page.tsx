@@ -77,7 +77,7 @@ function Home() {
 				</div>
 				<div className="flex-center">
 					{/* <span>© LYRA</span> */}
-					<Link href="https://x.com/AetherAIAETH">
+					<Link href="https://x.com/ZetherAI">
 						<FaTwitter className="size-7 lg:size-8" />
 					</Link>
 					<Link href="">
