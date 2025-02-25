@@ -66,7 +66,7 @@ function Home() {
 
 								return (
 									<Button
-										text={isConnected ? "JOIN QUEST 🔥" : isConnecting ? "CONNECTING.." : "CONNECT WALLET"}
+										text={isConnected ? "JOIN QUEST 🔥" : isConnecting ? "CONNECTING.." : "CONNECT WALLET (coming soon)"}
 										className={
 											"btn-2 xl:!text-xl lg:py-4 xl:!px-10 " + cn(isConnecting && " pointer-events-none opacity-40 ")
 										}

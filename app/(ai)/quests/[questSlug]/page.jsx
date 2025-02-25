@@ -339,7 +339,7 @@ const Home = () => {
 				{showBoard && (winnerDeclared || gameEnded) && (
 					<>
 						<div className="fixed inset-0 inset-y-0 w-full min-h-screen bg-black backdrop-blur-sm z-10 bg-opacity-60"></div>
-						<div className="fixed w-max lg:max-w-2xl h-max bottom-0  inset-x-0   lg:top-1/2 lg:-translate-y-1/2 left-1/2 -translate-x-1/2 bg-[#161416] z-40 rounded-t-[50px] lg:rounded-[40px] flex flex-col flex-center justify-center items-center text-center">
+						<div className="fixed w-max lg:max-w-2xl h-max bottom-0  inset-x-0   lg:top-1/2 lg:-translate-y-1/2 left-1/2 -translate-x-1/2 bg-[#161416] z-40 rounded-t-[50px] lg:rounded-[40px] flex flex-col flex-center justify-center items-center text-center" id="popup1">
 							<div
 								onClick={() => setShowBoard(false)}
 								className="w-full flex flex-row justify-end items-center pt-4 pr-4  cursor-pointer  "
