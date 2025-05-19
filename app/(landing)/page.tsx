@@ -41,7 +41,7 @@ function Home() {
 					ZetherAI (ZETH)
 				</Motion>
 				<Motion tag="p" custom={0} className="ca">
-					Smart Contract CA: <br></br><i>4p98FQcmcptMJWXzzHV9esu3mFGiMK2PAqH4iyVTpump</i>
+					Smart Contract CA: <br></br><i>coming soon</i>
 				</Motion>
 				<Motion tag="p" custom={1} className="">
 				ZetherAI is the fusion of artificial intelligence and decentralized finance (DeFi), creating an autonomous ecosystem where AI optimizes trading, staking, and yield generation.
